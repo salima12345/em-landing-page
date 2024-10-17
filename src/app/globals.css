@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+    --background: #ffffff;
+    --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+     :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('/fonts/Gilroy-Regular/font.woff2') format('woff2'), url('/fonts/Gilroy-Regular/font.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('/fonts/Gilroy-Bold/font.woff2') format('woff2'), url('/fonts/Gilroy-Bold/font.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('/fonts/Gilroy-Semibold/font.woff2') format('woff2'), url('/fonts/Gilroy-Semibold/font.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('/fonts/Gilroy-Medium/font.woff2') format('woff2'), url('/fonts/Gilroy-Medium/font.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('/fonts/Gilroy-Light/font.woff2') format('woff2'), url('/fonts/Gilroy-Light/font.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: 'Gilroy', sans-serif;
+}
+
+.container {
+    @apply mx-auto px-4 py-6 max-w-[1440px];
+}
+
+@media (min-width: 481px) {
+    .container {
+        @apply px-4 py-3;
+    }
+}
+
+@media (min-width: 601px) {
+    .container {
+        @apply px-6 py-4;
+    }
+}
+
+@media (min-width: 769px) {
+    .container {
+        @apply px-6 py-5;
+    }
+}
+
+@media (min-width: 1025px) {
+    .container {
+        @apply px-8 py-6;
+    }
+}
+
+@media (min-width: 1281px) {
+    .container {
+        @apply px-8 py-8;
+    }
+}
+
+@media (min-width: 1441px) {
+    .container {
+        @apply py-[30px];
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}
+
+.swiper-slide-inner {
+    transition: transform 1.2s ease;
+    transform: translate3d(107%, 0, 0);
+}
+
+.buge-slider {
+    opacity: 1;
+}
+
+.buge-images {
+    max-width: 100%;
+    margin: 0 auto;
+}
