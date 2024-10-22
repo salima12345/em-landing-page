@@ -13,7 +13,7 @@ function AboutTop() {
       </div>
    
 
-      <div className="flex flex-col gap-5 ">
+      <div className="flex flex-col gap-5 ml-auto max-w-[590px]">
         <p className="font-semibold text-[20px] sm:text-[24px] xl:text-[26px]">
           The very best in communications and branding to promote your brand and enhance its influence.
         </p>
