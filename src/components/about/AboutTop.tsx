@@ -5,8 +5,8 @@ import MadeIn from '../layout/Navigation/MadeIn';
 
 function AboutTop() {
   return (
-    <div className=" flex flex-col xl:flex-row justify-between gap-8 ">
-      <div className="flex ">
+    <div className=" flex flex-col xl:flex-row justify-between gap-8  ">
+      <div className="flex  max-w-[580px]">
         <h1 className="font-semibold leading-tight text-[60px] xl:text-[80px]">
           Turning expertise into experience
         </h1>
