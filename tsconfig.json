@@ -28,6 +28,6 @@
     "**/*.test.tsx",  
     "**/*.spec.tsx",  
     ".next/types/**/*.ts"
-  ],
+, "jest.setup.ts"  ],
   "exclude": ["node_modules"]
 }

@@ -11,12 +11,18 @@ const config: Config = {
   coverageProvider: 'v8',
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
+    '^.+\\.css$': 'jest-transform-stub',
+  },
+  moduleNameMapper: {
+    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+    "^swiper/react$": "<rootDir>/__mocks__/swiperReactMock.js",
+    "^swiper/modules$": "<rootDir>/__mocks__/swiperModulesMock.js",
+    "^swiper/css$": "<rootDir>/__mocks__/swiperCssMock.js",
+    "^swiper/css/(.*)$": "<rootDir>/__mocks__/swiperCssMock.js"
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  transformIgnorePatterns: [
-    '/node_modules/(?!swiper|@swiper)/',
-  ],
+  transformIgnorePatterns: ['node_modules/(?!(swiper|ssr-window|dom7)/)'],
+
   globals: {
     "ts-jest": {
       isolatedModules: true,

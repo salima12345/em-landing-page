@@ -6,7 +6,6 @@ import { Navigation, EffectCreative, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-creative";
 import "swiper/css/autoplay";
-import Image from "next/image";
 
 const slides = [
   { url: "https://www.eliott-markus.com/wp-content/uploads/2023/05/strategy.svg", alt: "Stratégie marketing" },
@@ -20,7 +19,7 @@ const slides = [
 
 const SliderSwiper = () => {
   return (
-    <div className="w-full max-w-[450px] ml-auto py-10">
+    <div className="w-full max-w-[450px] ml-auto py-6">
       <Swiper
         allowTouchMove={false}
         modules={[Navigation, EffectCreative, Autoplay]}
@@ -42,10 +41,11 @@ const SliderSwiper = () => {
           delay: 3000,
           disableOnInteraction: false,
         }}
-        className="w-full h-[250px] md:h-[287px] overflow-hidden"
+        className="w-full h-[250px] md:h-[287px] overflow-hidden "
+        data-testid="swiper"
       >
         {slides.map((slide, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} data-testid="swiper-slide">
             <div className="block w-[250px] md:w-[287px] h-[250px] md:h-[287px] relative rounded-[35px] overflow-hidden">
               <img
                 src={slide.url}

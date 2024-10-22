@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaArrowsAltV } from "react-icons/fa";
-import Expertise from '../header/Expertise';
-import MadeIn from '../header/MadeIn';
+import Expertise from '../layout/Navigation/Expertise';
+import MadeIn from '../layout/Navigation/MadeIn';
 
 function AboutTop() {
   return (
@@ -17,7 +17,7 @@ function AboutTop() {
         <p className="font-semibold text-[20px] sm:text-[24px] xl:text-[26px]">
           The very best in communications and branding to promote your brand and enhance its influence.
         </p>
-        <button className="rounded-full flex items-center justify-center w-[54px] h-[54px] bg-gray-800 text-white">
+        <button className="rounded-full flex items-center justify-center w-[54px] h-[54px] bg-grayDark text-white">
           <FaArrowsAltV />
         </button>
       </div>

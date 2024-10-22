@@ -11,7 +11,7 @@ export default function LanguageSelectorMobile() {
   };
 
   return (
-    <div className="relative block xl:hidden "  data-testid={"language-selector"}>
+    <div className="relative block xl:hidden "  data-testid={"language-selector-mobile"}>
       <motion.div
         className="bg-grayDark text-white rounded-full overflow-hidden cursor-pointer flex items-center justify-end"
         initial={{ width: 54, height: 54 }}
