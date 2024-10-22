@@ -11,7 +11,7 @@ export default function LanguageSelector() {
   };
 
   return (
-    <div className=" relative w-[54px] hidden xl:block ">
+    <div className="  relative w-[54px] hidden xl:block "  data-testid={"language-selector"}>
       <motion.div
         className="absolute top-0 left-0 right-0 bg-grayDark text-foreground rounded-full overflow-hidden cursor-pointer"
         initial={{ height: 54, width: 54 }}

@@ -13,7 +13,7 @@ export default function Nav() {
 
 
   return (
-    <div className=" flex items-center justify-between ">
+    <div className="  flex items-center justify-between ">
       <Link href="/" className="[@media(min-width:1250px)]:pl-20">
         <Image src="/images/Logo.svg" alt="logo" width={100} height={100} />
       </Link>

@@ -30,9 +30,9 @@ export default function MadeIn() {
   }, [isExpanded]);
 
   return (
-    <div className="relative">
+    <div className="relative"  data-testid={"made-in"}>
       <div
-        className={`absolute bg-grayDark w-[290px] overflow-hidden transition-all duration-700 ease-in-out cursor-pointer ${
+        className={`absolute bg-grayDark xl:w-[290px] w-full overflow-hidden transition-all duration-700 ease-in-out cursor-pointer ${
           isExpanded ? "rounded-[26px]" : "rounded-[26px]"
         }`}
         style={{ zIndex: isExpanded ? 10 : "auto" }}
@@ -58,7 +58,7 @@ export default function MadeIn() {
           {madeIn.map((item, index) => (
             <div
               key={index}
-              className={`flex items-center gap-3 cursor-pointer px-5 hover:bg-gray-700 transition-colors duration-200 ${
+              className={`flex items-center gap-3 cursor-pointer px-5  transition-colors duration-200 ${
                 index === madeIn.length - 1 ? "pb-4" : ""
               }`} 
             >
