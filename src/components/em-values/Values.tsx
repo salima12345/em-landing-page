@@ -13,50 +13,44 @@ export default function EMValues() {
 
   const animateFrom = 0.4
   const animateTo = 0.7
+  const opacityKeyframes = [0.35, 0.5, 1.0]  
+  const opacityValues = [0.4, 1, 1]    
 
   const inclusionStyle = {
     left: useTransform(scrollYProgress, [animateFrom, animateTo], ["7%", "73%"]),
     rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 9]),
-
-
-    opacity: 1,  
+    opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
   }
 
   const intelligenceStyle = {
     right: useTransform(scrollYProgress, [animateFrom, animateTo], ["7%", "80%"]),
     rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 1]),
-
-
-    opacity: 1,  }
+    opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
+  }
 
   const creativiteStyle = {
     left: useTransform(scrollYProgress, [animateFrom, animateTo], ["7%", "45%"]),
     rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 5]),
     bottom: useTransform(scrollYProgress, [animateFrom, animateTo], ["-580px", "-580px"]),
-    opacity: 1,  }
+    opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
+  }
 
-    const valuesStyle = {
-      rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 5]),
-      bottom: useTransform(scrollYProgress, [animateFrom, animateTo], ["-780px", "100px"]),
-      opacity:1,
-    }
+  const valuesStyle = {
+    rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 5]),
+    bottom: useTransform(scrollYProgress, [animateFrom, animateTo], ["-780px", "100px"]),
+    opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
+  }
 
   const authenticiteStyle = {
     right: useTransform(scrollYProgress, [animateFrom, animateTo], ["0%", "65%"]),
     rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 5]),
     bottom: useTransform(scrollYProgress, [animateFrom, animateTo], ["-580px", "-580px"]),
-    opacity: 1,  }
+    opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
+  }
 
   return (
     <section ref={sectionRef} className="em-values py-[360px]" id="em-values">
       <div className="content-em-values">
-     
-    <div className="flex items-center justify-center ">
-    <h3 className="font-bold text-[30px] ">
-        We're not just a way of doing, we’re also a way of being.
-     </h3>
-    </div>
-
         <div className="images">
           <motion.div className="inclusion img" style={inclusionStyle}>
             <img
@@ -82,7 +76,6 @@ export default function EMValues() {
               height={306}
             />
           </motion.div>
-    
           <motion.div className="values" style={valuesStyle}>
             <Link href="https://www.eliott-markus.com/talents-equipe/">
               <div className="info">
@@ -144,7 +137,11 @@ export default function EMValues() {
             />
           </motion.div>
         </div>
-    
+        <div className="absolute z-10 w-full xl:max-w-[474px] flex items-center justify-center xl:pt-[550px]">
+          <h3 className="font-bold text-[30px]">
+            We're not just a way of doing, we're also a way of being.
+          </h3>
+        </div>
       </div>
     </section>
   )

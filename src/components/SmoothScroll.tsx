@@ -12,8 +12,8 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     window.scrollTo(0, 0);
 
     const lenis = new Lenis({
-      duration: 1.8, 
-      easing: (t: number) => 1 - Math.pow(1 - t, 4), 
+      duration: 1.5, 
+      easing: (t: number) => 1 - Math.pow(1 - t, 3), 
       smoothWheel: true, 
       // smoothTouch: false, 
     });
