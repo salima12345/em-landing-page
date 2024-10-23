@@ -3,9 +3,9 @@ import SliderSwiper from './Slider'
 
 function Hero() {
   return (
-    <div>
+    <section>
         <SliderSwiper/>
-    </div>
+    </section>
   )
 }
 

@@ -5,15 +5,15 @@ import MadeIn from '../layout/Navigation/MadeIn';
 
 function AboutTop() {
   return (
-    <div className=" flex flex-col xl:flex-row justify-between gap-8  ">
-      <div className="flex  max-w-[580px]">
+    <section className=" flex flex-col xl:flex-row justify-between gap-8  ">
+      <div className="flex w-full  xl:max-w-[580px]">
         <h1 className="font-semibold leading-tight text-[60px] xl:text-[80px]">
           Turning expertise into experience
         </h1>
       </div>
    
 
-      <div className="flex flex-col gap-5 ml-auto max-w-[590px]">
+      <div className="flex flex-col gap-5 xl:ml-auto w-full xl:max-w-[590px]">
         <p className="font-semibold text-[20px] sm:text-[24px] xl:text-[26px]">
           The very best in communications and branding to promote your brand and enhance its influence.
         </p>
@@ -25,7 +25,7 @@ function AboutTop() {
         <Expertise/>
         <MadeIn/>
       </div>
-    </div>
+    </section>
   );
 }
 

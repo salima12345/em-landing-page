@@ -52,6 +52,8 @@ body {
     color: var(--foreground);
     background: var(--background);
     font-family: 'Gilroy', sans-serif;
+    overflow: hidden;
+
 }
 
 
@@ -100,3 +102,104 @@ body {
         text-wrap: balance;
     }
 }
+.em-values {
+    display: flex;
+    flex-direction: column;
+    padding-top: 160px;
+    padding-bottom: 460px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .em-values .content-em-values {
+    width: 1200px;
+    max-width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+
+  
+  .em-values .content-em-values .images .values {
+    width: 266px;
+    height: 266px;
+    border-radius: 54px;
+    position: absolute;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+  .em-values .content-em-values .images .values .bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  
+  .em-values .content-em-values .images .values .bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .em-values .content-em-values .images .values .info {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-items: flex-start;
+    padding-right: 30px;
+    bottom: 30px;
+    left: 40px;
+  }
+  
+  .em-values .content-em-values .images .values .info h2 {
+    font-family: "Gilroy-Bold", sans-serif;
+    font-size: 20px;
+    line-height: 25px;
+    color: #fff;
+  }
+  
+  .em-values .content-em-values .images .values .info button {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 0;
+    outline: 0;
+    margin-top: 10px;
+  }
+  
+  .em-values .content-em-values .images .img {
+    width: 306px;
+    height: 306px;
+    position: absolute;
+    z-index: 0;
+  }
+  
+  .em-values .content-em-values .images .img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+
+  
+
+  
+  .em-values .content-em-values .values {
+    left: 39%;
+    bottom: -780px;
+    transform: rotate(315deg);
+    opacity: 0;
+  }

@@ -10,7 +10,8 @@ import LanguageSelectorMobile from "./LanguagesSelectorMobile";
 export default function Header() {
   return (
     <>
-      <div className="container flex items-center justify-between w-full">
+   <section>
+   <div className="container flex items-center justify-between w-full">
         <Link href="/" className="[@media(min-width:1250px)]:pl-20">
           <Image src="/images/Logo.svg" alt="logo" width={100} height={100} />
         </Link>
@@ -25,6 +26,7 @@ export default function Header() {
       <div className="container flex justify-end  transform -translate-y-10">
         <LanguageSelector />
       </div>
+   </section>
     </>
   );
 }

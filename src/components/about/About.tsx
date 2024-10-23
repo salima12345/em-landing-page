@@ -4,10 +4,10 @@ import AboutBottom from './AboutBottom'
 
 function About() {
   return (
-    <div className='container'>
+    <section className='container'>
         <AboutTop/>
         <AboutBottom/>
-    </div>
+    </section>
   )
 }
 
