@@ -19,7 +19,7 @@ const slides = [
 
 const SliderSwiper = () => {
   return (
-    <div className="w-full max-w-[450px] ml-auto py-6">
+    <div className="w-full max-w-[450px] ml-auto py-8">
       <Swiper
         allowTouchMove={false}
         modules={[Navigation, EffectCreative, Autoplay]}

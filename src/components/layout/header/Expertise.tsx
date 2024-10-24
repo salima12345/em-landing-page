@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 
@@ -15,29 +15,16 @@ const expertises = [
 
 export default function Expertise() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  const toggleExpand = () => setIsExpanded(!isExpanded);
-
-  useEffect(() => {
-    if (contentRef.current) {
-      contentRef.current.style.maxHeight = isExpanded
-        ? `${contentRef.current.scrollHeight}px`
-        : "0px";
-    }
-  }, [isExpanded]);
 
   return (
     <div className="relative" data-testid={"expertise"}>
       <div
-        className={`absolute bg-grayDark xl:w-[290px] w-full overflow-hidden transition-all duration-700 ease-in-out cursor-pointer ${
-          isExpanded ? "rounded-[26px]" : "rounded-[26px]"
-        }`}
+        className={`absolute bg-grayDark xl:w-[290px] w-full overflow-hidden transition-all duration-700 ease-in-out cursor-pointer rounded-[26px]`}
         style={{ zIndex: isExpanded ? 10 : "auto" }}
       >
         <div
           className="h-[56px] p-3 px-5 flex items-center justify-between"
-          onClick={toggleExpand}
+          onClick={() => setIsExpanded(!isExpanded)}
         >
           <p>e&m expertise</p>
           <FaArrowAltCircleDown
@@ -49,9 +36,12 @@ export default function Expertise() {
         </div>
 
         <div
-          ref={contentRef}
-          className="flex flex-col gap-5 transition-[max-height] duration-700 ease-in-out"
-          style={{ maxHeight: "0px" }}
+          className={`flex flex-col gap-5 transition-all duration-700 ease-in-out origin-top`}
+          style={{
+            maxHeight: isExpanded ? '500px' : '0px',
+            opacity: isExpanded ? 1 : 0,
+            transform: `scaleY(${isExpanded ? 1 : 0.8})`
+          }}
         >
           {expertises.map((expertise, index) => (
             <div

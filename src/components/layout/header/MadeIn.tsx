@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 
 const madeIn = [
@@ -11,35 +11,21 @@ const madeIn = [
   "Start-up & Corporate Tech",
   "Finance and Investment Professions",
   "Crisis Management",
-  "Personal Branding", 
+  "Personal Branding",
 ];
 
 export default function MadeIn() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  const toggleExpand = () => setIsExpanded(!isExpanded);
-
-  useEffect(() => {
-   
-    if (isExpanded && contentRef.current) {
-      contentRef.current.style.maxHeight = `${contentRef.current.scrollHeight}px`;
-    } else if (contentRef.current) {
-      contentRef.current.style.maxHeight = "0px";
-    }
-  }, [isExpanded]);
 
   return (
-    <div className="relative"  data-testid={"made-in"}>
+    <div className="relative" data-testid={"made-in"}>
       <div
-        className={`absolute bg-grayDark xl:w-[290px] w-full overflow-hidden transition-all duration-700 ease-in-out cursor-pointer ${
-          isExpanded ? "rounded-[26px]" : "rounded-[26px]"
-        }`}
+        className={`absolute bg-grayDark xl:w-[290px] w-full overflow-hidden transition-all duration-700 ease-in-out cursor-pointer rounded-[26px]`}
         style={{ zIndex: isExpanded ? 10 : "auto" }}
       >
         <div
           className="h-[56px] p-3 px-5 flex items-center justify-between"
-          onClick={toggleExpand}
+          onClick={() => setIsExpanded(!isExpanded)}
         >
           <p>Made in e&m</p>
           <FaArrowAltCircleDown
@@ -51,24 +37,27 @@ export default function MadeIn() {
         </div>
 
         <div
-          ref={contentRef}
-          className={` flex flex-col gap-5 transition-[max-height] duration-700 ease-in-out`}
-          style={{ maxHeight: "0px" }} 
+          className={`flex flex-col gap-5 transition-all duration-700 ease-in-out origin-top`}
+          style={{
+            maxHeight: isExpanded ? '500px' : '0px',
+            opacity: isExpanded ? 1 : 0,
+            transform: `scaleY(${isExpanded ? 1 : 0.8})`
+          }}
         >
           {madeIn.map((item, index) => (
             <div
               key={index}
-              className={`flex items-center gap-3 cursor-pointer px-5  transition-colors duration-200 ${
+              className={`group relative flex items-center gap-3 cursor-pointer px-5 transition-colors duration-200 ${
                 index === madeIn.length - 1 ? "pb-4" : ""
-              }`} 
+              }`}
             >
               <p className="font-semibold">{item}</p>
+              <div className="absolute top-0 right-0 h-full bg-[#E0643A] rounded-l-[10px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 w-[5px]"></div>
             </div>
           ))}
         </div>
       </div>
 
-    
       <div className="w-[290px] h-[56px] invisible"></div>
     </div>
   );

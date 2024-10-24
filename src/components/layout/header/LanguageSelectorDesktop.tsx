@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 
 export default function LanguageSelector() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -11,16 +10,15 @@ export default function LanguageSelector() {
   };
 
   return (
-    <div className="  relative w-[54px] hidden xl:block "  data-testid={"language-selector"}>
-      <motion.div
-        className="absolute top-0 left-0 right-0 bg-grayDark text-foreground rounded-full overflow-hidden cursor-pointer"
-        initial={{ height: 54, width: 54 }}
-        animate={{
-          height: isExpanded ? 108 : 54,
-          width: 54,
-        }}
-        transition={{
-          height: { delay: 0.1, duration: 0.3, ease: "easeOut" },
+    <div 
+      className="relative w-[54px] hidden xl:block pb-2 " 
+      data-testid={"language-selector"}
+    >
+      <div
+        className="absolute bg-grayDark text-foreground rounded-full overflow-hidden cursor-pointer transition-all duration-300 ease-out"
+        style={{
+          height: isExpanded ? '108px' : '54px',
+          width: '54px'
         }}
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
@@ -29,19 +27,16 @@ export default function LanguageSelector() {
         <div className="h-[54px] flex items-center justify-center">
           <span className="font-medium text-sm">EN</span>
         </div>
-        <motion.div
-          className="h-[54px] flex items-center justify-center"
-          initial={{ opacity: 0 }}
-          animate={{
+        <div 
+          className="h-[54px] flex items-center justify-center transition-opacity duration-300 ease-out"
+          style={{
             opacity: isExpanded ? 1 : 0,
-          }}
-          transition={{
-            opacity: { delay: 0.2, duration: 0.2 },
+            transitionDelay: isExpanded ? '0.2s' : '0s'
           }}
         >
           <span className="font-medium text-sm">FR</span>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </div>
   );
 }

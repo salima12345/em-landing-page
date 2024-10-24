@@ -75,7 +75,7 @@ body {
 
 @media (min-width: 769px) {
     .container {
-        @apply px-6 py-5;
+        @apply px-8 py-5;
     }
 }
 
@@ -93,7 +93,7 @@ body {
 
 @media (min-width: 1441px) {
     .container {
-        @apply py-[30px];
+        @apply px-[122px] py-[30px];
     }
 }
 

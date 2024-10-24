@@ -28,7 +28,7 @@ export default function EMValues() {
     {
       id: "inclusion",
       style: {
-        left: useTransform(scrollYProgress, [animateFrom, animateTo], ["7%", "53%"]),
+        left: useTransform(scrollYProgress, [animateFrom, animateTo], ["7%", "40%"]),
         top: useTransform(scrollYProgress, [animateFrom, animateTo], ["0%", "0%"]),
         rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 9]),
         opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
@@ -40,7 +40,7 @@ export default function EMValues() {
     {
       id: "intelligence",
       style: {
-        right: useTransform(scrollYProgress, [animateFrom, animateTo], ["7%", "60%"]),
+        right: useTransform(scrollYProgress, [animateFrom, animateTo], ["7%", "35%"]),
         top: useTransform(scrollYProgress, [animateFrom, animateTo], ["0%", "0%"]),
         rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 1]),
         opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
@@ -52,8 +52,8 @@ export default function EMValues() {
     {
       id: "creativite",
       style: {
-        left: useTransform(scrollYProgress, [animateFrom, animateTo], ["7%", "35%"]),
-        bottom: useTransform(scrollYProgress, [animateFrom, animateTo], ["-580px", "-200px"]),
+        left: useTransform(scrollYProgress, [animateFrom, animateTo], ["7%", "25%"]),
+        bottom: useTransform(scrollYProgress, [animateFrom, animateTo], ["-580px", "-350px"]),
         rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 5]),
         opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
         zIndex: draggedIndex === 2 ? 50 : 1
@@ -64,8 +64,8 @@ export default function EMValues() {
     {
       id: "authenticite",
       style: {
-        right: useTransform(scrollYProgress, [animateFrom, animateTo], ["0%", "47%"]),
-        bottom: useTransform(scrollYProgress, [animateFrom, animateTo], ["-580px", "-200px"]),
+        right: useTransform(scrollYProgress, [animateFrom, animateTo], ["0%", "28%"]),
+        bottom: useTransform(scrollYProgress, [animateFrom, animateTo], ["-580px", "-350px"]),
         rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 5]),
         opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
         zIndex: draggedIndex === 3 ? 50 : 2
@@ -77,7 +77,7 @@ export default function EMValues() {
 
   const valuesStyle = {
     rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 5]),
-    bottom: useTransform(scrollYProgress, [animateFrom, animateTo], ["-780px", "70px"]),
+    bottom: useTransform(scrollYProgress, [animateFrom, animateTo], ["-780px", "-270px"]),
     opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
     zIndex: draggedIndex === 4 ? 50 : 1
   };
