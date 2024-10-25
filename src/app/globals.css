@@ -106,8 +106,8 @@ body {
     display: flex;
     flex-direction: column;
     padding-top: 160px;
-    padding-bottom: 460px;
-    overflow: hidden;
+    padding-bottom: 560px;
+    
     position: relative;
   }
   

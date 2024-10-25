@@ -1,28 +1,41 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 export default function EMValues() {
   const sectionRef = useRef(null);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [shouldAnimate, setShouldAnimate] = useState(true);
   
+  useEffect(() => {
+    const handleRealizationView = (event: CustomEvent) => {
+      setShouldAnimate(!event.detail.isVisible);
+    };
+
+    window.addEventListener('realizationInView', handleRealizationView as EventListener);
+    
+    return () => {
+      window.removeEventListener('realizationInView', handleRealizationView as EventListener);
+    };
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 30, 
-    damping: 30, 
-    mass: 1.5, 
-    restDelta: 0.001 
+    stiffness: shouldAnimate ? 30 : 0,
+    damping: shouldAnimate ? 30 : 0,
+    mass: 1.5,
+    restDelta: 0.001
   });
 
   const animateFrom = 0.2;
   const animateTo = 0.8;
   const opacityKeyframes = [0.2, 0.35, 0.8];
-  const opacityValues = [0.4, 1, 1];
+  const opacityValues = [0.4, 0.7, 0.9];
 
   const dragConstraints = {
     top: -200,
@@ -40,18 +53,18 @@ export default function EMValues() {
     {
       id: "inclusion",
       style: {
-        left: useTransform(smoothProgress, 
-          [animateFrom, animateTo], 
+        left: useTransform(smoothProgress,
+          [animateFrom, animateTo],
           ["7%", "30%"],
-          { clamp: false } 
+          { clamp: false }
         ),
-        top: useTransform(smoothProgress, 
-          [animateFrom, animateTo], 
+        top: useTransform(smoothProgress,
+          [animateFrom, animateTo],
           ["0%", "0%"],
           { clamp: false }
         ),
-        rotate: useTransform(smoothProgress, 
-          [animateFrom, animateTo], 
+        rotate: useTransform(smoothProgress,
+          [animateFrom, animateTo],
           [0, 9],
           { clamp: false }
         ),
@@ -64,18 +77,18 @@ export default function EMValues() {
     {
       id: "intelligence",
       style: {
-        right: useTransform(smoothProgress, 
-          [animateFrom, animateTo], 
+        right: useTransform(smoothProgress,
+          [animateFrom, animateTo],
           ["7%", "41%"],
           { clamp: false }
         ),
-        top: useTransform(smoothProgress, 
-          [animateFrom, animateTo], 
+        top: useTransform(smoothProgress,
+          [animateFrom, animateTo],
           ["0%", "0%"],
           { clamp: false }
         ),
-        rotate: useTransform(smoothProgress, 
-          [animateFrom, animateTo], 
+        rotate: useTransform(smoothProgress,
+          [animateFrom, animateTo],
           [0, 1],
           { clamp: false }
         ),
@@ -88,18 +101,18 @@ export default function EMValues() {
     {
       id: "creativite",
       style: {
-        left: useTransform(smoothProgress, 
-          [animateFrom, animateTo], 
+        left: useTransform(smoothProgress,
+          [animateFrom, animateTo],
           ["7%", "21%"],
           { clamp: false }
         ),
-        bottom: useTransform(smoothProgress, 
-          [animateFrom, animateTo], 
-          ["-500px", "-370px"],
+        bottom: useTransform(smoothProgress,
+          [animateFrom, animateTo],
+          ["-780px", "-400px"],
           { clamp: false }
         ),
-        rotate: useTransform(smoothProgress, 
-          [animateFrom, animateTo], 
+        rotate: useTransform(smoothProgress,
+          [animateFrom, animateTo],
           [0, 5],
           { clamp: false }
         ),
@@ -112,18 +125,18 @@ export default function EMValues() {
     {
       id: "authenticite",
       style: {
-        right: useTransform(smoothProgress, 
-          [animateFrom, animateTo], 
+        right: useTransform(smoothProgress,
+          [animateFrom, animateTo],
           ["0%", "30%"],
           { clamp: false }
         ),
-        bottom: useTransform(smoothProgress, 
-          [animateFrom, animateTo], 
-          ["-500px", "-370px"],
+        bottom: useTransform(smoothProgress,
+          [animateFrom, animateTo],
+          ["-780px", "-370px"],
           { clamp: false }
         ),
-        rotate: useTransform(smoothProgress, 
-          [animateFrom, animateTo], 
+        rotate: useTransform(smoothProgress,
+          [animateFrom, animateTo],
           [0, 5],
           { clamp: false }
         ),
@@ -136,14 +149,14 @@ export default function EMValues() {
   ];
 
   const valuesStyle = {
-    rotate: useTransform(smoothProgress, 
-      [animateFrom, animateTo], 
+    rotate: useTransform(smoothProgress,
+      [animateFrom, animateTo],
       [0, 5],
       { clamp: false }
     ),
-    bottom: useTransform(smoothProgress, 
-      [animateFrom, animateTo], 
-      ["-780px", "-270px"],
+    bottom: useTransform(smoothProgress,
+      [animateFrom, animateTo],
+      ["-780px", "-470px"],
       { clamp: false }
     ),
     opacity: useTransform(smoothProgress, opacityKeyframes, opacityValues),
@@ -151,11 +164,11 @@ export default function EMValues() {
   };
 
   return (
-    <section ref={sectionRef} className=" container em-values relative h-screen " id="em-values">
-      <div className="content-em-values  relative w-full h-full">
+    <section ref={sectionRef} className="container em-values" id="em-values">
+      <div className="content-em-values relative w-full h-full">
         <div className="images relative w-full h-full">
           {images.map((image, index) => (
-            <motion.div 
+            <motion.div
               key={image.id}
               className={`${image.id} img absolute cursor-grab active:cursor-grabbing`}
               style={image.style}
@@ -163,11 +176,11 @@ export default function EMValues() {
               dragConstraints={dragConstraints}
               dragElastic={0.05}
               dragMomentum={true}
-              dragTransition={{ 
-                bounceStiffness: 300, 
-                bounceDamping: 20 
+              dragTransition={{
+                bounceStiffness: 300,
+                bounceDamping: 20
               }}
-              whileDrag={{ 
+              whileDrag={{
                 scale: 1.1,
                 zIndex: 50
               }}
@@ -187,7 +200,7 @@ export default function EMValues() {
             </motion.div>
           ))}
 
-          <motion.div 
+          <motion.div
             className="values absolute cursor-grab active:cursor-grabbing"
             style={valuesStyle}
             drag
@@ -195,7 +208,7 @@ export default function EMValues() {
             dragElastic={0.05}
             dragMomentum={true}
             dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
-            whileDrag={{ 
+            whileDrag={{
               scale: 1.1,
               zIndex: 50
             }}
@@ -251,7 +264,7 @@ export default function EMValues() {
           </motion.div>
         </div>
 
-        <div className="absolute z-10 w-full xl:max-w-[474px] flex items-center justify-center xl:pt-[450px]">
+        <div className="absolute z-10 w-full xl:max-w-[474px] flex items-center justify-center xl:pt-[500px]">
           <h3 className="font-bold text-[30px] leading-40">
             We're not just a way of doing, we're also a way of being.
           </h3>
