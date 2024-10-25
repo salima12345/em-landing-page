@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 export default function EMValues() {
   const sectionRef = useRef(null);
@@ -12,9 +12,16 @@ export default function EMValues() {
     offset: ["start end", "end start"],
   });
 
-  const animateFrom = 0.4;
-  const animateTo = 0.7;
-  const opacityKeyframes = [0.35, 0.5, 1.0];
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 30, 
+    damping: 30, 
+    mass: 1.5, 
+    restDelta: 0.001 
+  });
+
+  const animateFrom = 0.2;
+  const animateTo = 0.8;
+  const opacityKeyframes = [0.2, 0.35, 0.8];
   const opacityValues = [0.4, 1, 1];
 
   const dragConstraints = {
@@ -24,14 +31,31 @@ export default function EMValues() {
     left: -200
   };
 
+  const defaultTransition = {
+    duration: 0.8,
+    ease: [0.32, 0.72, 0, 1]
+  };
+
   const images = [
     {
       id: "inclusion",
       style: {
-        left: useTransform(scrollYProgress, [animateFrom, animateTo], ["7%", "40%"]),
-        top: useTransform(scrollYProgress, [animateFrom, animateTo], ["0%", "0%"]),
-        rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 9]),
-        opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
+        left: useTransform(smoothProgress, 
+          [animateFrom, animateTo], 
+          ["7%", "30%"],
+          { clamp: false } 
+        ),
+        top: useTransform(smoothProgress, 
+          [animateFrom, animateTo], 
+          ["0%", "0%"],
+          { clamp: false }
+        ),
+        rotate: useTransform(smoothProgress, 
+          [animateFrom, animateTo], 
+          [0, 9],
+          { clamp: false }
+        ),
+        opacity: useTransform(smoothProgress, opacityKeyframes, opacityValues),
         zIndex: draggedIndex === 0 ? 50 : 1
       },
       src: "https://www.eliott-markus.com/wp-content/themes/em-wp/images/em-values/inclusion-min.png",
@@ -40,10 +64,22 @@ export default function EMValues() {
     {
       id: "intelligence",
       style: {
-        right: useTransform(scrollYProgress, [animateFrom, animateTo], ["7%", "35%"]),
-        top: useTransform(scrollYProgress, [animateFrom, animateTo], ["0%", "0%"]),
-        rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 1]),
-        opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
+        right: useTransform(smoothProgress, 
+          [animateFrom, animateTo], 
+          ["7%", "41%"],
+          { clamp: false }
+        ),
+        top: useTransform(smoothProgress, 
+          [animateFrom, animateTo], 
+          ["0%", "0%"],
+          { clamp: false }
+        ),
+        rotate: useTransform(smoothProgress, 
+          [animateFrom, animateTo], 
+          [0, 1],
+          { clamp: false }
+        ),
+        opacity: useTransform(smoothProgress, opacityKeyframes, opacityValues),
         zIndex: draggedIndex === 1 ? 50 : 1
       },
       src: "https://www.eliott-markus.com/wp-content/themes/em-wp/images/em-values/intelligence.png",
@@ -52,10 +88,22 @@ export default function EMValues() {
     {
       id: "creativite",
       style: {
-        left: useTransform(scrollYProgress, [animateFrom, animateTo], ["7%", "25%"]),
-        bottom: useTransform(scrollYProgress, [animateFrom, animateTo], ["-580px", "-350px"]),
-        rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 5]),
-        opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
+        left: useTransform(smoothProgress, 
+          [animateFrom, animateTo], 
+          ["7%", "21%"],
+          { clamp: false }
+        ),
+        bottom: useTransform(smoothProgress, 
+          [animateFrom, animateTo], 
+          ["-580px", "-350px"],
+          { clamp: false }
+        ),
+        rotate: useTransform(smoothProgress, 
+          [animateFrom, animateTo], 
+          [0, 5],
+          { clamp: false }
+        ),
+        opacity: useTransform(smoothProgress, opacityKeyframes, opacityValues),
         zIndex: draggedIndex === 2 ? 50 : 1
       },
       src: "https://www.eliott-markus.com/wp-content/themes/em-wp/images/em-values/creativite-min.png",
@@ -64,10 +112,22 @@ export default function EMValues() {
     {
       id: "authenticite",
       style: {
-        right: useTransform(scrollYProgress, [animateFrom, animateTo], ["0%", "28%"]),
-        bottom: useTransform(scrollYProgress, [animateFrom, animateTo], ["-580px", "-350px"]),
-        rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 5]),
-        opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
+        right: useTransform(smoothProgress, 
+          [animateFrom, animateTo], 
+          ["0%", "30%"],
+          { clamp: false }
+        ),
+        bottom: useTransform(smoothProgress, 
+          [animateFrom, animateTo], 
+          ["-580px", "-350px"],
+          { clamp: false }
+        ),
+        rotate: useTransform(smoothProgress, 
+          [animateFrom, animateTo], 
+          [0, 5],
+          { clamp: false }
+        ),
+        opacity: useTransform(smoothProgress, opacityKeyframes, opacityValues),
         zIndex: draggedIndex === 3 ? 50 : 2
       },
       src: "https://www.eliott-markus.com/wp-content/themes/em-wp/images/em-values/authenticite.png",
@@ -76,14 +136,22 @@ export default function EMValues() {
   ];
 
   const valuesStyle = {
-    rotate: useTransform(scrollYProgress, [animateFrom, animateTo], [0, 5]),
-    bottom: useTransform(scrollYProgress, [animateFrom, animateTo], ["-780px", "-270px"]),
-    opacity: useTransform(scrollYProgress, opacityKeyframes, opacityValues),
+    rotate: useTransform(smoothProgress, 
+      [animateFrom, animateTo], 
+      [0, 5],
+      { clamp: false }
+    ),
+    bottom: useTransform(smoothProgress, 
+      [animateFrom, animateTo], 
+      ["-780px", "-270px"],
+      { clamp: false }
+    ),
+    opacity: useTransform(smoothProgress, opacityKeyframes, opacityValues),
     zIndex: draggedIndex === 4 ? 50 : 1
   };
 
   return (
-    <section ref={sectionRef} className="em-values relative h-screen pt-[260px] pb-[360px]" id="em-values">
+    <section ref={sectionRef} className=" container em-values relative h-screen pt-[260px] pb-[360px]" id="em-values">
       <div className="content-em-values relative w-full h-full">
         <div className="images relative w-full h-full">
           {images.map((image, index) => (
@@ -93,16 +161,20 @@ export default function EMValues() {
               style={image.style}
               drag
               dragConstraints={dragConstraints}
-              dragElastic={0.05} // Reduced elasticity for smoother dragging
-              dragMomentum={true} // Enable momentum for more natural feel
-              dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }} // Smoother bounce
+              dragElastic={0.05}
+              dragMomentum={true}
+              dragTransition={{ 
+                bounceStiffness: 300, 
+                bounceDamping: 20 
+              }}
               whileDrag={{ 
                 scale: 1.1,
-                zIndex: 50 // Ensure dragged item stays on top
+                zIndex: 50
               }}
               whileHover={{ scale: 1.05 }}
               onDragStart={() => setDraggedIndex(index)}
               onDragEnd={() => setDraggedIndex(null)}
+              transition={defaultTransition}
             >
               <img
                 src={image.src}
@@ -130,6 +202,7 @@ export default function EMValues() {
             whileHover={{ scale: 1.05 }}
             onDragStart={() => setDraggedIndex(4)}
             onDragEnd={() => setDraggedIndex(null)}
+            transition={defaultTransition}
           >
             <Link href="https://www.eliott-markus.com/talents-equipe/" className="pointer-events-none">
               <div className="info">
@@ -178,7 +251,7 @@ export default function EMValues() {
           </motion.div>
         </div>
 
-        <div className="absolute z-10 w-full xl:max-w-[474px] flex items-center justify-center xl:pt-[480px]">
+        <div className="absolute z-10 w-full xl:max-w-[474px] flex items-center justify-center xl:pt-[450px]">
           <h3 className="font-bold text-[30px] leading-40">
             We're not just a way of doing, we're also a way of being.
           </h3>
