@@ -36,14 +36,14 @@ export default function Header() {
             <LanguageSelectorMobile />
           </div>
           
-          <div className="flex items-center xl:fixed xl:flex-col xl:items-end xl:-mr-24 z-30 ">
+          <div className="flex items-center xl:fixed xl:flex-col xl:items-end  z-30 ">
             <div className="flex items-center gap-2 xl:pb-2">
               <button className="rounded-full flex items-center justify-center w-[54px] h-[54px] bg-grayDark text-foreground">
                 <RxHamburgerMenu />
               </button>
             </div>
             
-            <div className="hidden xl:block xl:sticky xl:-mr:24 z-30">
+            <div className="hidden xl:block xl:sticky  z-30">
               <LanguageSelector />
             </div>
           </div>

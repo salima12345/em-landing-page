@@ -95,7 +95,7 @@ export default function EMValues() {
         ),
         bottom: useTransform(smoothProgress, 
           [animateFrom, animateTo], 
-          ["-580px", "-350px"],
+          ["-500px", "-370px"],
           { clamp: false }
         ),
         rotate: useTransform(smoothProgress, 
@@ -119,7 +119,7 @@ export default function EMValues() {
         ),
         bottom: useTransform(smoothProgress, 
           [animateFrom, animateTo], 
-          ["-580px", "-350px"],
+          ["-500px", "-370px"],
           { clamp: false }
         ),
         rotate: useTransform(smoothProgress, 
@@ -151,8 +151,8 @@ export default function EMValues() {
   };
 
   return (
-    <section ref={sectionRef} className=" container em-values relative h-screen pt-[260px] pb-[360px]" id="em-values">
-      <div className="content-em-values relative w-full h-full">
+    <section ref={sectionRef} className=" container em-values relative h-screen " id="em-values">
+      <div className="content-em-values  relative w-full h-full">
         <div className="images relative w-full h-full">
           {images.map((image, index) => (
             <motion.div 

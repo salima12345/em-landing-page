@@ -6,7 +6,7 @@ import MadeIn from '../layout/header/MadeIn';
 function AboutTop() {
   return (
     <section className=" flex flex-col xl:flex-row justify-between gap-8  ">
-      <div className="flex w-full  2xl:-ml-24">
+      <div className="flex w-full  ">
         <h1 className="font-semibold leading-tight text-[60px] xl:text-[80px]">
           Turning expertise into experience
         </h1>
