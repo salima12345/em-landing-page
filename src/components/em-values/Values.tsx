@@ -2,6 +2,12 @@
 import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import AnimatedTitle from "../ui/TitleReveal";
+
+
+
+
+
 
 export default function EMValues() {
   const sectionRef = useRef(null);
@@ -43,7 +49,7 @@ export default function EMValues() {
     {
       id: "inclusion",
       style: {
-        left: useTransform(clampedProgress, [animateFrom, animateTo], ["7%", "30%"], { clamp: false }),
+        left: useTransform(clampedProgress, [animateFrom, animateTo], ["7%", "31%"], { clamp: false }),
         top: useTransform(clampedProgress, [animateFrom, animateTo], ["0%", "0%"], { clamp: false }),
         rotate: useTransform(clampedProgress, [animateFrom, animateTo], [0, 9], { clamp: false }),
         opacity: useTransform(clampedProgress, opacityKeyframes, opacityValues),
@@ -55,7 +61,7 @@ export default function EMValues() {
     {
       id: "intelligence",
       style: {
-        right: useTransform(clampedProgress, [animateFrom, animateTo], ["7%", "41%"], { clamp: false }),
+        right: useTransform(clampedProgress, [animateFrom, animateTo], ["7%", "45%"], { clamp: false }),
         top: useTransform(clampedProgress, [animateFrom, animateTo], ["0%", "0%"], { clamp: false }),
         rotate: useTransform(clampedProgress, [animateFrom, animateTo], [0, 1], { clamp: false }),
         opacity: useTransform(clampedProgress, opacityKeyframes, opacityValues),
@@ -67,8 +73,8 @@ export default function EMValues() {
     {
       id: "creativite",
       style: {
-        left: useTransform(clampedProgress, [animateFrom, animateTo], ["7%", "21%"], { clamp: false }),
-        bottom: useTransform(clampedProgress, [animateFrom, animateTo], ["-780px","-400px"], { clamp: false }),
+        left: useTransform(clampedProgress, [animateFrom, animateTo], ["7%", "25%"], { clamp: false }),
+        bottom: useTransform(clampedProgress, [animateFrom, animateTo], ["-600px","-540px"], { clamp: false }),
         rotate: useTransform(clampedProgress, [animateFrom, animateTo], [0, 5], { clamp: false }),
         opacity: useTransform(clampedProgress, opacityKeyframes, opacityValues),
         zIndex: draggedIndex === 2 ? 50 : 1
@@ -80,7 +86,7 @@ export default function EMValues() {
       id: "authenticite",
       style: {
         right: useTransform(clampedProgress, [animateFrom, animateTo], ["0%", "30%"], { clamp: false }),
-        bottom: useTransform(clampedProgress, [animateFrom, animateTo], ["-780px", "-400px"], { clamp: false }),
+        bottom: useTransform(clampedProgress, [animateFrom, animateTo], ["-600px", "-550px"], { clamp: false }),
         rotate: useTransform(clampedProgress, [animateFrom, animateTo], [0, 5], { clamp: false }),
         opacity: useTransform(clampedProgress, opacityKeyframes, opacityValues),
         zIndex: draggedIndex === 3 ? 50 : 2
@@ -92,7 +98,7 @@ export default function EMValues() {
 
   const valuesStyle = {
     rotate: useTransform(clampedProgress, [animateFrom, animateTo], [0, 5], { clamp: false }),
-    bottom: useTransform(clampedProgress, [animateFrom, animateTo], ["-780px", "-470px"], { clamp: false }),
+    bottom: useTransform(clampedProgress, [animateFrom, animateTo], ["-600px", "-580px"], { clamp: false }),
     opacity: useTransform(clampedProgress, opacityKeyframes, opacityValues),
     zIndex: draggedIndex === 4 ? 50 : 1
   };
@@ -187,10 +193,8 @@ export default function EMValues() {
             </Link>
           </motion.div>
         </div>
-        <div className="absolute z-10 w-full xl:max-w-[474px] flex items-center justify-center xl:pt-[500px]">
-          <h3 className="font-bold text-[30px] leading-40">
-            We're not just a way of doing, we're also a way of being.
-          </h3>
+        <div className="absolute z-10 w-full  xl:max-w-[420px] flex items-center justify-center xl:pt-[570px]">
+          <AnimatedTitle text="We're not just a way of doing, we're also a way of being." className="font-bold text-[30px]" />
         </div>
       </div>
     </section>

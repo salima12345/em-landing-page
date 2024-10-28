@@ -3,6 +3,7 @@ import Hero from "@/components/hero/Hero";
 import About from "@/components/about/About";
 import Values from "@/components/em-values/Values";
 import Realization from "@/components/realization/Realization";
+import Footer from "@/components/layout/header/footer/Footer";
 export default function Home() {
   return (
     <div className="overflow-hidden">
@@ -11,6 +12,7 @@ export default function Home() {
       <About/>
       <Values/>
       <Realization/>
+      <Footer/>
       
     </div>
      

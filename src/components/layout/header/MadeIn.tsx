@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 
 const madeIn = [
@@ -14,13 +14,19 @@ const madeIn = [
   "Personal Branding",
 ];
 
-export default function MadeIn() {
-  const [isExpanded, setIsExpanded] = useState(false);
+export default function MadeIn({ initialExpanded = false }) {
+  const [isExpanded, setIsExpanded] = useState(initialExpanded);
+
+  useEffect(() => {
+    if (initialExpanded) {
+      setIsExpanded(true);
+    }
+  }, [initialExpanded]);
 
   return (
     <div className="relative" data-testid={"made-in"}>
       <div
-        className={`absolute bg-grayDark xl:w-[290px] w-full overflow-hidden transition-all duration-700 ease-in-out cursor-pointer rounded-[26px]`}
+        className={`absolute bg-grayDark xl:w-[290px] w-full overflow-hidden transition-all duration-1000 ease-in-out cursor-pointer rounded-[26px]`}
         style={{ zIndex: isExpanded ? 10 : "auto" }}
       >
         <div
@@ -37,7 +43,7 @@ export default function MadeIn() {
         </div>
 
         <div
-          className={`flex flex-col gap-5 transition-all duration-700 ease-in-out origin-top`}
+          className={`flex flex-col gap-5 transition-all duration-1000 ease-in-out origin-top`}
           style={{
             maxHeight: isExpanded ? '500px' : '0px',
             opacity: isExpanded ? 1 : 0,

@@ -1,12 +1,18 @@
-import React from 'react'
-import SliderSwiper from './Slider'
+"use client"
+import React from 'react';
+import { motion } from 'framer-motion';
+import SliderSwiper from './Slider';
 
 function Hero() {
   return (
-    <section>
-        <SliderSwiper/>
-    </section>
-  )
+    <motion.section 
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
+      <SliderSwiper />
+    </motion.section>
+  );
 }
 
-export default Hero
+export default Hero;

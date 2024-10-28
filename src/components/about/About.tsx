@@ -4,7 +4,7 @@ import AboutBottom from './AboutBottom'
 
 function About() {
   return (
-    <section className='container'>
+    <section className='container mt-8'>
         <AboutTop/>
         <AboutBottom/>
     </section>
