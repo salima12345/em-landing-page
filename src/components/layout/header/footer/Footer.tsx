@@ -4,10 +4,12 @@ import React from 'react'
 import AnimatedTitle from '@/components/ui/TitleReveal'
 import { MdOutlineArrowOutward } from "react-icons/md";
 import Info from './Info';
+import Copyright from './Copyright';
 
 
 function Footer() {
   return (
+    <>
     <div className="container mt-8 ">
       <div className='flex items-center justify-between py-10'>
       <div>
@@ -22,8 +24,9 @@ function Footer() {
 
       </div>
       <Info/>
-       
-        </div>
+    </div>
+    <Copyright/>
+    </>
   )
 }
 

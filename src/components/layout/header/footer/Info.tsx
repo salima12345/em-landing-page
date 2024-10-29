@@ -30,26 +30,20 @@ export default function Info() {
                 <Link href="/">LinkedIn</Link>
                 <Link href="/">Twiter</Link>
                 <Link href="/"></Link>
-
-              </div>
+           </div>
               <div className="flex flex-col gap-2">
                 <Link href="/">Facebook</Link>
                 <Link href="/">Instagram</Link>
                 <Link href="/"></Link>
-
-              </div>
+            </div>
            </div>
-          
-        </div>
+          </div>
 
         <div className="flex flex-col gap-2">
            <p className="font-semibold">Newsletter</p>
            <Newsletter/>
          </div>
-
-      </div>
-
- 
+        </div>
     </div>
   );
 }
