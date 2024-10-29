@@ -1,9 +1,14 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import { FaArrowAltCircleDown } from "react-icons/fa";
 
-const expertises = [
+"use client";
+import React from "react";
+import ExpandableSection from "@/components/ui/ExpandableSection";
+
+interface ExpertiseItem {
+  icon: string;
+  text: string;
+}
+
+const expertises: ExpertiseItem[] = [
   { icon: "/images/expertises/icons/strategy.svg", text: "Marketing Strategy" },
   { icon: "/images/expertises/icons/influence.svg", text: "Media Relations" },
   { icon: "/images/expertises/icons/design.svg", text: "Visual Design" },
@@ -13,57 +18,27 @@ const expertises = [
   { icon: "/images/expertises/icons/consulting.svg", text: "Outsourcing" },
 ];
 
-export default function Expertise({ initialExpanded = false }) {
-  const [isExpanded, setIsExpanded] = useState(initialExpanded);
+const renderExpertiseItem = (item: ExpertiseItem, index: number, totalItems: number) => (
+  <div
+    key={index}
+    className={`flex items-center gap-3 cursor-pointer px-5 transition-colors duration-200 ${
+      index === totalItems - 1 ? "pb-4" : ""
+    }`}
+  >
+    <img src={item.icon} alt={item.text} width={20} height={20} />
+    <p className="font-medium">{item.text}</p>
+  </div>
+);
 
-  useEffect(() => {
-    if (initialExpanded) {
-      setIsExpanded(true);
-    }
-  }, [initialExpanded]);
-
+export default function Expertise({ initialExpanded = false }: { initialExpanded?: boolean }) {
   return (
-    <div className="relative" data-testid={"expertise"}>
-      <div
-        className={`absolute bg-grayDark xl:w-[290px] w-full overflow-hidden transition-all duration-2000 ease-in-out cursor-pointer rounded-[26px]`}
-        style={{ zIndex: isExpanded ? 10 : "auto" }}
-      >
-        <div
-          className="h-[56px] p-3 px-5 flex items-center justify-between"
-          onClick={() => setIsExpanded(!isExpanded)}
-        >
-          <p>e&m expertise</p>
-          <FaArrowAltCircleDown
-            size={14}
-            className={`text-white transition-transform duration-300 ${
-              isExpanded ? "rotate-180" : ""
-            }`}
-          />
-        </div>
-
-        <div
-          className={`flex flex-col gap-5 transition-all duration-1000 ease-in-out origin-top`}
-          style={{
-            maxHeight: isExpanded ? '500px' : '0px',
-            opacity: isExpanded ? 1 : 0,
-            transform: `scaleY(${isExpanded ? 1 : 0.8})`
-          }}
-        >
-          {expertises.map((expertise, index) => (
-            <div
-              key={index}
-              className={`flex items-center gap-3 cursor-pointer px-5 transition-colors duration-200 ${
-                index === expertises.length - 1 ? "pb-4" : ""
-              }`}
-            >
-              <Image src={expertise.icon} alt={expertise.text} width={20} height={20} />
-              <p className="font-medium">{expertise.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="w-[290px] h-[56px] invisible"></div>
-    </div>
+    <ExpandableSection<ExpertiseItem>
+      title="e&m expertise"
+      items={expertises}
+      initialExpanded={initialExpanded}
+      renderItem={renderExpertiseItem} 
+      testId="expertise"
+      className="xl:w-[290px] bg-grayDark"
+    />
   );
 }

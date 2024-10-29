@@ -1,25 +1,29 @@
-"use client"
+'use client'
+
 import React from 'react'
-import Image from 'next/image'
 import AnimatedTitle from '@/components/ui/TitleReveal'
+import { MdOutlineArrowOutward } from "react-icons/md";
+import Info from './Info';
+
 
 function Footer() {
   return (
-    <div className="container mt-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 items-center">
-        <div>
+    <div className="container mt-8 ">
+      <div className='flex items-center justify-between py-10'>
+      <div>
           <AnimatedTitle
-            text="A project to carry out? Let's talk about it!"
-            className="font-medium text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-[40px] leading-[40px] "
+            text={`A project in mind? Let's talk!`}
+            className="font-medium text-[21px] lg:text-[31px] xl:text-[41px] 2xl:text-[51px] 3xl:text-[61px]  max-w-[800px]"
           />
         </div>
-        <div className="flex justify-end">
-          <button className="rounded-full w-[78px] h-[78px] sm:w-[98px] sm:h-[98px] bg-[#ECC6C7] flex items-center justify-center">
-            <Image src="/images/icons/contact-arrow.svg" alt="" width={16} height={16} className="w-[16px] h-[16px] sm:w-[20px] sm:h-[20px]" />
+          <button className="rounded-full w-[58px] h-[58px] lg:w-[68px]  lg:h-[68px] 2xl:w-[78px]  2xl:h-[78px] bg-[#ECC6C7] flex items-center justify-center">
+           <MdOutlineArrowOutward size={27} color='black'/>
           </button>
-        </div>
+
       </div>
-    </div>
+      <Info/>
+       
+        </div>
   )
 }
 
