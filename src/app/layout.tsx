@@ -11,11 +11,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="">
-      <body className="min-h-screen   min-w-full max-w-[1440px] bg-background text-foreground font-gilroy overflow-x-hidden">
-<SmoothScroll>
-  {children}
-</SmoothScroll>
+    <html lang="en">
+      <body suppressHydrationWarning={true} className="min-h-screen min-w-full max-w-[1440px] bg-background text-foreground font-gilroy overflow-x-hidden">
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );

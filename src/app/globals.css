@@ -48,11 +48,16 @@
     font-style: normal;
 }
 
+html {
+    scroll-behavior: auto !important;
+  }
+
 body {
     color: var(--foreground);
     background: var(--background);
     font-family: 'Gilroy', sans-serif;
-    overflow: hidden;
+    overflow:hidden;
+
 
 }
 
