@@ -1,0 +1,130 @@
+'use client'
+
+import React, { useState, createContext, useContext, ReactNode, useRef, useEffect } from 'react'
+import Image from 'next/image'
+
+type AccordionContextType = {
+  expandedItem: string | null
+  setExpandedItem: (item: string | null) => void
+}
+
+const AccordionContext = createContext<AccordionContextType | undefined>(undefined)
+
+interface AccordionProps {
+  children: ReactNode
+  className?: string
+  defaultExpandedItem?: string
+}
+
+export function Accordion({ 
+  children, 
+  className = '', 
+  defaultExpandedItem,
+}: AccordionProps) {
+  const [expandedItem, setExpandedItem] = useState<string | null>(defaultExpandedItem || null)
+
+  const handleSetExpandedItem = (item: string | null) => {
+    setExpandedItem(prevItem => prevItem === item ? null : item)
+  }
+
+  return (
+    <AccordionContext.Provider value={{ expandedItem, setExpandedItem: handleSetExpandedItem }}>
+      <div className={`space-y-2 ${className}`}>{children}</div>
+    </AccordionContext.Provider>
+  )
+}
+
+interface AccordionItemProps {
+  value: string
+  children: ReactNode
+}
+
+export function AccordionItem({ value, children }: AccordionItemProps) {
+  const context = useContext(AccordionContext)
+  if (!context) throw new Error('AccordionItem must be used within an Accordion')
+  const { expandedItem, setExpandedItem } = context
+  const isExpanded = expandedItem === value
+
+  const toggleItem = () => {
+    setExpandedItem(isExpanded ? null : value)
+  }
+
+  return (
+    <div className="rounded-[27px] overflow-hidden w-full max-w-[290px]">
+      {React.Children.map(children, child => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child as React.ReactElement<any>, {
+            isExpanded,
+            toggleItem,
+          })
+        }
+        return child
+      })}
+    </div>
+  )
+}
+
+interface AccordionTriggerProps {
+  children: ReactNode
+  isExpanded?: boolean
+  toggleItem?: () => void
+  showPlaceholder?: boolean
+}
+
+export function AccordionTrigger({ 
+  children, 
+  isExpanded, 
+  toggleItem,
+  showPlaceholder = false
+}: AccordionTriggerProps) {
+  return (
+    <button
+      className={`flex justify-between items-center w-full px-6 ${isExpanded ? 'pt-4' : 'py-4'} text-left bg-grayDark transition-colors font-medium`}
+      onClick={toggleItem}
+    >
+      {children}
+      {showPlaceholder && !isExpanded && <div className="w-[16px] h-[16px]" />}
+      {(!showPlaceholder || isExpanded) && (
+        <Image
+          src="/images/icons/arrow-circle.svg"
+          width={16}
+          height={16}
+          className={`transform transition-transform duration-500 ease-in-out ${isExpanded ? 'rotate-180' : ''}`}
+          alt="Arrow Icon"
+        />
+      )}
+    </button>
+  )
+}
+
+interface AccordionContentProps {
+  children: ReactNode
+  isExpanded?: boolean
+  className?: string
+}
+
+export function AccordionContent({ children, isExpanded, className }: AccordionContentProps) {
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [contentHeight, setContentHeight] = useState<number>(0)
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight)
+    }
+  }, [children])
+
+  return (
+    <div
+      style={{
+        maxHeight: isExpanded ? `${contentHeight}px` : '0',
+        transition: 'max-height 0.5s ease',
+        overflow: 'hidden'
+      }}
+      className={className}
+    >
+      <div ref={contentRef} className="px-6 py-4 bg-grayDark">
+        {children}
+      </div>
+    </div>
+  )
+}

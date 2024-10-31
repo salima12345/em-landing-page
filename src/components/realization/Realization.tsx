@@ -66,7 +66,7 @@ function Realization() {
       <AnimatePresence>
         <motion.div
           id="gallery-work"
-          className="fixed w-[385px] h-[280px] pointer-events-none z-50 overflow-hidden"
+          className="fixed w-[385px] h-[280px] pointer-events-none z-30 overflow-hidden"
           style={{
             top: cursorPos.y,
             left: cursorPos.x,

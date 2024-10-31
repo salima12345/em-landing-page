@@ -1,7 +1,7 @@
 
 "use client";
 import React from "react";
-import ExpandableSection from "@/components/ui/ExpandableSection";
+import ExpandableSection from "./ExpandableSection";
 
 interface ExpertiseItem {
   icon: string;
@@ -32,7 +32,7 @@ const renderExpertiseItem = (item: ExpertiseItem, index: number, totalItems: num
 
 export default function Expertise({ initialExpanded = false }: { initialExpanded?: boolean }) {
   return (
-    <ExpandableSection<ExpertiseItem>
+    <ExpandableSection<ExpertiseItem> 
       title="e&m expertise"
       items={expertises}
       initialExpanded={initialExpanded}

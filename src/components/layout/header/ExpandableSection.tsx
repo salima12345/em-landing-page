@@ -1,14 +1,42 @@
-"use client"
-import React, { useState, useEffect, ReactNode } from "react";
+import React, { useState, useEffect, ReactNode, useRef } from "react";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 
 interface ExpandableSectionProps<T> {
   title: string;
-  items: T[]; 
+  items: T[];
   initialExpanded?: boolean;
   renderItem?: (item: T, index: number, totalItems: number) => ReactNode;
   className?: string;
   testId?: string;
+}
+
+function useScrollCollapse(initialExpanded: boolean = false) {
+  const [isExpanded, setIsExpanded] = useState(initialExpanded);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > 50 && isExpanded) {
+        setIsExpanded(false);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isExpanded]);
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  return { isExpanded, toggleExpand };
 }
 
 function ExpandableSection<T>({
@@ -19,11 +47,7 @@ function ExpandableSection<T>({
   className = "",
   testId,
 }: ExpandableSectionProps<T>): React.JSX.Element {
-  const [isExpanded, setIsExpanded] = useState<boolean>(initialExpanded);
-
-  useEffect(() => {
-    setIsExpanded(initialExpanded);
-  }, [initialExpanded]);
+  const { isExpanded, toggleExpand } = useScrollCollapse(initialExpanded);
 
   return (
     <div className="relative" data-testid={testId}>
@@ -32,8 +56,8 @@ function ExpandableSection<T>({
         style={{ zIndex: isExpanded ? 10 : "auto" }}
       >
         <div
-          className="h-[56px] p-3 px-5 flex items-center justify-between"
-          onClick={() => setIsExpanded(!isExpanded)}
+          className="h-[56px] px-6 py-4 flex items-center justify-between"
+          onClick={toggleExpand}
         >
           <p>{title}</p>
           <FaArrowAltCircleDown

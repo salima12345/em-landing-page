@@ -25,7 +25,7 @@ export default function Newsletter() {
       };
 
   return (
-    <div className="w-full min-w-[263px]">
+    <div className="w-full w-auto xl:min-w-[263px]">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="relative mb-4">
           <Controller
