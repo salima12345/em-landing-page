@@ -1,12 +1,14 @@
+'use client'
+
 import Link from 'next/link'
 import Address from './Address'
 import Newsletter from './Newsletter'
 
 export default function Info() {
   return (
-    <div className="py-8 border-t border-[#454545] min-h-[355px] ">
-      <div className="flex flex-col md:flex-row items-start justify-between gap-8">
-        <div className="flex flex-col gap-2">
+    <div className="py-8 border-t border-[#454545] ">
+      <div className="flex flex-col lg:flex-row lg:flex-wrap items-start justify-between gap-8">
+        <div className="flex flex-col gap-2 w-full lg:w-auto">
           <Link href="/" className="font-semibold">
             Agency
           </Link>
@@ -20,13 +22,13 @@ export default function Info() {
             Wilo Insights
           </Link>
         </div>
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 w-full lg:w-auto">
           <Address />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 w-full lg:w-auto">
           <p className="font-semibold">Follow us</p>
-          <div className="flex items-center gap-4">
-            <div className="flex flex-col gap-2">
+          <div className="flex items-center">
+            <div className="flex flex-col gap-2 pr-16 ">
               <Link href="/">LinkedIn</Link>
               <Link href="/">Twitter</Link>
             </div>
@@ -36,7 +38,7 @@ export default function Info() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 w-full lg:w-auto">
           <p className="font-semibold">Newsletter</p>
           <Newsletter />
         </div>

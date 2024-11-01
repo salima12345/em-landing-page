@@ -62,44 +62,45 @@ body {
 }
 
 
+
 .container {
-    @apply mx-auto px-4 py-6 max-w-[1440px];
+  @apply mx-auto px-4 py-6 max-w-[1440px];
 }
 
 @media (min-width: 481px) {
-    .container {
-        @apply px-4 py-3;
-    }
+  .container {
+      @apply px-4 py-3;
+  }
 }
 
 @media (min-width: 601px) {
-    .container {
-        @apply px-6 py-4;
-    }
+  .container {
+      @apply px-6 py-4;
+  }
 }
 
 @media (min-width: 769px) {
-    .container {
-        @apply px-8 py-5;
-    }
+  .container {
+      @apply px-8 py-5;
+  }
 }
 
 @media (min-width: 1025px) {
-    .container {
-        @apply px-8 py-6;
-    }
+  .container {
+      @apply px-8 py-6;
+  }
 }
 
 @media (min-width: 1281px) {
-    .container {
-        @apply px-8 py-8;
-    }
+  .container {
+      @apply px-8 py-8;
+  }
 }
 
 @media (min-width: 1441px) {
-    .container {
-        @apply px-[122px] py-[30px];
-    }
+  .container {
+      @apply px-[122px] py-[30px];
+  }
 }
 
 @layer utilities {
@@ -110,9 +111,19 @@ body {
 .em-values {
     display: flex;
     flex-direction: column;
+    position: relative;
     padding-top: 160px;
     padding-bottom: 560px;
-    
+  }
+  
+  .em-values .content-em-values {
+    width: 1200px;
+    max-width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
   }
   
@@ -127,7 +138,7 @@ body {
     position: relative;
   }
   
-
+  
   
   .em-values .content-em-values .images .values {
     width: 266px;
@@ -209,3 +220,11 @@ body {
     opacity: 0;
   }
 
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }

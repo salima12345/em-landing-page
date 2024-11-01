@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import Image from 'next/image'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
@@ -68,14 +68,26 @@ export default function Clients() {
         ))}
       </Swiper>
       {showButtons && (
-  <>
-  <button className="client-swiper-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-grayDark bg-opacity-70 backdrop-blur-md rounded-full p-2 shadow-md flex items-center justify-center w-10 h-10 text-white transition-all duration-300 ease-in-out hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed sm:w-8 sm:h-8">
-    <FaChevronLeft className="w-6 h-6 sm:w-4 sm:h-4" />
-  </button>
-  <button className="client-swiper-next absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-grayDark bg-opacity-70 backdrop-blur-md rounded-full p-2 shadow-md flex items-center justify-center w-10 h-10 text-white transition-all duration-300 ease-in-out hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed sm:w-8 sm:h-8">
-    <FaChevronRight className="w-6 h-6 sm:w-4 sm:h-4" />
-  </button>
-</>
+        <>
+          <button className="client-swiper-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-grayDark bg-opacity-70 backdrop-blur-md rounded-full p-2 shadow-md flex items-center justify-center w-10 h-10 text-white transition-all duration-300 ease-in-out hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed sm:w-8 sm:h-8">
+            <Image
+              src="/images/icons/ChevronLeft.svg"
+              width={24}
+              height={24}
+              alt="Chevron Left"
+              className="w-6 h-6 sm:w-4 sm:h-4"
+            />
+          </button>
+          <button className="client-swiper-next absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-grayDark bg-opacity-70 backdrop-blur-md rounded-full p-2 shadow-md flex items-center justify-center w-10 h-10 text-white transition-all duration-300 ease-in-out hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed sm:w-8 sm:h-8">
+            <Image
+              src="/images/icons/ChevronRight.svg"
+              width={24}
+              height={24}
+              alt="Chevron Right"
+              className="w-6 h-6 sm:w-4 sm:h-4"
+            />
+          </button>
+        </>
       )}
     </div>
   )

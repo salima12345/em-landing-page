@@ -22,7 +22,7 @@ const SmoothScroll = ({ children }: PropsWithChildren) => {
   }, []);
 
   const lenisOptions: LenisOptions = {
-    duration: 3,
+    duration: 4,
     smoothWheel: true,
     wheelMultiplier: 1,
     touchMultiplier: 2,

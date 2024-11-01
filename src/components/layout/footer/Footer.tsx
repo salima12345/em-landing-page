@@ -1,16 +1,16 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import AnimatedTitle from '@/components/ui/TitleReveal'
-import { MdOutlineArrowOutward } from "react-icons/md";
-import Info from './Info';
-import Copyright from './Copyright';
+import Info from './Info'
+import Copyright from './Copyright'
 
 function Footer() {
   return (
-    <footer className="relative">
+    <footer className="relative w-full">
       <div className="container mt-8">
-        <div className='flex items-center justify-between py-10'>
+        <div className='flex items-center justify-between pb-8'>
           <div>
             <AnimatedTitle
               text={`A project in mind? Let's talk!`}
@@ -18,13 +18,18 @@ function Footer() {
             />
           </div>
           <button className="rounded-full w-[58px] h-[58px] lg:w-[68px] lg:h-[68px] 2xl:w-[78px] 2xl:h-[78px] bg-[#ECC6C7] flex items-center justify-center">
-            <MdOutlineArrowOutward size={27} color='black' />
+            <Image 
+              src="/images/icons/arrowUpRight.svg" 
+              alt="Arrow Outward" 
+              width={14} 
+              height={14} 
+              className="w-4 h-4"
+            />
           </button>
         </div>
-          <Info />
-      </div>
-      <div className="absolute bottom-0 left-0 right-0">
+        <Info />
         <Copyright />
+
       </div>
     </footer>
   )

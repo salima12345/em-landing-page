@@ -1,19 +1,26 @@
 "use client";
 import React from 'react';
-import { FaArrowsAltV } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Expertise from '../layout/header/Expertise';
 import MadeIn from '../layout/header/MadeIn';
+import Image from 'next/image';
 
 function AboutTop() {
+  const scrollToSection = () => {
+    const section = document.getElementById('about-bottom');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <motion.section 
-      className="flex flex-col xl:flex-row justify-between gap-8"
+      className="flex flex-col xl:flex-row justify-between gap-8 container"
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <div className="overflow-hidden w-full 3xl:-ml-12">
+      <div className="overflow-hidden w-full [@media(min-width:1250px)]:-ml-12">
         <motion.div 
           className="overflow-hidden"
           initial={{ y: "100%", opacity: 0 }}
@@ -51,8 +58,9 @@ function AboutTop() {
             initial={{ y: "100%", opacity: 0 }}
             animate={{ y: "0%", opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}
+            onClick={scrollToSection}
           >
-            <FaArrowsAltV />
+            <Image src="/images/icons/arrowAltV.svg" alt="Arrow Icon" width={6} height={6} />
           </motion.button>
         </motion.div>
       </div>

@@ -50,7 +50,7 @@ export function AccordionItem({ value, children }: AccordionItemProps) {
   }
 
   return (
-    <div className="rounded-[27px] overflow-hidden w-full max-w-[290px]">
+    <div className="rounded-[27px] overflow-hidden w-full lg:max-w-[290px]">
       {React.Children.map(children, child => {
         if (React.isValidElement(child)) {
           return React.cloneElement(child as React.ReactElement<any>, {
@@ -89,7 +89,7 @@ export function AccordionTrigger({
           src="/images/icons/arrow-circle.svg"
           width={16}
           height={16}
-          className={`transform transition-transform duration-500 ease-in-out ${isExpanded ? 'rotate-180' : ''}`}
+          className={`transform transition-transform duration-700 ease-in-out ${isExpanded ? 'rotate-180' : ''}`}
           alt="Arrow Icon"
         />
       )}
@@ -117,7 +117,7 @@ export function AccordionContent({ children, isExpanded, className }: AccordionC
     <div
       style={{
         maxHeight: isExpanded ? `${contentHeight}px` : '0',
-        transition: 'max-height 0.5s ease',
+        transition: 'max-height 0.7s ease-in-out',
         overflow: 'hidden'
       }}
       className={className}
