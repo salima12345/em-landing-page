@@ -15,12 +15,12 @@ function AboutTop() {
 
   return (
     <motion.section 
-      className="flex flex-col xl:flex-row justify-between gap-8 container"
-      initial={{ y: 100, opacity: 0 }}
+      className="flex flex-col xl:flex-row xl:justify-between gap-8  w-full"
+      initial={{ y: 40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
     >
-      <div className="overflow-hidden w-full [@media(min-width:1250px)]:-ml-12">
+      <div className="overflow-hidden w-full 3xl:-ml-24">
         <motion.div 
           className="overflow-hidden"
           initial={{ y: "100%", opacity: 0 }}
@@ -38,7 +38,7 @@ function AboutTop() {
         </motion.div>
       </div>
 
-      <div className="overflow-hidden w-full xl:ml-auto">
+      <div className="overflow-hidden w-full ">
         <motion.div 
           className="overflow-hidden flex flex-col gap-5"
           initial={{ y: "100%", opacity: 0 }}

@@ -91,9 +91,9 @@ function AboutBottom() {
       ref={sectionRef}
       id="about-bottom" 
       className="flex justify-end w-full pt-8"
-      initial={{ y: 100, opacity: 0 }}
+      initial={{ y: 40, opacity: 0 }}
       animate={controls}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
     >
       <div className="flex-1"></div> 
       <div className="flex flex-col xl:max-w-[782px] w-full">
