@@ -1,9 +1,13 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const config = {
     images: {
-      domains: ["www.eliott-markus.com"],
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'www.eliott-markus.com',
+        },
+      ],
     },
   };
   
-  export default nextConfig;
-  
+  export default config;

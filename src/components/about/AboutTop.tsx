@@ -15,7 +15,7 @@ function AboutTop() {
 
   return (
     <section className="flex flex-col xl:flex-row xl:justify-between gap-8 w-full">
-      <div className="overflow-hidden w-full 3xl:-ml-24">
+      <div className="overflow-hidden w-full 3xl:-ml-12">
         <div className="overflow-hidden">
           <h1 className="font-semibold leading-tight text-[60px] xl:text-[80px]">
             Turning expertise into experience

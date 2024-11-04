@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { motion, useAnimation, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import { motion, useAnimation } from "framer-motion";
 import AnimatedTitle from "../ui/TitleReveal";
 
 const items = [
@@ -25,17 +24,13 @@ interface WorkItemProps {
   onHover: (index: number | null) => void;
 }
 
-
-
 const WorkItem: React.FC<WorkItemProps> = ({ title, index, onHover }) => (
   <div
     className="py-10 border-y border-white cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-500"
     onMouseEnter={() => onHover(index)}
     onMouseLeave={() => onHover(null)}
   >
-    <div>
-      <h4 className=" text-[21px] xl:text-[26px] text-white font-medium">{title}</h4>
-    </div>
+    <h4 className="text-[21px] xl:text-[26px] text-white font-medium">{title}</h4>
   </div>
 );
 
@@ -53,6 +48,7 @@ function Realization() {
   }, []);
 
   useEffect(() => {
+    console.log("Hover index changed to:", hoverIndex);
     controls.start({
       y: -280 * (hoverIndex ?? 0),
       transition: { duration: 0.3, ease: "easeInOut" },
@@ -61,38 +57,36 @@ function Realization() {
 
   return (
     <section className="container mt-12">
-      <AnimatedTitle text="Last creations"  className="font-bold text-[21px] xl:text-[26px]"/>
-      
-      <AnimatePresence>
+      <AnimatedTitle text="Last creations" className="font-bold text-[21px] xl:text-[26px]" />
+
+      <motion.div
+        id="gallery-work"
+        className="fixed w-[385px] h-[280px] pointer-events-none z-30 overflow-hidden"
+        style={{
+          top: cursorPos.y,
+          left: cursorPos.x,
+          transform: "translate(-20%, -45%)",
+        }}
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: hoverIndex === null ? 0 : 1,
+          transition: { duration: 0.3 },
+        }}
+      >
         <motion.div
-          id="gallery-work"
-          className="fixed w-[385px] h-[280px] pointer-events-none z-30 overflow-hidden"
-          style={{
-            top: cursorPos.y,
-            left: cursorPos.x,
-            transform: "translate(-20%, -45%)",
-          }}
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: hoverIndex === null ? 0 : 1,
-            transition: { duration: 0.3 },
-          }}
+          id="work-images"
+          className="w-full h-[840px] flex flex-col"
+          animate={controls}
         >
-          <motion.div
-            id="work-images"
-            className="w-full h-[840px] flex flex-col"
-            animate={controls}
-          >
-            {items.map((item, index) => (
-              <div
-                key={index}
-                className="work-image bg-cover bg-center w-full h-[280px]"
-                style={{ backgroundImage: `url(${item.image})` }}
-              ></div>
-            ))}
-          </motion.div>
+          {items.map((item, index) => (
+            <div
+              key={index}
+              className="work-image bg-cover bg-center w-full h-[280px]"
+              style={{ backgroundImage: `url(${item.image})` }}
+            />
+          ))}
         </motion.div>
-      </AnimatePresence>
+      </motion.div>
 
       <div className="w-full pt-8">
         <div className="flex flex-col">
@@ -108,7 +102,7 @@ function Realization() {
             <h4 className="text-[21px] xl:text-[26px] text-[#E0643A] font-medium">
               See all our creations
             </h4>
-            <Image
+            <img
               src="/images/icons/heart-arrow.svg"
               alt=""
               width={114}

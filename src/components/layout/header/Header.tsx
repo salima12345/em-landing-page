@@ -20,7 +20,7 @@ export default function Header() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
 
-      if (currentScrollY > 170) {
+      if (currentScrollY > 180) {
         setHeaderVisible(false)
       } else {
         setHeaderVisible(true)
