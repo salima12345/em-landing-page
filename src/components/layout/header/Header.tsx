@@ -43,7 +43,7 @@ export default function Header() {
           <div className="flex items-center justify-between xl:flex-grow">
             <Link href="/" className="flex-shrink-0">
               <Image 
-                src="/images/Logo.svg" 
+                src="/images/logo.svg" 
                 alt="logo" 
                 width={120} 
                 height={50} 
