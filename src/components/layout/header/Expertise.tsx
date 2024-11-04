@@ -31,12 +31,11 @@ const renderExpertiseItem = (item: ExpertiseItem, index: number, totalItems: num
   </div>
 );
 
-export default function Expertise({ initialExpanded = false }: { initialExpanded?: boolean }) {
+export default function Expertise() {
   return (
     <ExpandableSection<ExpertiseItem> 
       title="e&m expertise"
       items={expertises}
-      initialExpanded={initialExpanded}
       renderItem={renderExpertiseItem} 
       testId="expertise"
       className="xl:w-[290px] bg-grayDark"

@@ -27,12 +27,11 @@ const renderMadeInItem = (item: string, index: number, totalItems: number) => (
   </div>
 );
 
-export default function MadeIn({ initialExpanded = false }: { initialExpanded?: boolean }) {
+export default function MadeIn() {
   return (
     <ExpandableSection
       title="Made in e&m"
       items={madeIn}
-      initialExpanded={initialExpanded}
       renderItem={renderMadeInItem}
       testId="made-in"
       className="xl:w-[290px] bg-grayDark"

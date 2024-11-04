@@ -1,57 +1,35 @@
-import React, { useState, useEffect, ReactNode, useRef } from "react";
-import Image from 'next/image'
+import React, { useState, useEffect, ReactNode } from "react";
+import Image from 'next/image';
 
 interface ExpandableSectionProps<T> {
   title: string;
   items: T[];
-  initialExpanded?: boolean;
   renderItem?: (item: T, index: number, totalItems: number) => ReactNode;
   className?: string;
   testId?: string;
 }
 
-function useScrollCollapse(initialExpanded: boolean = false) {
-  const [isExpanded, setIsExpanded] = useState(initialExpanded);
-  const lastScrollY = useRef(0);
-
-  useEffect(() => {
-    setIsExpanded(initialExpanded);
-  }, [initialExpanded]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > 50 && isExpanded) {
-        setIsExpanded(false);
-      }
-
-      lastScrollY.current = currentScrollY;
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isExpanded]);
-
-  const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
-  };
-
-  return { isExpanded, toggleExpand };
-}
-
 function ExpandableSection<T>({
   title,
   items,
-  initialExpanded = false,
   renderItem,
   className = "",
   testId,
 }: ExpandableSectionProps<T>): React.JSX.Element {
-  const { isExpanded, toggleExpand } = useScrollCollapse(initialExpanded);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  // Effet pour déclencher l'expansion au montage
+  useEffect(() => {
+    const expandTimeout = setTimeout(() => {
+      setIsExpanded(true);
+    }, 300); // Délai d'expansion initial pour fluidité
+
+    return () => clearTimeout(expandTimeout);
+  }, []);
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   return (
     <div className="relative" data-testid={testId}>
