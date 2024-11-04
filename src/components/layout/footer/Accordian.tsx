@@ -50,7 +50,7 @@ export function AccordionItem({ value, children }: AccordionItemProps) {
   };
 
   return (
-    <div className="rounded-[27px] overflow-hidden w-full lg:max-w-[290px]">
+    <div className="rounded-[27px] overflow-hidden w-full xl:max-w-[290px]">
       {React.Children.map(children, (child) => {
         if (React.isValidElement<AccordionTriggerProps>(child)) {
           return React.cloneElement(child, {
