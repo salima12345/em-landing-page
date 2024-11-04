@@ -1,1 +1,1 @@
-import Values from "./Values";
+export { default } from './Values';

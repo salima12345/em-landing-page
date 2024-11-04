@@ -1,1 +1,1 @@
-import Clients from "./Clients";
+export { default } from './Clients';

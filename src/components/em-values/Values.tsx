@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import AnimatedTitle from "../ui/TitleReveal";
+import Image from "next/image";
 
 
 
@@ -123,7 +124,7 @@ export default function EMValues() {
               onDragEnd={() => setDraggedIndex(null)}
               transition={defaultTransition}
             >
-              <img
+              <Image
                 src={image.src}
                 alt={image.alt}
                 width={306}
@@ -181,7 +182,7 @@ export default function EMValues() {
                 </button>
               </div>
               <div className="bg">
-                <img
+                <Image
                   src="https://www.eliott-markus.com/wp-content/uploads/2023/05/marie.png"
                   alt="Image EM Value"
                   width={266}

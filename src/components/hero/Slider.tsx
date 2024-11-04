@@ -3,6 +3,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, EffectCreative, Autoplay } from "swiper/modules";
+import Image from "next/image";
 import "swiper/css";
 import "swiper/css/effect-creative";
 import "swiper/css/autoplay";
@@ -47,7 +48,9 @@ const SliderSwiper = () => {
         {slides.map((slide, index) => (
           <SwiperSlide key={index} data-testid="swiper-slide">
             <div className="block w-[250px] md:w-[287px] h-[250px] md:h-[287px] relative rounded-[35px] overflow-hidden">
-              <img
+              <Image
+                width={287}
+                height={287}
                 src={slide.url}
                 alt={slide.alt}
                 className="w-full h-full object-contain"

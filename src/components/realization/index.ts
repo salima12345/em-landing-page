@@ -1,1 +1,1 @@
-import Realization from "./Realization";
+export { default } from './Realization';

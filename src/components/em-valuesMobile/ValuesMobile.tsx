@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import AnimatedTitle from '../ui/TitleReveal';
-
+import Image from 'next/image';
 const ValuesMobile = () => {
   const images = [
     {
@@ -60,7 +60,9 @@ const ValuesMobile = () => {
             >
               {image.isValueCard ? (
                 <div className="w-[266px] h-[266px] rounded-[54px] overflow-hidden relative">
-                  <img
+                  <Image
+                    width={266}
+                    height={266}
                     src={image.src}
                     alt={image.alt}
                     className="w-full h-full object-cover"
@@ -101,7 +103,9 @@ const ValuesMobile = () => {
                   </div>
                 </div>
               ) : (
-                <img
+                <Image
+                  width={306}
+                  height={306}
                   src={image.src}
                   alt={image.alt}
                   className="w-[306px] h-[306px] object-contain hover:scale-105 transition-transform duration-300"

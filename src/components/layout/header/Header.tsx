@@ -12,7 +12,6 @@ import Ecosystem from "./Ecosystem"
 export default function Header() {
   const [expandExpertise, setExpandExpertise] = useState(false)
   const [expandMadeIn, setExpandMadeIn] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
   const [lastScrollY, setLastScrollY] = useState(0)
 
   useEffect(() => {
@@ -20,11 +19,9 @@ export default function Header() {
       const currentScrollY = window.scrollY
 
       if (currentScrollY > 170) {
-        setIsScrolled(true)
         setExpandExpertise(false)
         setExpandMadeIn(false)
       } else {
-        setIsScrolled(false)
         setExpandExpertise(true)
         setExpandMadeIn(true)
       }

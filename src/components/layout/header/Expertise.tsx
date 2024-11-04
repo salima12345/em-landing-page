@@ -2,6 +2,7 @@
 "use client";
 import React from "react";
 import ExpandableSection from "./ExpandableSection";
+import Image from "next/image";
 
 interface ExpertiseItem {
   icon: string;
@@ -25,7 +26,7 @@ const renderExpertiseItem = (item: ExpertiseItem, index: number, totalItems: num
       index === totalItems - 1 ? "pb-4" : ""
     }`}
   >
-    <img src={item.icon} alt={item.text} width={20} height={20} />
+    <Image src={item.icon} alt={item.text} width={20} height={20} />
     <p className="font-medium">{item.text}</p>
   </div>
 );

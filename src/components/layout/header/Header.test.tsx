@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import Header from './Header'
+import Image from 'next/image'
 
 jest.mock('./LanguageSelectorDesktop', () => {
   return function MockLanguageSelector() {
@@ -16,7 +17,7 @@ jest.mock('./LanguagesSelectorMobile', () => {
 
 jest.mock('next/image', () => {
   return function MockImage({ src, alt, width, height }: { src: string; alt: string; width: number; height: number }) {
-    return <img src={src} alt={alt} width={width} height={height} />
+    return <Image src={src} alt={alt} width={width} height={height} />
   }
 })
 

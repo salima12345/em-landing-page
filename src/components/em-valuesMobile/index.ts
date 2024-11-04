@@ -1,1 +1,1 @@
-import ValuesMobile from "./ValuesMobile";
+export { default } from './ValuesMobile';
