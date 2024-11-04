@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import { motion, useAnimation, AnimatePresence, useInView } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import AnimatedTitle from "../ui/TitleReveal";
 
