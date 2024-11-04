@@ -8,6 +8,7 @@ import LanguageSelectorMobile from "./LanguagesSelectorMobile"
 import Expertise from "./Expertise"
 import MadeIn from "./MadeIn"
 import Ecosystem from "./Ecosystem"
+import MagneticButton from "@/components/ui/MagneticButton"
 
 export default function Header() {
   const [expandExpertise, setExpandExpertise] = useState(false)
@@ -63,7 +64,8 @@ export default function Header() {
           </div>
           <div className="flex items-center flex-col items-end">
             <div className="flex items-center gap-2 xl:pb-2 xl:pt-4">
-              <button className="rounded-full flex items-center justify-center w-[54px] h-[54px] bg-grayDark text-foreground">
+            <MagneticButton>
+            <button className="rounded-full flex items-center justify-center w-[54px] h-[54px] bg-grayDark text-foreground">
                 <Image 
                   src="/images/icons/burgerMenu.svg" 
                   alt="Menu" 
@@ -72,6 +74,8 @@ export default function Header() {
                   className="w-6 h-6"
                 />
               </button>
+            </MagneticButton>
+          
             </div>
             <div className="hidden xl:block">
               <LanguageSelector />

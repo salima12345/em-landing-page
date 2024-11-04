@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import MagneticButton from "@/components/ui/MagneticButton";
 
 export default function LanguageSelector() {
   const [isExpanded, setIsExpanded] = useState(false);
