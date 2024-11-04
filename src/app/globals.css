@@ -64,7 +64,7 @@ body {
 
 
 .container {
-  @apply mx-auto px-4 py-6 max-w-[1440px];
+  @apply mx-auto px-4 py-2 max-w-[1440px];
 }
 
 @media (min-width: 481px) {
@@ -93,13 +93,13 @@ body {
 
 @media (min-width: 1281px) {
   .container {
-      @apply px-8 py-8;
+      @apply px-8 py-[20px];
   }
 }
 
 @media (min-width: 1441px) {
   .container {
-      @apply px-[122px] py-[30px];
+      @apply px-[122px] py-[20px];
   }
 }
 
