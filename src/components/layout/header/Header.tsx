@@ -11,7 +11,7 @@ import Ecosystem from "./Ecosystem"
 import MagneticButton from "@/components/ui/MagneticButton"
 
 export default function Header() {
-  const [expandExpertise, setExpandExpertise] = useState(false)
+ const [expandExpertise, setExpandExpertise] = useState(false)
   const [expandMadeIn, setExpandMadeIn] = useState(false)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [headerVisible, setHeaderVisible] = useState(true)
@@ -24,8 +24,6 @@ export default function Header() {
         setHeaderVisible(false)
       } else {
         setHeaderVisible(true)
-        setExpandExpertise(true)
-        setExpandMadeIn(true)
       }
 
       setLastScrollY(currentScrollY)
