@@ -1,7 +1,9 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import AnimatedTitle from "../ui/TitleReveal";
+import Image from "next/image";
 
 const items = [
   {
@@ -26,11 +28,13 @@ interface WorkItemProps {
 
 const WorkItem: React.FC<WorkItemProps> = ({ title, index, onHover }) => (
   <div
-    className="py-10 border-y border-white cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-500"
+    className="py-10 border-y border-white cursor-pointer group"
     onMouseEnter={() => onHover(index)}
     onMouseLeave={() => onHover(null)}
   >
-    <h4 className="text-[21px] xl:text-[26px] text-white font-medium">{title}</h4>
+    <h4 className="text-[21px] xl:text-[26px] text-white font-medium opacity-60 group-hover:opacity-100 transition-opacity duration-500">
+      {title}
+    </h4>
   </div>
 );
 
@@ -48,7 +52,6 @@ function Realization() {
   }, []);
 
   useEffect(() => {
-    console.log("Hover index changed to:", hoverIndex);
     controls.start({
       y: -280 * (hoverIndex ?? 0),
       transition: { duration: 0.3, ease: "easeInOut" },
@@ -98,16 +101,16 @@ function Realization() {
               onHover={setHoverIndex}
             />
           ))}
-          <div className="border-b border-[#E0643A] cursor-pointer flex items-center justify-between">
-            <h4 className="text-[21px] xl:text-[26px] text-[#E0643A] font-medium">
+          <div className="border-b border-[#E0643A] cursor-pointer flex items-center justify-between group">
+            <h4 className="text-[21px] xl:text-[26px] text-[#E0643A] font-medium group-hover:opacity-80 transition-opacity duration-500">
               See all our creations
             </h4>
-            <img
+            <Image
               src="/images/icons/heart-arrow.svg"
               alt=""
               width={114}
               height={114}
-              className="w-[114px] h-[114px]"
+              className="w-[114px] h-[114px] group-hover:scale-105 transition-transform duration-500"
             />
           </div>
         </div>

@@ -22,7 +22,7 @@ function ExpandableSection<T>({
   useEffect(() => {
     const expandTimeout = setTimeout(() => {
       setIsExpanded(true);
-    }, 300); // Délai d'expansion initial pour fluidité
+    }, 500); // Délai d'expansion initial pour fluidité
 
     return () => clearTimeout(expandTimeout);
   }, []);

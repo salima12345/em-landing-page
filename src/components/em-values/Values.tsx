@@ -9,7 +9,6 @@ import Image from "next/image";
 
 
 
-
 export default function EMValues() {
   const sectionRef = useRef(null);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
