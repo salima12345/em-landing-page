@@ -18,13 +18,19 @@ function ExpandableSection<T>({
 }: ExpandableSectionProps<T>): React.JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Effet pour déclencher l'expansion au montage
   useEffect(() => {
-    const expandTimeout = setTimeout(() => {
-      setIsExpanded(true);
-    }, 500); // Délai d'expansion initial pour fluidité
+    const handleScroll = () => {
+      if (window.scrollY === 0) {
+        setIsExpanded(true);  
+      } else {
+        setIsExpanded(false);
+      }
+    };
 
-    return () => clearTimeout(expandTimeout);
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const toggleExpand = () => {
@@ -90,6 +96,7 @@ function ExpandableSection<T>({
         </div>
       </div>
 
+      {/* Invisible spacer to prevent layout shift */}
       <div className="w-[290px] h-[56px] invisible"></div>
     </div>
   );

@@ -28,7 +28,7 @@ interface WorkItemProps {
 
 const WorkItem: React.FC<WorkItemProps> = ({ title, index, onHover }) => (
   <div
-    className="py-10 border-y border-white cursor-pointer group"
+    className={`relative py-10 border-b-[0.5px] ${index === 0 ? 'border-y-[0.5px]' : 'border-b-[0.5px]'} border-foreground cursor-pointer group`}
     onMouseEnter={() => onHover(index)}
     onMouseLeave={() => onHover(null)}
   >
@@ -68,7 +68,7 @@ function Realization() {
         style={{
           top: cursorPos.y,
           left: cursorPos.x,
-          transform: "translate(-20%, -45%)",
+          transform: "translate(-20%, -65%)",
         }}
         initial={{ opacity: 0 }}
         animate={{
@@ -101,17 +101,19 @@ function Realization() {
               onHover={setHoverIndex}
             />
           ))}
-          <div className="border-b border-[#E0643A] cursor-pointer flex items-center justify-between group">
-            <h4 className="text-[21px] xl:text-[26px] text-[#E0643A] font-medium group-hover:opacity-80 transition-opacity duration-500">
-              See all our creations
-            </h4>
-            <Image
-              src="/images/icons/heart-arrow.svg"
-              alt=""
-              width={114}
-              height={114}
-              className="w-[114px] h-[114px] group-hover:scale-105 transition-transform duration-500"
-            />
+          <div className="relative border-b-[0.5px] border-[#E0643A] cursor-pointer group">
+            <div className="flex items-center justify-between">
+              <h4 className="text-[21px] xl:text-[26px] text-[#E0643A] font-medium transition-opacity duration-500">
+                See all our creations
+              </h4>
+              <Image
+                src="/images/icons/heart-arrow.svg"
+                alt=""
+                width={114}
+                height={114}
+                className="w-[114px] h-[114px] "
+              />
+            </div>
           </div>
         </div>
       </div>
