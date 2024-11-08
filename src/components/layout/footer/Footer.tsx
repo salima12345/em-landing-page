@@ -8,7 +8,7 @@ import Copyright from './Copyright'
 function Footer() {
   return (
     <footer className="relative w-full">
-      <div className="container mt-8">
+      <div className="container mt-10 py-8">
         <div className='flex items-center justify-between pb-8'>
           <div>
             <AnimatedTitle

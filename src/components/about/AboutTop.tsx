@@ -2,8 +2,7 @@
 import React from 'react';
 import Expertise from '../layout/header/Expertise';
 import MadeIn from '../layout/header/MadeIn';
-import Image from 'next/image';
-import MagneticButton from '../ui/MagneticButton';
+import Button from '../ui/Button';
 
 function AboutTop() {
   const scrollToSection = () => {
@@ -28,14 +27,11 @@ function AboutTop() {
             The very best in communications and branding to promote your brand and enhance its influence.
           </p>
           <div className='w-[60px]'>
-          <MagneticButton>
-          <button 
-            className="rounded-full flex items-center justify-center w-[54px] h-[54px] bg-grayDark text-white"
-            onClick={scrollToSection}
-          >
-            <Image src="/images/icons/arrowAltV.svg" alt="Arrow Icon" width={6} height={6} />
-          </button>
-    </MagneticButton>
+          <Button 
+           imageSrc="/images/icons/arrowAltV.svg" 
+           altText="Arrow Icon" 
+           onClick={scrollToSection} 
+           />
           
           </div>
       

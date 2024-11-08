@@ -39,7 +39,7 @@ export default function Clients() {
   }, [])
 
   return (
-    <div className="container mt-8 relative px-4 flex items-center justify-center">
+    <div className="container mt-10 py-8 relative px-4 flex items-center justify-center">
       <Swiper
         modules={[Navigation]}
         spaceBetween={20}

@@ -59,7 +59,7 @@ function Realization() {
   }, [hoverIndex, controls]);
 
   return (
-    <section className="container mt-12">
+    <section className="container mt-10 py-8">
       <AnimatedTitle text="Last creations" className="font-bold text-[21px] xl:text-[26px]" />
 
       <motion.div

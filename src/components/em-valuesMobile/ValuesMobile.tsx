@@ -39,7 +39,7 @@ const ValuesMobile = () => {
   ];
 
   return (
-    <section className="container mt-8 flex flex-col items-center">
+    <section className="container mt-10 py-8 flex flex-col items-center">
       <div className="mb-8 text-center px-4">
         <AnimatedTitle 
           text="We're not just a way of doing, we're also a way of being." 
