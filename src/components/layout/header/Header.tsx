@@ -38,7 +38,6 @@ export default function Header() {
   return (
     <section className="xl:sticky xl:top-0 z-50 container">
       <AnimatePresence>
-        {headerVisible && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -46,24 +45,31 @@ export default function Header() {
             transition={{ duration: 1, delay: 0.1 }}
             className="flex items-center justify-between w-full"
           >
+
             <div className="flex items-center justify-between xl:flex-grow">
-              <Link href="/" className="flex-shrink-0">
-                <Image 
-                  src="/images/logo.svg" 
-                  alt="logo" 
-                  width={120} 
-                  height={50} 
-                  className="w-[120px] h-[50px]" 
-                />
-              </Link>
-              <div className="hidden xl:flex items-center gap-3 xl:mx-auto">
-                <Expertise />
-                <MadeIn />
-              </div>
-              <div className="hidden xl:block xl:mx-auto">
-                <Ecosystem />
-              </div>
+            {headerVisible && (
+              <>
+                <Link href="/" className="flex-shrink-0">
+                  <Image 
+                    src="/images/logo.svg" 
+                    alt="logo" 
+                    width={120} 
+                    height={50} 
+                    className="w-[120px] h-[50px]" 
+                  />
+                </Link>
+                <div className="hidden xl:flex items-center gap-3 xl:mx-auto">
+                  <Expertise />
+                  <MadeIn />
+                </div>
+                <div className="hidden xl:block xl:mx-auto">
+                  <Ecosystem />
+                </div>
+              </>
+            )}
+
             </div>
+
             <div className="flex items-center gap-4 absolute right-4 xl:relative xl:right-0">
               <div className="xl:hidden">
                 <LanguageSelectorMobile />
@@ -88,7 +94,6 @@ export default function Header() {
               </div>
             </div>
           </motion.div>
-        )}
       </AnimatePresence>
     </section>
   )
