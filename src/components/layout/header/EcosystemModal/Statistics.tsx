@@ -7,13 +7,13 @@ interface StatisticsProps {
 
 const Statistics: React.FC<StatisticsProps> = ({ value, title }) => {
   return (
-    <div className='rounded-[20px] bg-grayDark text-white p-3 flex flex-col gap-3'>
-      <h3 className='font-semibold text-[46px]'>
+    <div className='rounded-[20px] bg-grayDark text-white p-4  justify-between h-full  '>
+      <h3 className='font-semibold text-[46px] leading-[1.1]'>
         {value}
       </h3>
-      <h4 className='text-[20px]'>
+      <p className='text-[20px] font-medium'>
         {title}
-      </h4>
+      </p>
     </div>
   );
 };

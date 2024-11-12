@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const Media: React.FC = () => {
   const icons = [
@@ -26,8 +27,9 @@ const Media: React.FC = () => {
   };
 
   return (
-    <div className="rounded-[20px] bg-grayDark text-white p-3 flex flex-col items-center justify-between h-full ">
-      <img src={icons[currentIndex]} alt="Social Media Icon" className="w-10 h-10 " />
+    <div className=' rounded-[20px] bg-grayDark text-white p-3 h-full flex justify-center items-end '>
+      <div className=" flex flex-col items-center gap-8 ">
+      <Image src={icons[currentIndex]} alt="Social Media Icon" width={10} height={10} className="w-10 h-10 " />
       <div className="flex gap-2 ">
         {icons.map((_, index) => (
           <button
@@ -37,6 +39,7 @@ const Media: React.FC = () => {
           />
         ))}
       </div>
+    </div>
     </div>
   );
 };
