@@ -20,11 +20,10 @@ const slides = [
 
 const SliderSwiper = () => {
   return (
-    <div className="w-full max-w-[450px] ml-auto py-8  mt-10">
+    <div className="w-full max-w-[350px] md:max-w-[450px] ml-auto py-8 mt-10">
       <Swiper
         allowTouchMove={false}
         modules={[Navigation, EffectCreative, Autoplay]}
-        slidesPerView={1.5}
         speed={2000}
         loop={true}
         effect="creative"
@@ -42,7 +41,15 @@ const SliderSwiper = () => {
           delay: 3000,
           disableOnInteraction: false,
         }}
-        className="w-full h-[250px] md:h-[287px] overflow-hidden "
+        breakpoints={{
+          0: {
+            slidesPerView: 1.3,
+          },
+          768: {
+            slidesPerView: 1.5, 
+          },
+        }}
+        className="w-full h-[250px] md:h-[287px] overflow-hidden"
         data-testid="swiper"
       >
         {slides.map((slide, index) => (

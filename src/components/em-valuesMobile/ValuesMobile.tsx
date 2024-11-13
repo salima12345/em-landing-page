@@ -39,15 +39,15 @@ const ValuesMobile = () => {
   ];
 
   return (
-    <section className="container mt-10 py-8 flex flex-col items-center">
-      <div className="mb-8 text-center px-4">
+    <section className="container mt-10 py-8 flex flex-col items-center ">
+   <div className="mb-8 text-center px-6">
         <AnimatedTitle 
           text="We're not just a way of doing, we're also a way of being." 
-          className="font-bold text-2xl"
+          className="font-bold text-[30px] leading-tight"
         />
       </div>
       
-      <div className="w-full overflow-x-auto scrollbar-hide">
+      <div className="w-full overflow-x-auto scrollbar-hide pt-3">
         <div className="flex gap-4 px-4 pb-4" style={{ width: "max-content" }}>
           {images.map((image) => (
             <div
