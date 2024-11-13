@@ -17,21 +17,38 @@ function ExpandableSection<T>({
   testId,
 }: ExpandableSectionProps<T>): React.JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+
+    const timer = setTimeout(() => {
+      setIsExpanded(window.scrollY === 0);
+    }, 1000);
+
     const handleScroll = () => {
-      if (window.scrollY === 0) {
-        setIsExpanded(true);  
-      } else {
-        setIsExpanded(false);
+      if (!hasScrolled) {
+        setHasScrolled(true);
       }
+      setIsExpanded(window.scrollY === 0);
     };
 
     window.addEventListener('scroll', handleScroll);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timer);
     };
-  }, []);
+  }, [hasScrolled]);
+
+  if (!mounted) {
+    return (
+      <div className="relative" data-testid={testId}>
+        <div className="w-[290px] h-[56px]"></div>
+      </div>
+    );
+  }
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -41,7 +58,7 @@ function ExpandableSection<T>({
     <div className="relative" data-testid={testId}>
       <div
         className={`absolute bg-grayDark xl:w-[290px] w-full overflow-hidden rounded-[26px] cursor-pointer ${className}`}
-        style={{ 
+        style={{
           zIndex: isExpanded ? 10 : "auto",
           transition: "all 0.7s ease-in-out"
         }}
@@ -51,7 +68,6 @@ function ExpandableSection<T>({
           onClick={toggleExpand}
         >
           <p>{title}</p>
-          
           <Image
             src="/images/icons/arrow-circle.svg"
             width={16}
@@ -81,8 +97,8 @@ function ExpandableSection<T>({
             renderItem ? (
               renderItem(item, index, items.length)
             ) : (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="px-5"
                 style={{
                   transition: "all 0.7s ease-in-out",
