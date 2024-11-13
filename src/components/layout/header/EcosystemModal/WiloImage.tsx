@@ -4,7 +4,8 @@ import Link from 'next/link';
 
 const WiloImage = () => {
   return (
-    <Link 
+    <div className='h-[170px]'>
+         <Link 
       href="https://www.eliott-markus.com/wilo/" 
       className="h-full rounded-[25px] overflow-hidden relative flex items-center justify-center cursor-pointer group"
       rel="noopener"
@@ -19,6 +20,8 @@ const WiloImage = () => {
         />
       </div>
     </Link>
+    </div>
+ 
   );
 };
 

@@ -16,7 +16,7 @@ interface EcosystemModalProps {
   onClose: () => void
 }
 
-const EcosystemModal: React.FC<EcosystemModalProps> = ({ onClose }) => {
+export default function EcosystemModal({ onClose }: EcosystemModalProps) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -26,63 +26,78 @@ const EcosystemModal: React.FC<EcosystemModalProps> = ({ onClose }) => {
 
   const modalContent = (
     <div className="fixed inset-0 w-screen h-screen bg-black bg-opacity-50 backdrop-blur-sm z-[50] overflow-auto px-5 py-1">
-      <div className="absolute top-4 right-4">
-        <Button
+      <div className="absolute top-4 right-4 ml-5 z-[9999]">
+      <Button
           imageSrc="/images/icons/close.svg"
           altText="close"
           onClick={onClose}
         />
       </div>
-      <div className="container mx-auto h-full flex justify-between py-10">
-        <div className="flex flex-col gap-5 w-1/3 px-2">
-          <div className="flex w-full gap-5">
-            <div className="h-32 w-1/2">
-              <Media/>
+      <div className="container mx-auto h-full flex flex-col py-10 gap-3 mt-12 3xl:mt-0">
+        <div className="flex flex-col xl:flex-row justify-between gap-3">
+          {/* First column/row */}
+          <div className="w-full xl:w-1/3 flex flex-col gap-3">
+            <div className="flex gap-3">
+              <div className="h-[137px] w-1/2">
+                <Media />
+              </div>
+              <div className="h-[137px] w-1/2">
+                <Statistics value={45} title='Consultants and experts' />
+              </div>
             </div>
-            <div className="h-32 w-1/2">
-              <Statistics value={45} title='Consultants and experts'/>
+            <div className="xl:hidden flex gap-3">
+              <div className="h-[137px] w-1/2">
+                <Statistics value={800} title='References' />
+              </div>
+              <div className="h-[137px] w-1/2">
+                <Statistics value={4} title='Continents' />
+              </div>
+            </div>
+            <div className="h-[384px]  ">
+              <QuoteCarousel />
+            </div>
+            <div className="flex gap-3">
+              <div className="h-[170px] w-1/2">
+                <DateTimeWeather city="Paris" continent="Europe" isDark={false} />
+              </div>
+              <div className="h-[170px] w-1/2">
+                <DateTimeWeather city="Casablanca" continent="Africa" isDark={true} />
+              </div>
             </div>
           </div>
-          <div className="h-96">
-            <QuoteCarousel/>
-          </div>
-          <div className="flex w-full gap-5">
-            <div className="h-40 w-1/2">
-              <DateTimeWeather city="Paris" continent="Europe" isDark={false} />
+
+          {/* Second column/row */}
+          <div className="w-full xl:w-1/3 flex flex-col gap-3">
+            <div className="hidden xl:flex gap-3">
+              <div className="h-[137px] w-1/2">
+                <Statistics value={800} title='References' />
+              </div>
+              <div className="h-[137px] w-1/2">
+                <Statistics value={4} title='Continents' />
+              </div>
             </div>
-            <div className="h-40 w-1/2">
-              <DateTimeWeather city="Casablanca" continent="Africa" isDark={true} />
+            <div className="h-[384px] flex">
+              <EmImage className="w-full h-full" />
             </div>
-          </div>
-        </div>
-        <div className="flex flex-col gap-5 w-1/3 px-2">
-          <div className="flex w-full gap-5">
-            <div className="h-32 w-1/2">
-              <Statistics value={800} title='References'/>
-            </div>
-            <div className="h-32 w-1/2">
-              <Statistics value={4} title='Continents'/>
+            <div className="h-[170px]">
+              <BlancheImage />
             </div>
           </div>
-          <div className="h-96">
-            <EmImage/>
-          </div>
-          <div className="h-40">
-            <BlancheImage/>
-          </div>
-        </div>
-        <div className="flex flex-col gap-5 w-1/3 px-2">
-          <div className="h-40">
-            <MiroviaImage/>
-          </div>
-          <div className="h-40">
-            <LawCareImage/>
-          </div>
-          <div className="h-40">
-            <DeskImage/>
-          </div>
-          <div className="h-40 bg-[#F3F0E7] rounded-[25px]">
-            <WiloImage/>
+
+          {/* Third column/row */}
+          <div className="w-full xl:w-1/3 flex flex-col gap-3">
+            <div className="h-[171px]">
+              <MiroviaImage />
+            </div>
+            <div className="h-[170px]">
+              <LawCareImage />
+            </div>
+            <div className="h-[171px]">
+              <DeskImage />
+            </div>
+            <div className="h-[170px] bg-[#F3F0E7] rounded-[25px]">
+              <WiloImage />
+            </div>
           </div>
         </div>
       </div>
@@ -91,5 +106,3 @@ const EcosystemModal: React.FC<EcosystemModalProps> = ({ onClose }) => {
 
   return mounted ? createPortal(modalContent, document.body) : null
 }
-
-export default EcosystemModal

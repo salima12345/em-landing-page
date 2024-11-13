@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const BlancheImage = () => {
   return (
-    <div className="h-full rounded-[25px] overflow-hidden relative flex items-center justify-center cursor-pointer group">
+    <div className="h-[170px] rounded-[25px] overflow-hidden relative flex items-center justify-center cursor-pointer group">
       <div className="w-full h-full absolute top-0 left-0 transition-all duration-400 group-hover:opacity-0">
         <Image
           src="https://www.eliott-markus.com/wp-content/uploads/2023/06/blanche-bg.svg"

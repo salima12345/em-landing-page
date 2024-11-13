@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 
 const DeskImage = () => {
   return (
-    <div className="h-full flex flex-col items-center justify-center rounded-[25px] overflow-hidden relative">
+    <div className="h-[171px] flex flex-col items-center justify-center rounded-[25px] overflow-hidden relative">
       <Swiper
         className="w-full h-full"
         modules={[Pagination]}
