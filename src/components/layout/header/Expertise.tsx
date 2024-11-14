@@ -31,7 +31,7 @@ const renderExpertiseItem = (item: ExpertiseItem, index: number, totalItems: num
   </div>
 );
 
-export default function Expertise({ defaultExpanded = false, pushContent = false, autoExpand = false }) {
+export default function Expertise({ defaultExpanded = false, pushContent = false, isHeader = false }) {
   return (
     <ExpandableSection<ExpertiseItem>
       title="e&m expertise"
@@ -41,7 +41,7 @@ export default function Expertise({ defaultExpanded = false, pushContent = false
       className="xl:w-[290px] bg-grayDark"
       defaultExpanded={defaultExpanded}
       pushContent={pushContent}
-      autoExpand={autoExpand}
+      isHeader={isHeader}
     />
   );
 }

@@ -27,7 +27,7 @@ const renderMadeInItem = (item: string, index: number, totalItems: number) => (
   </div>
 );
 
-export default function MadeIn({ defaultExpanded = false, pushContent = false, autoExpand = false }) {
+export default function MadeIn({ defaultExpanded = false, pushContent = false, isHeader = false }) {
   return (
     <ExpandableSection
       title="Made in e&m"
@@ -37,7 +37,7 @@ export default function MadeIn({ defaultExpanded = false, pushContent = false, a
       className="xl:w-[290px] bg-grayDark"
       defaultExpanded={defaultExpanded}
       pushContent={pushContent}
-      autoExpand={autoExpand}
+      isHeader={isHeader}
     />
   );
 }

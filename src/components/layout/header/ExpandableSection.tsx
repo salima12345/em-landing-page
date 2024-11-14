@@ -9,7 +9,7 @@ interface ExpandableSectionProps<T> {
   testId?: string;
   defaultExpanded?: boolean;
   pushContent?: boolean;
-  autoExpand?: boolean;
+  isHeader?: boolean;
 }
 
 function ExpandableSection<T>({
@@ -20,7 +20,7 @@ function ExpandableSection<T>({
   testId,
   defaultExpanded = false,
   pushContent = false,
-  autoExpand = false,
+  isHeader = false,
 }: ExpandableSectionProps<T>): React.JSX.Element {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -29,16 +29,19 @@ function ExpandableSection<T>({
   useEffect(() => {
     setMounted(true);
 
-    if (autoExpand) {
+    if (isHeader) {
       const timer = setTimeout(() => {
         setIsExpanded(window.scrollY === 0);
       }, 1000);
 
       const handleScroll = () => {
-        if (!hasScrolled) {
+        if (!hasScrolled && window.scrollY > 0) {
           setHasScrolled(true);
         }
-        setIsExpanded(window.scrollY === 0);
+        if (window.scrollY === 0) {
+          setIsExpanded(true);
+          setHasScrolled(false);
+        }
       };
 
       window.addEventListener('scroll', handleScroll);
@@ -48,7 +51,7 @@ function ExpandableSection<T>({
         clearTimeout(timer);
       };
     }
-  }, [autoExpand, hasScrolled]);
+  }, [isHeader, hasScrolled]);
 
   if (!mounted) {
     return (
@@ -59,9 +62,7 @@ function ExpandableSection<T>({
   }
 
   const toggleExpand = () => {
-    if (!autoExpand) {
-      setIsExpanded(!isExpanded);
-    }
+    setIsExpanded(!isExpanded);
   };
 
   return (
