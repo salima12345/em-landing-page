@@ -7,6 +7,9 @@ interface ExpandableSectionProps<T> {
   renderItem?: (item: T, index: number, totalItems: number) => ReactNode;
   className?: string;
   testId?: string;
+  defaultExpanded?: boolean;
+  pushContent?: boolean;
+  autoExpand?: boolean;
 }
 
 function ExpandableSection<T>({
@@ -15,32 +18,37 @@ function ExpandableSection<T>({
   renderItem,
   className = "",
   testId,
+  defaultExpanded = false,
+  pushContent = false,
+  autoExpand = false,
 }: ExpandableSectionProps<T>): React.JSX.Element {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
 
-    const timer = setTimeout(() => {
-      setIsExpanded(window.scrollY === 0);
-    }, 1000);
+    if (autoExpand) {
+      const timer = setTimeout(() => {
+        setIsExpanded(window.scrollY === 0);
+      }, 1000);
 
-    const handleScroll = () => {
-      if (!hasScrolled) {
-        setHasScrolled(true);
-      }
-      setIsExpanded(window.scrollY === 0);
-    };
+      const handleScroll = () => {
+        if (!hasScrolled) {
+          setHasScrolled(true);
+        }
+        setIsExpanded(window.scrollY === 0);
+      };
 
-    window.addEventListener('scroll', handleScroll);
+      window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearTimeout(timer);
-    };
-  }, [hasScrolled]);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+        clearTimeout(timer);
+      };
+    }
+  }, [autoExpand, hasScrolled]);
 
   if (!mounted) {
     return (
@@ -51,21 +59,25 @@ function ExpandableSection<T>({
   }
 
   const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
+    if (!autoExpand) {
+      setIsExpanded(!isExpanded);
+    }
   };
 
   return (
-    <div className="relative" data-testid={testId}>
+    <div className={`relative ${pushContent ? 'mb-4' : ''}`} data-testid={testId}>
       <div
-        className={`absolute bg-grayDark xl:w-[290px] w-full overflow-hidden rounded-[26px] cursor-pointer ${className}`}
+        className={`${pushContent ? '' : 'absolute'} bg-grayDark xl:w-[290px] w-full overflow-hidden rounded-[26px] cursor-pointer ${className}`}
         style={{
           zIndex: isExpanded ? 10 : "auto",
           transition: "all 0.7s ease-in-out"
         }}
       >
-        <div
-          className="h-[56px] px-6 py-4 flex items-center justify-between"
+        <button
+          className="w-full h-[56px] px-6 py-4 flex items-center justify-between"
           onClick={toggleExpand}
+          aria-expanded={isExpanded}
+          aria-controls={`${testId}-content`}
         >
           <p>{title}</p>
           <Image
@@ -76,11 +88,12 @@ function ExpandableSection<T>({
             style={{
               transition: "transform 0.7s ease-in-out"
             }}
-            alt="Arrow Icon"
+            alt={isExpanded ? "Collapse" : "Expand"}
           />
-        </div>
+        </button>
 
         <div
+          id={`${testId}-content`}
           className="flex flex-col gap-5 origin-top"
           style={{
             maxHeight: isExpanded ? "500px" : "0px",
@@ -113,7 +126,7 @@ function ExpandableSection<T>({
       </div>
 
       {/* Invisible spacer to prevent layout shift */}
-      <div className="w-[290px] h-[56px] invisible"></div>
+      {!pushContent && <div className="w-[290px] h-[56px] invisible"></div>}
     </div>
   );
 }

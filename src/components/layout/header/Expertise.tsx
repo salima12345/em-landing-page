@@ -1,5 +1,5 @@
-
 "use client";
+
 import React from "react";
 import ExpandableSection from "./ExpandableSection";
 import Image from "next/image";
@@ -31,14 +31,17 @@ const renderExpertiseItem = (item: ExpertiseItem, index: number, totalItems: num
   </div>
 );
 
-export default function Expertise() {
+export default function Expertise({ defaultExpanded = false, pushContent = false, autoExpand = false }) {
   return (
-    <ExpandableSection<ExpertiseItem> 
+    <ExpandableSection<ExpertiseItem>
       title="e&m expertise"
       items={expertises}
-      renderItem={renderExpertiseItem} 
+      renderItem={renderExpertiseItem}
       testId="expertise"
       className="xl:w-[290px] bg-grayDark"
+      defaultExpanded={defaultExpanded}
+      pushContent={pushContent}
+      autoExpand={autoExpand}
     />
   );
 }

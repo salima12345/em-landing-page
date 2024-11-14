@@ -1,7 +1,7 @@
-
 "use client";
+
 import React from "react";
-import ExpandableSection from "./ExpandableSection"; 
+import ExpandableSection from "./ExpandableSection";
 
 const madeIn = [
   "Creation and Launch",
@@ -27,7 +27,7 @@ const renderMadeInItem = (item: string, index: number, totalItems: number) => (
   </div>
 );
 
-export default function MadeIn() {
+export default function MadeIn({ defaultExpanded = false, pushContent = false, autoExpand = false }) {
   return (
     <ExpandableSection
       title="Made in e&m"
@@ -35,6 +35,9 @@ export default function MadeIn() {
       renderItem={renderMadeInItem}
       testId="made-in"
       className="xl:w-[290px] bg-grayDark"
+      defaultExpanded={defaultExpanded}
+      pushContent={pushContent}
+      autoExpand={autoExpand}
     />
   );
 }

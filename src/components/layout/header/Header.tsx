@@ -68,8 +68,8 @@ export default function Header() {
                     />
                   </Link>
                   <div className="hidden xl:flex items-center gap-3 xl:mx-auto">
-                    <Expertise />
-                    <MadeIn />
+                    <Expertise autoExpand={true} />
+                    <MadeIn autoExpand={true} />
                   </div>
                   <div className="hidden xl:block xl:mx-auto">
                     <Ecosystem onOpenModal={handleOpenModal} />
