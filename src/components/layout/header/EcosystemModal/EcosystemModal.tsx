@@ -1,33 +1,40 @@
-import React, { useEffect, useState } from 'react'
-import { createPortal } from 'react-dom'
-import Button from '@/components/ui/Button'
-import Media from './MediaCard'
-import Statistics from './Statistics'
-import QuoteCarousel from './Quotes'
-import DateTimeWeather from './DateTimeWeather'
-import EmImage from './EmImage'
-import MiroviaImage from './MiroviaImage'
-import LawCareImage from './LawCareImage'
-import BlancheImage from './BlancheImage'
-import WiloImage from './WiloImage'
-import DeskImage from './DeskImage'
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { motion } from 'framer-motion'; 
+import Button from '@/components/ui/Button';
+import Media from './MediaCard';
+import Statistics from './Statistics';
+import QuoteCarousel from './Quotes';
+import DateTimeWeather from './DateTimeWeather';
+import EmImage from './EmImage';
+import MiroviaImage from './MiroviaImage';
+import LawCareImage from './LawCareImage';
+import BlancheImage from './BlancheImage';
+import WiloImage from './WiloImage';
+import DeskImage from './DeskImage';
 
 interface EcosystemModalProps {
-  onClose: () => void
+  onClose: () => void;
 }
 
 export default function EcosystemModal({ onClose }: EcosystemModalProps) {
-  const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true)
-    return () => setMounted(false)
-  }, [])
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
   const modalContent = (
-    <div className="fixed inset-0 w-screen h-screen bg-black bg-opacity-50 backdrop-blur-sm z-[50] overflow-auto px-5 py-1">
+    <motion.div
+      className="fixed inset-0 w-screen h-screen bg-black bg-opacity-50 backdrop-blur-sm z-[50] overflow-auto px-5 py-1"
+      initial={{ opacity: 0 }} 
+      animate={{ opacity: 1 }} 
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }} 
+    >
       <div className="absolute top-4 right-4 ml-5 z-[9999]">
-      <Button
+        <Button
           imageSrc="/images/icons/close.svg"
           altText="close"
           onClick={onClose}
@@ -53,7 +60,7 @@ export default function EcosystemModal({ onClose }: EcosystemModalProps) {
                 <Statistics value={4} title='Continents' />
               </div>
             </div>
-            <div className="h-[384px]  ">
+            <div className="h-[384px]">
               <QuoteCarousel />
             </div>
             <div className="flex gap-3">
@@ -65,7 +72,6 @@ export default function EcosystemModal({ onClose }: EcosystemModalProps) {
               </div>
             </div>
           </div>
-
           {/* Second column/row */}
           <div className="w-full xl:w-1/3 flex flex-col gap-3">
             <div className="hidden xl:flex gap-3">
@@ -83,7 +89,6 @@ export default function EcosystemModal({ onClose }: EcosystemModalProps) {
               <BlancheImage />
             </div>
           </div>
-
           {/* Third column/row */}
           <div className="w-full xl:w-1/3 flex flex-col gap-3">
             <div className="h-[171px]">
@@ -101,8 +106,8 @@ export default function EcosystemModal({ onClose }: EcosystemModalProps) {
           </div>
         </div>
       </div>
-    </div>
-  )
+    </motion.div>
+  );
 
-  return mounted ? createPortal(modalContent, document.body) : null
+  return mounted ? createPortal(modalContent, document.body) : null;
 }

@@ -39,7 +39,7 @@ function AboutTop() {
       <div className="overflow-hidden block xl:hidden w-full">
         <div className="flex flex-col gap-4">
           <Expertise defaultExpanded={true} pushContent={true} />
-          <MadeIn defaultExpanded={false} pushContent={false} />
+          <MadeIn defaultExpanded={false} pushContent={true} />
         </div>
       </div>
     </section>

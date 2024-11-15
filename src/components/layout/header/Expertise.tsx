@@ -38,7 +38,7 @@ export default function Expertise({ defaultExpanded = false, pushContent = false
       items={expertises}
       renderItem={renderExpertiseItem}
       testId="expertise"
-      className="xl:w-[290px] bg-grayDark"
+      className="xl:w-[290px] w-full bg-grayDark"
       defaultExpanded={defaultExpanded}
       pushContent={pushContent}
       isHeader={isHeader}

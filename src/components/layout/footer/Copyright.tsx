@@ -4,11 +4,10 @@ import Image from 'next/image'
 
 function Copyright() {
   return (
-    <div className=' py-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm'>
+    <div className=' py-4 flex flex-col sm:flex-row items-center justify-between text-sm'>
       <p className='text-center sm:text-left'>© Copyright 2005–2024 Eliott & Markus. All Rights Reserved.</p>
-      <div className='flex flex-col sm:flex-row items-center gap-2 sm:gap-3 order-3 sm:order-2'>
+      <div className='flex flex-col sm:flex-row items-center gap-3 sm:gap-10 order-3 sm:order-2'>
         <Link href="/" className='hover:underline'>Terms & Conditions</Link>
-        <span className='hidden sm:inline'>•</span>
         <Link href="/" className='hover:underline'>Legal Notice</Link>
       </div>
       <Link href="https://mirovia.com/" className='order-2 sm:order-3'>
