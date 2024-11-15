@@ -6,26 +6,46 @@ import { motion, useAnimation } from "framer-motion";
 interface AnimatedNumberProps {
   targetValue: number;
   duration?: number;
+  shouldStart: boolean;
 }
 
-function AnimatedNumber({ targetValue, duration = 800 }: AnimatedNumberProps) {
+function AnimatedNumber({ targetValue, duration = 2000, shouldStart }: AnimatedNumberProps) {
   const [value, setValue] = useState(0);
+  const animationRef = useRef<number>();
 
   useEffect(() => {
+    if (!shouldStart) {
+      setValue(0);
+      return;
+    }
+
     let start = 0;
+    const startTime = performance.now();
     const increment = targetValue / (duration / 16);
 
-    function animate() {
-      start += increment;
-      if (start >= targetValue) {
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      start = targetValue * progress;
+      
+      if (progress >= 1) {
         setValue(targetValue);
-      } else {
-        setValue(Math.floor(start));
-        requestAnimationFrame(animate);
+        return;
       }
-    }
-    animate();
-  }, [targetValue, duration]);
+      
+      setValue(Math.floor(start));
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [targetValue, duration, shouldStart]);
 
   return <p className="font-semibold text-[26px]">{value}</p>;
 }
@@ -52,7 +72,11 @@ function StatCard({ title, value, staticValue = false, isOrdinal = false, trigge
       {staticValue ? (
         <p className="font-semibold text-[26px]">{displayValue}</p>
       ) : (
-        triggerAnimation && <AnimatedNumber targetValue={value} />
+        <AnimatedNumber 
+          targetValue={value} 
+          shouldStart={triggerAnimation}
+          duration={2000}
+        />
       )}
       <h4 className="font-semibold text-[26px]">{title}</h4>
     </div>
@@ -70,9 +94,11 @@ function AboutBottom() {
         if (entries[0].isIntersecting) {
           setIsInView(true);
           controls.start({ y: 0, opacity: 1 });
+        } else {
+          setIsInView(false);
         }
       },
-      { threshold: 0.3 } 
+      { threshold: 0.5 }
     );
 
     if (sectionRef.current) {
@@ -87,19 +113,20 @@ function AboutBottom() {
   }, [controls]);
 
   return (
-    <motion.section 
+    <motion.section
       ref={sectionRef}
-      id="about-bottom" 
+      id="about-bottom"
       className="flex justify-end w-full pt-8"
       initial={{ y: 40, opacity: 0 }}
       animate={controls}
       transition={{ duration: 0.8, ease: "easeInOut" }}
     >
-      <div className="flex-1"></div> 
+      <div className="flex-1"></div>
+
       <div className="flex flex-col xl:max-w-[782px] w-full">
         <p className="text-2xl leading-[34px]">
           As a pioneering agency, eliott & markus is both a witness to and a key player in digital, societal, and commercial trends of professional services firms and organizations.
-          Thanks to our integrated, global approach to communications, enriched by our in-depth knowledge of complex markets, eliott & markus builds brand awareness for its customers in today’s attention economy.
+          Thanks to our integrated, global approach to communications, enriched by our in-depth knowledge of complex markets, eliott & markus builds brand awareness for its customers in today's attention economy.
         </p>
         <div className="flex flex-col xl:flex-row items-center gap-5 pt-6">
           <StatCard title="consultants and experts" value={45} triggerAnimation={isInView} />
