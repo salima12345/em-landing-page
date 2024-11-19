@@ -1,52 +1,63 @@
-"use client"
-
-import React, { useState, useEffect } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { motion, AnimatePresence } from "framer-motion"
-import LanguageSelector from "./LanguageSelectorDesktop"
-import LanguageSelectorMobile from "./LanguagesSelectorMobile"
-import Expertise from "./Expertise"
-import MadeIn from "./MadeIn"
-import Ecosystem from "./Ecosystem"
-import Button from "@/components/ui/Button"
-import EcosystemModal from "./EcosystemModal/EcosystemModal"
+"use client";
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import LanguageSelector from "./LanguageSelectorDesktop";
+import LanguageSelectorMobile from "./LanguagesSelectorMobile";
+import Expertise from "./Expertise";
+import MadeIn from "./MadeIn";
+import EcosystemDropMenu from "./EcosystemDropMenu";
+import EcosystemModal from "./EcosystemModal/EcosystemModal";
+import Button from "@/components/ui/Button";
 
 export default function Header() {
-  const [lastScrollY, setLastScrollY] = useState(0)
-  const [headerVisible, setHeaderVisible] = useState(true)
-  const [showModal, setShowModal] = useState(false)
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
+      const currentScrollY = window.scrollY;
 
       if (currentScrollY > lastScrollY && currentScrollY > 150) {
-        setHeaderVisible(false)
+        setHeaderVisible(false);
+        setIsMenuOpen(false);
+        setIsModalOpen(false);
       } else {
-        setHeaderVisible(true)
+        setHeaderVisible(true);
       }
 
-      setLastScrollY(currentScrollY)
-    }
+      setLastScrollY(currentScrollY);
+    };
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [lastScrollY])
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollY]);
+
+  const handleBurgerClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleCloseMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   const handleOpenModal = () => {
-    setShowModal(true)
-  }
+    setIsModalOpen(true);
+    setIsMenuOpen(false);
+  };
 
   const handleCloseModal = () => {
-    setShowModal(false)
-  }
+    setIsModalOpen(false);
+  };
 
   return (
     <>
-      <section className="xl:sticky xl:top-0 z-50 container">
+      <section className="[@media(min-width:1190px)]:sticky [@media(min-width:1190px)]:top-0 z-50 container">
         <AnimatePresence>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -55,41 +66,43 @@ export default function Header() {
             transition={{ duration: 1, delay: 0.1 }}
             className="flex items-center justify-between w-full"
           >
-            <div className="flex items-center justify-between xl:flex-grow">
+            <div className="flex items-center 3xl:-mr-[124px]">
               {headerVisible && (
                 <>
                   <Link href="/" className="flex-shrink-0">
-                    <Image 
-                      src="/images/logo.svg" 
-                      alt="logo" 
-                      width={120} 
-                      height={50} 
-                      className="w-[120px] h-[50px]" 
+                    <Image
+                      src="/images/logo.svg"
+                      alt="logo"
+                      width={120}
+                      height={50}
+                      className="w-[120px] h-[50px]"
                     />
                   </Link>
-                  <div className="hidden xl:flex items-center gap-3 xl:mx-auto">
+                  <div className="hidden [@media(min-width:1190px)]:flex items-center gap-5 ml-[44px] 2xl:ml-[88px]">
                     <Expertise isHeader={true} />
                     <MadeIn isHeader={true} />
-                  </div>
-                  <div className="hidden xl:block xl:mx-auto">
-                    <Ecosystem onOpenModal={handleOpenModal} />
+                    <EcosystemDropMenu 
+                      isOpen={isMenuOpen} 
+                      onClose={handleCloseMenu} 
+                      onOpenModal={handleOpenModal} 
+                    />
                   </div>
                 </>
               )}
             </div>
-
-            <div className="flex items-center gap-4 absolute right-4 xl:relative xl:right-0">
-              <div className="xl:hidden">
+            <div className="flex items-center gap-4 absolute right-0 [@media(min-width:1190px)]:relative 3xl:-mr-[100px]">
+              <div className="[@media(min-width:1190px)]:hidden">
                 <LanguageSelectorMobile />
               </div>
               <div className="flex items-center flex-col items-end">
-                <div className="flex items-center gap-2 xl:pb-2 xl:pt-4">
-                  <Button 
-                    imageSrc="/images/icons/burgerMenu.svg" 
-                    altText="Menu" 
+                <div className="flex items-center gap-2 [@media(min-width:1190px)]:pb-2 [@media(min-width:1190px)]:pt-4">
+                  <Button
+                    imageSrc={isMenuOpen ? "/images/icons/close.svg" : "/images/icons/burgerMenu.svg"}
+                    altText="Menu"
+                    onClick={handleBurgerClick}
                   />
                 </div>
-                <div className="hidden xl:block">
+                <div className="hidden [@media(min-width:1190px)]:block">
                   <LanguageSelector />
                 </div>
               </div>
@@ -97,7 +110,8 @@ export default function Header() {
           </motion.div>
         </AnimatePresence>
       </section>
-      {showModal && <EcosystemModal onClose={handleCloseModal} />}
+
+      {isModalOpen && <EcosystemModal onClose={handleCloseModal} />}
     </>
-  )
+  );
 }

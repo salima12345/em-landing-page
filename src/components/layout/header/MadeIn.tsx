@@ -34,7 +34,6 @@ export default function MadeIn({ defaultExpanded = false, pushContent = false, i
       items={madeIn}
       renderItem={renderMadeInItem}
       testId="made-in"
-      className="xl:w-[290px] w-full  bg-grayDark"
       defaultExpanded={defaultExpanded}
       pushContent={pushContent}
       isHeader={isHeader}

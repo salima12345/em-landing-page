@@ -68,7 +68,7 @@ function ExpandableSection<T>({
   return (
     <div className={`relative ${pushContent ? 'mb-4' : ''}`} data-testid={testId}>
       <div
-        className={`${pushContent ? '' : 'absolute z-[50]'} bg-grayDark xl:w-[290px] w-full overflow-hidden  rounded-[26px] cursor-pointer ${className}`}
+        className={`${pushContent ? '' : 'absolute z-[50]'} bg-grayDark xl:w-[287px] w-full overflow-hidden  rounded-[26px] cursor-pointer ${className}`}
         style={{
           zIndex: isExpanded ? 10 : "auto",
           transition: "all 0.7s ease-in-out"
@@ -127,7 +127,7 @@ function ExpandableSection<T>({
       </div>
 
       {/* Invisible spacer to prevent layout shift */}
-      {!pushContent && <div className="w-[290px] h-[56px] invisible"></div>}
+      {!pushContent && <div className="w-[287px] h-[56px] invisible"></div>}
     </div>
   );
 }

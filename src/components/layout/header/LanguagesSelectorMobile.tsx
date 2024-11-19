@@ -10,7 +10,7 @@ export default function LanguageSelectorMobile() {
   };
 
   return (
-    <div className="relative block xl:hidden" data-testid={"language-selector-mobile"}>
+    <div className="relative block [@media(min-width:1190px)]:hidden" data-testid={"language-selector-mobile"}>
       <div
         className="bg-grayDark text-white rounded-full overflow-hidden cursor-pointer flex items-center justify-end transition-all duration-300 ease-out"
         style={{
