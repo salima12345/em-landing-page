@@ -17,6 +17,8 @@ const WiloImage = () => {
           width={100}
           height={100}
           className="w-[220px]"
+           priority
+          loading="eager"
         />
       </div>
     </Link>

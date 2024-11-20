@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { createPortal } from 'react-dom';
-import { motion } from 'framer-motion'; 
+import { motion } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import Media from './MediaCard';
 import Statistics from './Statistics';
@@ -18,20 +18,28 @@ interface EcosystemModalProps {
 }
 
 export default function EcosystemModal({ onClose }: EcosystemModalProps) {
-  const [mounted, setMounted] = useState(false);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3, 
+      },
+    },
+  };
 
-  useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
-  }, []);
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
 
   const modalContent = (
     <motion.div
       className="fixed inset-0 w-screen h-screen bg-black bg-opacity-50 backdrop-blur-sm z-[50] overflow-auto px-5 py-1"
-      initial={{ opacity: 0 }} 
-      animate={{ opacity: 1 }} 
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }} 
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      variants={containerVariants}
     >
       <div className="absolute top-4 right-4 ml-5 z-[9999]">
         <Button
@@ -40,74 +48,81 @@ export default function EcosystemModal({ onClose }: EcosystemModalProps) {
           onClick={onClose}
         />
       </div>
-      <div className="container mx-auto h-full flex flex-col py-10 gap-3 mt-12 3xl:mt-0">
-        <div className="flex flex-col xl:flex-row justify-between gap-3">
+
+      <motion.div
+        className="container mx-auto h-full flex flex-col py-10 gap-3 mt-12 3xl:mt-0"
+        variants={containerVariants}
+      >
+        <motion.div
+          className="flex flex-col xl:flex-row justify-between gap-3"
+          variants={itemVariants}
+        >
           {/* First column/row */}
-          <div className="w-full xl:w-1/3 flex flex-col gap-3">
-            <div className="flex gap-3">
-              <div className="h-[137px] w-1/2">
+          <motion.div className="w-full xl:w-1/3 flex flex-col gap-3" variants={itemVariants}>
+            <motion.div className="flex gap-3" variants={itemVariants}>
+              <motion.div className="h-[137px] w-1/2" variants={itemVariants}>
                 <Media />
+              </motion.div>
+              <motion.div className="h-[137px] w-1/2" variants={itemVariants}>
+                <Statistics value={45} title="Consultants and experts" />
+              </motion.div>
+            </motion.div>
+            <motion.div className="xl:hidden flex gap-3" variants={itemVariants}>
+              <div className="h-[137px] w-1/2">
+                <Statistics value={800} title="References" />
               </div>
               <div className="h-[137px] w-1/2">
-                <Statistics value={45} title='Consultants and experts' />
+                <Statistics value={4} title="Continents" />
               </div>
-            </div>
-            <div className="xl:hidden flex gap-3">
-              <div className="h-[137px] w-1/2">
-                <Statistics value={800} title='References' />
-              </div>
-              <div className="h-[137px] w-1/2">
-                <Statistics value={4} title='Continents' />
-              </div>
-            </div>
-            <div className="h-[384px]">
+            </motion.div>
+            <motion.div className="h-[384px]" variants={itemVariants}>
               <QuoteCarousel />
-            </div>
-            <div className="flex gap-3">
+            </motion.div>
+            <motion.div className="flex gap-3" variants={itemVariants}>
               <div className="h-[170px] w-1/2">
                 <DateTimeWeather city="Paris" continent="Europe" isDark={false} />
               </div>
               <div className="h-[170px] w-1/2">
                 <DateTimeWeather city="Casablanca" continent="Africa" isDark={true} />
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
           {/* Second column/row */}
-          <div className="w-full xl:w-1/3 flex flex-col gap-3">
-            <div className="hidden xl:flex gap-3">
+          <motion.div className="w-full xl:w-1/3 flex flex-col gap-3" variants={itemVariants}>
+            <motion.div className="hidden xl:flex gap-3" variants={itemVariants}>
               <div className="h-[137px] w-1/2">
-                <Statistics value={800} title='References' />
+                <Statistics value={800} title="References" />
               </div>
               <div className="h-[137px] w-1/2">
-                <Statistics value={4} title='Continents' />
+                <Statistics value={4} title="Continents" />
               </div>
-            </div>
-            <div className="h-[384px] flex">
+            </motion.div>
+            <motion.div className="h-[384px] flex" variants={itemVariants}>
               <EmImage className="w-full h-full" />
-            </div>
-            <div className="h-[170px]">
+            </motion.div>
+            <motion.div className="h-[170px]" variants={itemVariants}>
               <BlancheImage />
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
           {/* Third column/row */}
-          <div className="w-full xl:w-1/3 flex flex-col gap-3">
-            <div className="h-[171px]">
+          <motion.div className="w-full xl:w-1/3 flex flex-col gap-3" variants={itemVariants}>
+            <motion.div className="h-[171px]" variants={itemVariants}>
               <MiroviaImage />
-            </div>
-            <div className="h-[170px]">
+            </motion.div>
+            <motion.div className="h-[170px]" variants={itemVariants}>
               <LawCareImage />
-            </div>
-            <div className="h-[171px]">
+            </motion.div>
+            <motion.div className="h-[171px]" variants={itemVariants}>
               <DeskImage />
-            </div>
-            <div className="h-[170px] bg-[#F3F0E7] rounded-[25px]">
+            </motion.div>
+            <motion.div className="h-[170px] bg-[#F3F0E7] rounded-[25px]" variants={itemVariants}>
               <WiloImage />
-            </div>
-          </div>
-        </div>
-      </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </motion.div>
   );
 
-  return mounted ? createPortal(modalContent, document.body) : null;
+  return createPortal(modalContent, document.body);
 }

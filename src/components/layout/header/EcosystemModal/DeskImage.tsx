@@ -25,7 +25,8 @@ const DeskImage = () => {
                 alt="Desk"
                 layout="fill"
                 objectFit="cover"
-                priority
+                 priority
+                 loading="eager"
               />
             </div>
           </div>

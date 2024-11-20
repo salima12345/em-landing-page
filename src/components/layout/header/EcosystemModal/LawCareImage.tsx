@@ -10,6 +10,8 @@ const LawCareImage = () => {
           alt="Welawcare BG"
           layout="fill"
           objectFit="cover"
+           priority
+          loading="eager"
         />
       </div>
       <div className="w-full h-full absolute top-0 left-0 z-2 opacity-0 transition-opacity duration-400 group-hover:opacity-100">
@@ -27,6 +29,8 @@ const LawCareImage = () => {
           width={100}
           height={100}
           className="w-[220px]"
+           priority
+          loading="eager"
         />
       </div>
     </div>

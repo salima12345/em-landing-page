@@ -23,6 +23,8 @@ const EmImage: React.FC<EmImageProps> = ({ className = '' }) => {
             alt="EM BG"
             layout="fill"
             className="object-cover transition-transform duration-1000 hover:scale-[1.4] hover:rotate-[-22deg] hover:translate-y-[10px]"
+             priority
+            loading="eager"
           />
         </div>
       </div>
