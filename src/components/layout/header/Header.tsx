@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +17,7 @@ export default function Header() {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [expandedState, setExpandedState] = useState(false); // State to control expanded sections
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +27,7 @@ export default function Header() {
         setHeaderVisible(false);
         setIsMenuOpen(false);
         setIsModalOpen(false);
+        setExpandedState(false); // Collapse when scrolling down
       } else {
         setHeaderVisible(true);
       }
@@ -32,23 +35,27 @@ export default function Header() {
       setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [lastScrollY]);
 
   const handleBurgerClick = () => {
-    setIsMenuOpen(!isMenuOpen);
+    const newState = !isMenuOpen;
+    setIsMenuOpen(newState);
+    setExpandedState(newState); // Sync expanded state with menu toggle
   };
 
   const handleCloseMenu = () => {
     setIsMenuOpen(false);
+    setExpandedState(false); // Collapse sections when menu is closed
   };
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
     setIsMenuOpen(false);
+    setExpandedState(false); // Ensure sections collapse when opening modal
   };
 
   const handleCloseModal = () => {
@@ -79,8 +86,8 @@ export default function Header() {
                     />
                   </Link>
                   <div className="hidden [@media(min-width:1190px)]:flex items-center gap-5 ml-[44px] 2xl:ml-[88px]">
-                    <Expertise isHeader={true} />
-                    <MadeIn isHeader={true} />
+                    <Expertise isHeader={true} isExpanded={expandedState} setExpanded={setExpandedState} />
+                    <MadeIn isHeader={true} isExpanded={expandedState} setExpanded={setExpandedState} />
                     <EcosystemDropMenu 
                       isOpen={isMenuOpen} 
                       onClose={handleCloseMenu} 

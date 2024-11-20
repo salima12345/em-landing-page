@@ -26,8 +26,21 @@ const renderMadeInItem = (item: string, index: number, totalItems: number) => (
     <div className="absolute top-0 right-0 h-full bg-[#E0643A] rounded-l-[10px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 w-[5px]"></div>
   </div>
 );
+interface MadeInProps {
+  isExpanded?: boolean; 
+  setExpanded?: (expanded: boolean) => void;
+  defaultExpanded?: boolean;
+  pushContent?: boolean;
+  isHeader?: boolean;
+}
 
-export default function MadeIn({ defaultExpanded = false, pushContent = false, isHeader = false }) {
+export default function MadeIn({
+  isExpanded,
+  setExpanded,
+  defaultExpanded = false,
+  pushContent = false,
+  isHeader = false,
+}: MadeInProps) {
   return (
     <ExpandableSection
       title="Made in e&m"
@@ -37,6 +50,9 @@ export default function MadeIn({ defaultExpanded = false, pushContent = false, i
       defaultExpanded={defaultExpanded}
       pushContent={pushContent}
       isHeader={isHeader}
+      isExpanded={isExpanded}
+      setExpanded={setExpanded}
     />
   );
 }
+

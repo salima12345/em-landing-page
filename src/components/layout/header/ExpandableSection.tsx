@@ -1,5 +1,5 @@
-import React, { useState, useEffect, ReactNode } from "react";
-import Image from 'next/image';
+import React, { useEffect, useState, ReactNode } from "react";
+import Image from "next/image";
 
 interface ExpandableSectionProps<T> {
   title: string;
@@ -10,6 +10,8 @@ interface ExpandableSectionProps<T> {
   defaultExpanded?: boolean;
   pushContent?: boolean;
   isHeader?: boolean;
+  isExpanded?: boolean;
+  setExpanded?: (expanded: boolean) => void;
 }
 
 function ExpandableSection<T>({
@@ -21,37 +23,59 @@ function ExpandableSection<T>({
   defaultExpanded = false,
   pushContent = false,
   isHeader = false,
+  isExpanded: parentExpanded,
+  setExpanded: parentSetExpanded,
 }: ExpandableSectionProps<T>): React.JSX.Element {
-  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+  const [localIsExpanded, setLocalIsExpanded] = useState(defaultExpanded);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isUserToggled, setIsUserToggled] = useState(false);
+
+  const isControlled = parentExpanded !== undefined && parentSetExpanded !== undefined;
+  // Use local state when user has toggled, otherwise use parent state
+  const isExpanded = isUserToggled ? localIsExpanded : isControlled ? parentExpanded : localIsExpanded;
 
   useEffect(() => {
     setMounted(true);
 
     if (isHeader) {
       const timer = setTimeout(() => {
-        setIsExpanded(window.scrollY === 0);
+        if (!isUserToggled) {
+          setLocalIsExpanded(window.scrollY === 0);
+          if (parentSetExpanded) {
+            parentSetExpanded(window.scrollY === 0);
+          }
+        }
       }, 1000);
 
       const handleScroll = () => {
         if (!hasScrolled && window.scrollY > 0) {
           setHasScrolled(true);
         }
-        if (window.scrollY === 0) {
-          setIsExpanded(true);
+        if (window.scrollY === 0 && !isUserToggled) {
+          setLocalIsExpanded(true);
+          if (parentSetExpanded) {
+            parentSetExpanded(true);
+          }
           setHasScrolled(false);
         }
       };
 
-      window.addEventListener('scroll', handleScroll);
+      window.addEventListener("scroll", handleScroll);
 
       return () => {
-        window.removeEventListener('scroll', handleScroll);
+        window.removeEventListener("scroll", handleScroll);
         clearTimeout(timer);
       };
     }
-  }, [isHeader, hasScrolled]);
+  }, [isHeader, hasScrolled, parentSetExpanded, isUserToggled]);
+
+  // Reset user toggle when parent state changes
+  useEffect(() => {
+    if (isControlled && !isUserToggled) {
+      setLocalIsExpanded(parentExpanded);
+    }
+  }, [parentExpanded, isControlled, isUserToggled]);
 
   if (!mounted) {
     return (
@@ -62,16 +86,20 @@ function ExpandableSection<T>({
   }
 
   const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
+    setIsUserToggled(true);
+    const newExpandedState = !isExpanded;
+    setLocalIsExpanded(newExpandedState);
   };
 
   return (
-    <div className={`relative ${pushContent ? 'mb-4' : ''}`} data-testid={testId}>
+    <div className={`relative ${pushContent ? "mb-4" : ""}`} data-testid={testId}>
       <div
-        className={`${pushContent ? '' : 'absolute z-[50]'} bg-grayDark xl:w-[287px] w-full overflow-hidden  rounded-[26px] cursor-pointer ${className}`}
+        className={`${
+          pushContent ? "" : "absolute z-[50]"
+        } bg-grayDark xl:w-[287px] w-full overflow-hidden rounded-[26px] cursor-pointer ${className}`}
         style={{
           zIndex: isExpanded ? 10 : "auto",
-          transition: "all 0.7s ease-in-out"
+          transition: "all 0.7s ease-in-out",
         }}
       >
         <button
@@ -85,9 +113,9 @@ function ExpandableSection<T>({
             src="/images/icons/arrow-circle.svg"
             width={16}
             height={16}
-            className={`transform ${isExpanded ? 'rotate-180' : ''}`}
+            className={`transform ${isExpanded ? "rotate-180" : ""}`}
             style={{
-              transition: "transform 0.7s ease-in-out"
+              transition: "transform 0.7s ease-in-out",
             }}
             alt={isExpanded ? "Collapse" : "Expand"}
           />
@@ -102,9 +130,9 @@ function ExpandableSection<T>({
             transform: `scaleY(${isExpanded ? 1 : 0.8})`,
             transition: `
               max-height 0.7s ease-in-out,
-              opacity 0.7s ease-in-out ${isExpanded ? '0.2s' : '0s'},
+              opacity 0.7s ease-in-out ${isExpanded ? "0.2s" : "0s"},
               transform 0.7s ease-in-out
-            `
+            `,
           }}
         >
           {items.map((item, index) =>
@@ -116,7 +144,7 @@ function ExpandableSection<T>({
                 className="px-5"
                 style={{
                   transition: "all 0.7s ease-in-out",
-                  transitionDelay: isExpanded ? "0.2s" : "0s"
+                  transitionDelay: isExpanded ? "0.2s" : "0s",
                 }}
               >
                 {JSON.stringify(item)}
@@ -126,7 +154,6 @@ function ExpandableSection<T>({
         </div>
       </div>
 
-      {/* Invisible spacer to prevent layout shift */}
       {!pushContent && <div className="w-[287px] h-[56px] invisible"></div>}
     </div>
   );

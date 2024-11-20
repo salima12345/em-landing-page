@@ -31,7 +31,21 @@ const renderExpertiseItem = (item: ExpertiseItem, index: number, totalItems: num
   </div>
 );
 
-export default function Expertise({ defaultExpanded = false, pushContent = false, isHeader = false }) {
+interface ExpertiseProps {
+  isExpanded?: boolean; 
+  setExpanded?: (expanded: boolean) => void;
+  defaultExpanded?: boolean;
+  pushContent?: boolean;
+  isHeader?: boolean;
+}
+
+export default function Expertise({
+  isExpanded,
+  setExpanded,
+  defaultExpanded = false,
+  pushContent = false,
+  isHeader = false,
+}: ExpertiseProps) {
   return (
     <ExpandableSection<ExpertiseItem>
       title="e&m expertise"
@@ -41,6 +55,8 @@ export default function Expertise({ defaultExpanded = false, pushContent = false
       defaultExpanded={defaultExpanded}
       pushContent={pushContent}
       isHeader={isHeader}
+      isExpanded={isExpanded}
+      setExpanded={setExpanded}
     />
   );
 }
