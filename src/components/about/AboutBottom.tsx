@@ -21,7 +21,6 @@ function AnimatedNumber({ targetValue, duration = 2000, shouldStart }: AnimatedN
 
     let start = 0;
     const startTime = performance.now();
-    const increment = targetValue / (duration / 16);
 
     const animate = (currentTime: number) => {
       const elapsed = currentTime - startTime;
@@ -87,7 +86,7 @@ function AboutBottom() {
   const [isInView, setIsInView] = useState(false);
   const sectionRef = useRef(null);
   const controls = useAnimation();
-
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -104,7 +103,7 @@ function AboutBottom() {
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-
+    
     return () => {
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
@@ -122,11 +121,10 @@ function AboutBottom() {
       transition={{ duration: 0.8, ease: "easeInOut" }}
     >
       <div className="flex-1"></div>
-
       <div className="flex flex-col xl:max-w-[782px] w-full">
         <p className="text-2xl leading-[34px]">
-          As a pioneering agency, eliott & markus is both a witness to and a key player in digital, societal, and commercial trends of professional services firms and organizations.
-          Thanks to our integrated, global approach to communications, enriched by our in-depth knowledge of complex markets, eliott & markus builds brand awareness for its customers in today's attention economy.
+          As a pioneering agency, eliott &amp; markus is both a witness to and a key player in digital, societal, and commercial trends of professional services firms and organizations.
+          Thanks to our integrated, global approach to communications, enriched by our in-depth knowledge of complex markets, eliott &amp; markus builds brand awareness for its customers in today&apos;s attention economy.
         </p>
         <div className="flex flex-col xl:flex-row items-center gap-5 pt-6">
           <StatCard title="consultants and experts" value={45} triggerAnimation={isInView} />

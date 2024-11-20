@@ -6,7 +6,7 @@ import Newsletter from './Newsletter'
 
 export default function Info() {
   return (
-    <div className="py-8 border-t border-[#454545] ">
+    <div className="py-8 border-t border-[#454545]  ">
       <div className="flex flex-col lg:flex-row lg:flex-wrap items-start justify-between gap-8">
         <div className="flex flex-col gap-2 w-full lg:w-auto">
           <Link href="/" className="font-semibold">
