@@ -6,10 +6,11 @@ import Values from "@/components/em-values/Values";
 import ValuesMobile from "@/components/em-valuesMobile/ValuesMobile";
 import Realization from "@/components/realization/Realization";
 import Clients from "@/components/clients/Clients";
+import Footer from '@/components/layout/footer';
 
 export default function Home() {
   return (
-    <div className="overflow-hidden">
+    <div  className="overflow-hidden bg-background text-foreground" >
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -59,6 +60,14 @@ export default function Home() {
       >
         <Clients />
       </motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 2 }}
+      >
+        <Footer />
+      </motion.div>
     </div>
   );
 }
+

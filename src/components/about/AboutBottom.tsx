@@ -12,15 +12,17 @@ interface AnimatedNumberProps {
 function AnimatedNumber({ targetValue, duration = 2000, shouldStart }: AnimatedNumberProps) {
   const [value, setValue] = useState(0);
   const animationRef = useRef<number>();
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    if (!shouldStart) {
-      setValue(0);
+    // Only start animation if it hasn't run before and shouldStart is true
+    if (!shouldStart || hasAnimated.current) {
       return;
     }
 
     let start = 0;
     const startTime = performance.now();
+    hasAnimated.current = true;
 
     const animate = (currentTime: number) => {
       const elapsed = currentTime - startTime;
@@ -83,18 +85,16 @@ function StatCard({ title, value, staticValue = false, isOrdinal = false, trigge
 }
 
 function AboutBottom() {
-  const [isInView, setIsInView] = useState(false);
+  const [hasTriggered, setHasTriggered] = useState(false);
   const sectionRef = useRef(null);
   const controls = useAnimation();
   
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
-          setIsInView(true);
+        if (entries[0].isIntersecting && !hasTriggered) {
+          setHasTriggered(true);
           controls.start({ y: 0, opacity: 1 });
-        } else {
-          setIsInView(false);
         }
       },
       { threshold: 0.5 }
@@ -109,7 +109,7 @@ function AboutBottom() {
         observer.unobserve(sectionRef.current);
       }
     };
-  }, [controls]);
+  }, [controls, hasTriggered]);
 
   return (
     <motion.section
@@ -127,10 +127,10 @@ function AboutBottom() {
           Thanks to our integrated, global approach to communications, enriched by our in-depth knowledge of complex markets, eliott &amp; markus builds brand awareness for its customers in today&apos;s attention economy.
         </p>
         <div className="flex flex-col xl:flex-row items-center gap-5 pt-6">
-          <StatCard title="consultants and experts" value={45} triggerAnimation={isInView} />
-          <StatCard title="References" value={800} triggerAnimation={isInView} />
-          <StatCard title="Continents" value={4} triggerAnimation={isInView} />
-          <StatCard title="Ranked as Leading" value={1} staticValue isOrdinal triggerAnimation={isInView} />
+          <StatCard title="consultants and experts" value={45} triggerAnimation={hasTriggered} />
+          <StatCard title="References" value={800} triggerAnimation={hasTriggered} />
+          <StatCard title="Continents" value={4} triggerAnimation={hasTriggered} />
+          <StatCard title="Ranked as Leading" value={1} staticValue isOrdinal triggerAnimation={hasTriggered} />
         </div>
       </div>
     </motion.section>

@@ -17,12 +17,11 @@ export default function RootLayout({
     <html lang="en">
       <body 
         suppressHydrationWarning={true} 
-        className="min-h-screen min-w-full max-w-[1440px] bg-background text-foreground font-gilroy overflow-x-hidden scrollbar-hide"
+        className="min-h-screen min-w-full max-w-[1440px]  font-gilroy overflow-x-hidden scrollbar-hide"
       >
         <SmoothScroll>
           <Header/>
           {children}
-          <Footer/>
         </SmoothScroll>
       </body>
     </html>

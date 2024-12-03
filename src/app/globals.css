@@ -3,11 +3,7 @@
 @tailwind utilities;
 
 
-     :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-    }
-
+ 
 
 @font-face {
     font-family: 'Gilroy';
@@ -48,13 +44,20 @@ html {
     scroll-behavior: auto !important;
   }
 
-body {
-    color:  #ededed;
-    background: #0a0a0a;
-    font-family: 'Gilroy', sans-serif;
-
-
-}
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+  
+  :root.light {
+    --background: #f2f1ef;
+    --foreground: #000000;
+  }
+  
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
 html, body {
   scrollbar-width: none; 
   -ms-overflow-style: none;
@@ -231,3 +234,5 @@ body::-webkit-scrollbar {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;  /* Chrome, Safari and Opera */
   }
+
+

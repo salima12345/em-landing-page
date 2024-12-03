@@ -20,6 +20,10 @@ module.exports = {
         grayDark: "#222222",
         grayLight: "#454545",
       },
+      backgroundColor: {
+        'dark-primary': '#000000',
+        'light-primary': '#f2f1ef'
+      },
       fontFamily: {
         gilroy: ["Gilroy", "sans-serif"],
       },
