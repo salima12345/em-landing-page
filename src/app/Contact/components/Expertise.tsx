@@ -1,16 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { Subject } from '@/types/enums';
-interface ObjetMenuProps {
-  selectedItem: string;
-  onSelect: (value: Subject) => void;
+
+export enum Expertise {
+  Strategy = "Strategy",
+  Content = "Content",
+  Design = "Design",
+  TechWeb = "Tech/Web",
+  DigitalInfluence = "Digital Influence",
+  Consulting = "Consulting",
+  Other = "Other"
 }
 
-const ObjetMenu: React.FC<ObjetMenuProps> = ({ selectedItem, onSelect }) => {
+interface ExpertiseMenuProps {
+  selectedItem: string;
+  onSelect: (value: Expertise) => void;
+}
+
+const ExpertiseMenu: React.FC<ExpertiseMenuProps> = ({ selectedItem, onSelect }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
-  const items = Object.values(Subject);
+  const items = Object.values(Expertise);
 
   useEffect(() => {
     if (contentRef.current) {
@@ -24,7 +34,7 @@ const ObjetMenu: React.FC<ObjetMenuProps> = ({ selectedItem, onSelect }) => {
     setIsExpanded(!isExpanded);
   };
 
-  const handleItemSelect = (item: Subject, e: React.MouseEvent) => {
+  const handleItemSelect = (item: Expertise, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     onSelect(item);
@@ -42,7 +52,7 @@ const ObjetMenu: React.FC<ObjetMenuProps> = ({ selectedItem, onSelect }) => {
         >
           <p
             className={`${
-              selectedItem === "Subject *" ? "text-[#454545]" : "text-white"
+              selectedItem === "E&M expertise *" ? "text-[#454545]" : "text-white"
             }`}
           >
             {selectedItem}
@@ -71,7 +81,7 @@ const ObjetMenu: React.FC<ObjetMenuProps> = ({ selectedItem, onSelect }) => {
             <button
               key={item}
               type="button"
-              className="w-full px-6 py-4 text-left transition-colors"
+              className="w-full px-6 py-4 text-left transition-colors "
               onClick={(e) => handleItemSelect(item, e)}
             >
               {item}
@@ -83,4 +93,4 @@ const ObjetMenu: React.FC<ObjetMenuProps> = ({ selectedItem, onSelect }) => {
   );
 };
 
-export default ObjetMenu;
+export default ExpertiseMenu;

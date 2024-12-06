@@ -1,16 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { Subject } from '@/types/enums';
-interface ObjetMenuProps {
-  selectedItem: string;
-  onSelect: (value: Subject) => void;
+
+export enum Expertise {
+  Creation = "Creation and launch",
+  Outsoucing = "Outsouced communication ",
+  BusinessDev = "Business development",
+  Branding = "Personal branding",
+  CSR = "CSR, Ethics and Soft law ",
+  Organization = "Professional Organizations ",
+  Crisis = "Crisis Management"
 }
 
-const ObjetMenu: React.FC<ObjetMenuProps> = ({ selectedItem, onSelect }) => {
+interface ExpertiseMenuProps {
+  selectedItem: string;
+  onSelect: (value: Expertise) => void;
+}
+
+const MadeMenu: React.FC<ExpertiseMenuProps> = ({ selectedItem, onSelect }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
-  const items = Object.values(Subject);
+  const items = Object.values(Expertise);
 
   useEffect(() => {
     if (contentRef.current) {
@@ -24,7 +34,7 @@ const ObjetMenu: React.FC<ObjetMenuProps> = ({ selectedItem, onSelect }) => {
     setIsExpanded(!isExpanded);
   };
 
-  const handleItemSelect = (item: Subject, e: React.MouseEvent) => {
+  const handleItemSelect = (item: Expertise, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     onSelect(item);
@@ -42,7 +52,7 @@ const ObjetMenu: React.FC<ObjetMenuProps> = ({ selectedItem, onSelect }) => {
         >
           <p
             className={`${
-              selectedItem === "Subject *" ? "text-[#454545]" : "text-white"
+              selectedItem === "Made in em *" ? "text-[#454545]" : "text-white"
             }`}
           >
             {selectedItem}
@@ -83,4 +93,4 @@ const ObjetMenu: React.FC<ObjetMenuProps> = ({ selectedItem, onSelect }) => {
   );
 };
 
-export default ObjetMenu;
+export default MadeMenu;

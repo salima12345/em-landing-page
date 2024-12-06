@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import ExpandableSection from "./ExpandableSection";
 import Image from "next/image";
@@ -7,12 +8,12 @@ import { useRouter } from "next/navigation";
 interface ExpertiseItem {
   icon: string;
   text: string;
-  path?: string; // Optional path for navigation
+  path?: string;
 }
 
 const expertises: ExpertiseItem[] = [
   { icon: "/images/expertises/icons/strategy.svg", text: "Marketing Strategy" },
-  { icon: "/images/expertises/icons/influence.svg", text: "Media Relations", path: "/Expertise/Media" }, // Add path for Media Relations
+  { icon: "/images/expertises/icons/influence.svg", text: "Media Relations", path: "/Expertise/Media" },
   { icon: "/images/expertises/icons/design.svg", text: "Visual Design" },
   { icon: "/images/expertises/icons/tech.svg", text: "Tech & Web" },
   { icon: "/images/expertises/icons/content.svg", text: "Publishing & Content" },
@@ -21,11 +22,11 @@ const expertises: ExpertiseItem[] = [
 ];
 
 const renderExpertiseItem = (item: ExpertiseItem, index: number, totalItems: number) => {
-  const router = useRouter(); // Get router instance
+  const router = useRouter();
 
   const handleClick = () => {
     if (item.path) {
-      router.push(item.path); // Redirect to the specified path
+      router.push(item.path);
     }
   };
 
@@ -35,7 +36,7 @@ const renderExpertiseItem = (item: ExpertiseItem, index: number, totalItems: num
       className={`flex items-center gap-3 cursor-pointer px-5 transition-colors duration-200 ${
         index === totalItems - 1 ? "pb-4" : ""
       }`}
-      onClick={handleClick} // Add click handler
+      onClick={handleClick}
     >
       <Image src={item.icon} alt={item.text} width={20} height={20} />
       <p className="font-medium">{item.text}</p>
@@ -44,19 +45,21 @@ const renderExpertiseItem = (item: ExpertiseItem, index: number, totalItems: num
 };
 
 interface ExpertiseProps {
-  isExpanded?: boolean; 
-  setExpanded?: (expanded: boolean) => void;
   defaultExpanded?: boolean;
   pushContent?: boolean;
   isHeader?: boolean;
+  isExpanded?: boolean;
+  setExpanded?: (expanded: boolean) => void;
+  isMenuOpen?: boolean;
 }
 
 export default function Expertise({
-  isExpanded,
-  setExpanded,
   defaultExpanded = false,
   pushContent = false,
   isHeader = false,
+  isExpanded,
+  setExpanded,
+  isMenuOpen = false,
 }: ExpertiseProps) {
   return (
     <ExpandableSection<ExpertiseItem>
@@ -69,6 +72,7 @@ export default function Expertise({
       isHeader={isHeader}
       isExpanded={isExpanded}
       setExpanded={setExpanded}
+      isMenuOpen={isMenuOpen}
     />
   );
 }

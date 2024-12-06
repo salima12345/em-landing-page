@@ -67,6 +67,15 @@ html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:active,
+input:-webkit-autofill:focus {
+    background-color: #222222 !important;
+    color: white!important;
+    -webkit-box-shadow: 0 0 0 1000px #222222 inset !important;
+    -webkit-text-fill-color: white  !important;
+}
 
 
 .container {
@@ -114,6 +123,9 @@ body::-webkit-scrollbar {
         text-wrap: balance;
     }
 }
+
+
+
 .em-values {
     display: flex;
     flex-direction: column;
@@ -234,5 +246,41 @@ body::-webkit-scrollbar {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;  /* Chrome, Safari and Opera */
   }
+  .custom-reveal img {
+    animation: revealFromTop 1.5s ease-out;
+    transform: translateY(-100%);
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+  
 
+  @keyframes revealFromTop {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
 
+  
+  @keyframes slide-in-up {
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @layer utilities {
+    .animate-slide-in-up {
+      animation: slide-in-up 2s ease-out forwards;
+    }
+    
+  
+  }

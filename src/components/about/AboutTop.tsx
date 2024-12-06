@@ -17,14 +17,14 @@ function AboutTop() {
     <section className="flex flex-col xl:flex-row xl:justify-between gap-8 w-full">
       <div className="overflow-hidden w-full 3xl:-ml-12">
         <div className="overflow-hidden">
-          <h1 className="font-semibold leading-tight text-[60px] xl:text-[80px]">
+          <h1 className="font-semibold leading-tight text-[60px] xl:text-[80px] animate-slide-in-up">
             Turning expertise into experience
           </h1>
         </div>
       </div>
       <div className="w-full">
         <div className="flex flex-col gap-5">
-          <p className="font-semibold text-[20px] sm:text-[24px] xl:text-[26px]">
+          <p className="font-semibold text-[20px] sm:text-[24px] xl:text-[26px] animate-slide-in-up">
             The very best in communications and branding to promote your brand and enhance its influence.
           </p>
           <div className='w-[60px]'>

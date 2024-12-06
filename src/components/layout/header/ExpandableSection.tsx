@@ -1,5 +1,6 @@
 import React, { useEffect, useState, ReactNode } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 interface ExpandableSectionProps<T> {
   title: string;
@@ -12,6 +13,7 @@ interface ExpandableSectionProps<T> {
   isHeader?: boolean;
   isExpanded?: boolean;
   setExpanded?: (expanded: boolean) => void;
+  isMenuOpen?: boolean;
 }
 
 function ExpandableSection<T>({
@@ -25,25 +27,28 @@ function ExpandableSection<T>({
   isHeader = false,
   isExpanded: parentExpanded,
   setExpanded: parentSetExpanded,
+  isMenuOpen = false,
 }: ExpandableSectionProps<T>): React.JSX.Element {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
   const [localIsExpanded, setLocalIsExpanded] = useState(defaultExpanded);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isUserToggled, setIsUserToggled] = useState(false);
 
   const isControlled = parentExpanded !== undefined && parentSetExpanded !== undefined;
-  // Use local state when user has toggled, otherwise use parent state
-  const isExpanded = isUserToggled ? localIsExpanded : isControlled ? parentExpanded : localIsExpanded;
+  const isExpanded = isControlled ? parentExpanded : localIsExpanded;
 
   useEffect(() => {
     setMounted(true);
 
-    if (isHeader) {
+    if (isHeader && isHomePage) {
       const timer = setTimeout(() => {
         if (!isUserToggled) {
-          setLocalIsExpanded(window.scrollY === 0);
+          const newState = window.scrollY === 0;
+          setLocalIsExpanded(newState);
           if (parentSetExpanded) {
-            parentSetExpanded(window.scrollY === 0);
+            parentSetExpanded(newState);
           }
         }
       }, 1000);
@@ -53,9 +58,10 @@ function ExpandableSection<T>({
           setHasScrolled(true);
         }
         if (window.scrollY === 0 && !isUserToggled) {
-          setLocalIsExpanded(true);
+          const newState = true;
+          setLocalIsExpanded(newState);
           if (parentSetExpanded) {
-            parentSetExpanded(true);
+            parentSetExpanded(newState);
           }
           setHasScrolled(false);
         }
@@ -68,9 +74,8 @@ function ExpandableSection<T>({
         clearTimeout(timer);
       };
     }
-  }, [isHeader, hasScrolled, parentSetExpanded, isUserToggled]);
+  }, [isHeader, isHomePage, hasScrolled, parentSetExpanded, isUserToggled]);
 
-  // Reset user toggle when parent state changes
   useEffect(() => {
     if (isControlled && !isUserToggled) {
       setLocalIsExpanded(parentExpanded);
@@ -89,6 +94,9 @@ function ExpandableSection<T>({
     setIsUserToggled(true);
     const newExpandedState = !isExpanded;
     setLocalIsExpanded(newExpandedState);
+    if (parentSetExpanded) {
+      parentSetExpanded(newExpandedState);
+    }
   };
 
   return (
