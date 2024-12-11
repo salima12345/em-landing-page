@@ -1,6 +1,9 @@
+"use client";
+
 import React, { useEffect, useState, ReactNode } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useTheme } from "@/lib/themes";
 
 interface ExpandableSectionProps<T> {
   title: string;
@@ -29,6 +32,7 @@ function ExpandableSection<T>({
   setExpanded: parentSetExpanded,
   isMenuOpen = false,
 }: ExpandableSectionProps<T>): React.JSX.Element {
+  const { theme } = useTheme();
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const [localIsExpanded, setLocalIsExpanded] = useState(defaultExpanded);
@@ -39,18 +43,21 @@ function ExpandableSection<T>({
   const isControlled = parentExpanded !== undefined && parentSetExpanded !== undefined;
   const isExpanded = isControlled ? parentExpanded : localIsExpanded;
 
+  const handleAutoExpand = (shouldExpand: boolean) => {
+    if (isControlled) {
+      parentSetExpanded(shouldExpand);
+    } else {
+      setLocalIsExpanded(shouldExpand);
+    }
+  };
+
   useEffect(() => {
     setMounted(true);
 
-    if (isHeader && isHomePage) {
+    if (isHeader && isHomePage && !isUserToggled) {
       const timer = setTimeout(() => {
-        if (!isUserToggled) {
-          const newState = window.scrollY === 0;
-          setLocalIsExpanded(newState);
-          if (parentSetExpanded) {
-            parentSetExpanded(newState);
-          }
-        }
+        const shouldExpand = window.scrollY === 0;
+        handleAutoExpand(shouldExpand);
       }, 1000);
 
       const handleScroll = () => {
@@ -58,12 +65,10 @@ function ExpandableSection<T>({
           setHasScrolled(true);
         }
         if (window.scrollY === 0 && !isUserToggled) {
-          const newState = true;
-          setLocalIsExpanded(newState);
-          if (parentSetExpanded) {
-            parentSetExpanded(newState);
-          }
+          handleAutoExpand(true);
           setHasScrolled(false);
+        } else if (window.scrollY > 0 && !isUserToggled) {
+          handleAutoExpand(false);
         }
       };
 
@@ -74,7 +79,7 @@ function ExpandableSection<T>({
         clearTimeout(timer);
       };
     }
-  }, [isHeader, isHomePage, hasScrolled, parentSetExpanded, isUserToggled]);
+  }, [isHeader, isHomePage, hasScrolled, isUserToggled]);
 
   useEffect(() => {
     if (isControlled && !isUserToggled) {
@@ -93,9 +98,10 @@ function ExpandableSection<T>({
   const toggleExpand = () => {
     setIsUserToggled(true);
     const newExpandedState = !isExpanded;
-    setLocalIsExpanded(newExpandedState);
-    if (parentSetExpanded) {
+    if (isControlled) {
       parentSetExpanded(newExpandedState);
+    } else {
+      setLocalIsExpanded(newExpandedState);
     }
   };
 
@@ -104,21 +110,24 @@ function ExpandableSection<T>({
       <div
         className={`${
           pushContent ? "" : "absolute z-[50]"
-        } bg-grayDark xl:w-[287px] w-full overflow-hidden rounded-[26px] cursor-pointer ${className}`}
+        } xl:w-[287px] w-full overflow-hidden rounded-[26px] cursor-pointer transition-colors duration-300
+        ${theme === 'dark' ? 'bg-grayDark text-white' : 'bg-[#E6E5DF] text-black'}
+        ${className}`}
         style={{
           zIndex: isExpanded ? 10 : "auto",
-          transition: "all 0.7s ease-in-out",
         }}
       >
         <button
-          className="w-full h-[56px] px-6 py-4 flex items-center justify-between"
+          className={`w-full h-[56px] px-6 py-4 flex items-center justify-between
+          ${theme ==='dark' ? 'bg-grayDark text-white' : 'bg-[#E6E5DF] text-black'}`
+        }
           onClick={toggleExpand}
           aria-expanded={isExpanded}
           aria-controls={`${testId}-content`}
         >
           <p>{title}</p>
           <Image
-            src="/images/icons/arrow-circle.svg"
+            src={theme === 'dark' ? "/images/icons/arrow-circle.svg" : "/images/icons/arrow-circle-black.svg"}
             width={16}
             height={16}
             className={`transform ${isExpanded ? "rotate-180" : ""}`}
@@ -131,7 +140,7 @@ function ExpandableSection<T>({
 
         <div
           id={`${testId}-content`}
-          className="flex flex-col gap-5 origin-top"
+          className="flex flex-col gap-5 "
           style={{
             maxHeight: isExpanded ? "500px" : "0px",
             opacity: isExpanded ? 1 : 0,
@@ -149,7 +158,7 @@ function ExpandableSection<T>({
             ) : (
               <div
                 key={index}
-                className="px-5"
+                className={`px-5 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}
                 style={{
                   transition: "all 0.7s ease-in-out",
                   transitionDelay: isExpanded ? "0.2s" : "0s",

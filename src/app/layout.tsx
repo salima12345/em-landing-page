@@ -3,6 +3,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import { ThemeProvider } from "@/lib/themes";
 
 export const metadata: Metadata = {
   title: "Elliot & Markus",
@@ -14,15 +15,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body 
         suppressHydrationWarning={true} 
-        className="min-h-screen min-w-full max-w-[1440px]  font-gilroy overflow-x-hidden scrollbar-hide"
+        className="min-h-screen min-w-full max-w-[1440px] font-gilroy overflow-x-hidden scrollbar-hide"
       >
-        <SmoothScroll>
-          <Header/>
-          {children}
-        </SmoothScroll>
+        <ThemeProvider>
+          <SmoothScroll>
+            <div className="flex flex-col min-h-screen  transition-colors duration-200">
+              <Header />
+              <main className="flex-grow">
+                {children}
+              </main>
+            </div>
+          </SmoothScroll>
+        </ThemeProvider>
       </body>
     </html>
   );

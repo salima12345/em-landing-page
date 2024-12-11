@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -5,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { useTheme } from "@/lib/themes";
 import LanguageSelector from "./LanguageSelectorDesktop";
 import LanguageSelectorMobile from "./LanguagesSelectorMobile";
 import Expertise from "./Expertise";
@@ -15,6 +17,8 @@ import Button from "@/components/ui/Button";
 
 export default function Header() {
   const pathname = usePathname();
+  const { theme } = useTheme();
+
   const [lastScrollY, setLastScrollY] = useState(0);
   const [headerVisible, setHeaderVisible] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -58,15 +62,13 @@ export default function Header() {
   const handleBurgerClick = () => {
     const newMenuState = !isMenuOpen;
     setIsMenuOpen(newMenuState);
-    
+
     if (!newMenuState) {
-      // Reset user collapsed states when menu is closed
       setExpertiseUserCollapsed(false);
       setMadeInUserCollapsed(false);
       setIsExpertiseExpanded(false);
       setIsMadeInExpanded(false);
     } else {
-      // When menu is opened, expand only sections that weren't manually collapsed
       setIsExpertiseExpanded(!expertiseUserCollapsed);
       setIsMadeInExpanded(!madeInUserCollapsed);
     }
@@ -119,7 +121,7 @@ export default function Header() {
                 <>
                   <Link href="/" className="flex-shrink-0">
                     <Image
-                      src="/images/logo.svg"
+                      src={theme === "dark" ? "/images/logo.svg" : "/images/darkLogo.svg"}
                       alt="logo"
                       width={120}
                       height={50}
@@ -157,7 +159,8 @@ export default function Header() {
               <div className="flex items-center flex-col items-end">
                 <div className="flex items-center gap-2 [@media(min-width:1190px)]:pb-2 [@media(min-width:1190px)]:pt-4">
                   <Button
-                    imageSrc={isMenuOpen ? "/images/icons/close.svg" : "/images/icons/burgerMenu.svg"}
+                    lightImageSrc={isMenuOpen ? "/images/icons/closeDark.svg" : "/images/icons/burgerMenuDark.svg"}
+                    darkImageSrc={isMenuOpen ? "/images/icons/close.svg" : "/images/icons/burgerMenu.svg"}
                     altText="Menu"
                     onClick={handleBurgerClick}
                   />

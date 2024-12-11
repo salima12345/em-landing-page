@@ -14,7 +14,7 @@ export default function Home() {
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: .5 }}
       >
         <Hero />
       </motion.div>

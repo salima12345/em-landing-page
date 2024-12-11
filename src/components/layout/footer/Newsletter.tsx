@@ -1,19 +1,20 @@
-'use client';
+"use client";
 
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import Image from 'next/image';
-import { Input } from '@/components/ui/Input';
-import { CustomCheckbox } from '@/components/ui/Checkbox';
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import Image from "next/image";
+import { Input } from "@/components/ui/Input";
+import { CustomCheckbox } from "@/components/ui/Checkbox";
+import { useTheme } from "@/lib/themes";
 
-// Validation Schema
 const schema = yup.object().shape({
-  email: yup.string().email('Please enter a valid email address').required('Email is required'),
-  agreeTerms: yup.boolean().oneOf([true], 'You must agree to the terms and conditions'),
+  email: yup.string().email("Please enter a valid email address").required("Email is required"),
+  agreeTerms: yup.boolean().oneOf([true], "You must agree to the terms and conditions"),
 });
 
 export default function Newsletter() {
+  const { theme } = useTheme();
   const {
     control,
     handleSubmit,
@@ -21,7 +22,7 @@ export default function Newsletter() {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      email: '',
+      email: "",
       agreeTerms: false,
     },
   });
@@ -29,6 +30,13 @@ export default function Newsletter() {
   const onSubmit = (data: { agreeTerms?: boolean; email: string }) => {
     console.log(data);
   };
+
+  const arrowIcon =
+    theme === "dark"
+      ? "/images/icons/arrowRightLight.svg" 
+      : "/images/icons/arrowRight.svg"; 
+
+  const borderBottomColor = theme === "dark" ? "border-[#454545]" : "border-black";
 
   return (
     <div className="w-full">
@@ -39,22 +47,24 @@ export default function Newsletter() {
             name="email"
             control={control}
             render={({ field }) => (
-              <div className="flex items-center border-b pb-2 transition-colors focus-within:border-[#454545] w-full">
+              <div
+                className={`flex items-center border-b pb-2 transition-colors focus-within:${borderBottomColor} w-full`}
+              >
                 <Input
                   {...field}
                   type="email"
                   placeholder="Email address"
                   className={`w-full text-lg bg-transparent focus:outline-none ${
-                    errors.email ? 'border-red-500' : 'border-transparent'
+                    errors.email ? "border-red-500" : "border-transparent"
                   } placeholder-foreground placeholder:text-sm`}
                 />
                 <button type="submit" className="ml-2 flex-shrink-0">
                   <Image
-                    src="/images/icons/arrowRight.svg"
+                    src={arrowIcon}
                     alt="Arrow Right"
                     width={25}
                     height={25}
-                    className="text-lg text-white"
+                    className="text-lg"
                   />
                 </button>
               </div>

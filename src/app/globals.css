@@ -49,14 +49,21 @@ html {
     --foreground: #ededed;
   }
   
-  :root.light {
-    --background: #f2f1ef;
-    --foreground: #000000;
+  :root[class~="light"] {
+    --background: #ffffff;
+    --foreground: #0a0a0a;
+  }
+  
+  :root[class~="dark"] {
+    --background: #0a0a0a;
+    --foreground: #ededed;
   }
   
   body {
     background-color: var(--background);
     color: var(--foreground);
+    transition: background-color 0.3s ease, color 0.3s ease;
+
   }
 html, body {
   scrollbar-width: none; 
@@ -84,7 +91,7 @@ input:-webkit-autofill:focus {
 
 @media (min-width: 481px) {
   .container {
-      @apply px-4 py-3;
+      @apply px-4 py-6;
   }
 }
 
@@ -246,25 +253,8 @@ input:-webkit-autofill:focus {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;  /* Chrome, Safari and Opera */
   }
-  .custom-reveal img {
-    animation: revealFromTop 1.5s ease-out;
-    transform: translateY(-100%);
-    opacity: 0;
-    animation-fill-mode: forwards;
-  }
-  
 
-  @keyframes revealFromTop {
-    0% {
-      transform: translateY(-100%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  
+ 
 
   
   @keyframes slide-in-up {
@@ -284,3 +274,5 @@ input:-webkit-autofill:focus {
     
   
   }
+
+ 

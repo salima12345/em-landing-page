@@ -8,26 +8,24 @@ import { useRouter } from "next/navigation";
 interface ExpertiseItem {
   icon: string;
   text: string;
-  path?: string;
+  path: string; 
 }
 
 const expertises: ExpertiseItem[] = [
-  { icon: "/images/expertises/icons/strategy.svg", text: "Marketing Strategy" },
+  { icon: "/images/expertises/icons/strategy.svg", text: "Marketing Strategy", path: "/Expertise/Strategy" },
   { icon: "/images/expertises/icons/influence.svg", text: "Media Relations", path: "/Expertise/Media" },
-  { icon: "/images/expertises/icons/design.svg", text: "Visual Design" },
-  { icon: "/images/expertises/icons/tech.svg", text: "Tech & Web" },
-  { icon: "/images/expertises/icons/content.svg", text: "Publishing & Content" },
-  { icon: "/images/expertises/icons/influence.svg", text: "Social Media / SEO" },
-  { icon: "/images/expertises/icons/consulting.svg", text: "Outsourcing" },
+  { icon: "/images/expertises/icons/design.svg", text: "Visual Design", path: "/Expertise/Design" },
+  { icon: "/images/expertises/icons/tech.svg", text: "Tech & Web", path: "/Expertise/Tech" },
+  { icon: "/images/expertises/icons/content.svg", text: "Publishing & Content", path: "/Expertise/Content" },
+  { icon: "/images/expertises/icons/influence.svg", text: "Social Media / SEO", path: "/Expertise/Social" },
+  { icon: "/images/expertises/icons/consulting.svg", text: "Outsourcing", path: "/Expertise/Outsourcing" },
 ];
 
 const renderExpertiseItem = (item: ExpertiseItem, index: number, totalItems: number) => {
   const router = useRouter();
 
   const handleClick = () => {
-    if (item.path) {
-      router.push(item.path);
-    }
+    router.push(item.path); 
   };
 
   return (

@@ -29,7 +29,8 @@ function AboutTop() {
           </p>
           <div className='w-[60px]'>
             <Button
-              imageSrc="/images/icons/arrowAltV.svg"
+              darkImageSrc="/images/icons/arrowAltV.svg"
+              lightImageSrc='/images/icons/arrowAltVDark.svg'
               altText="Arrow Icon"
               onClick={scrollToSection}
             />

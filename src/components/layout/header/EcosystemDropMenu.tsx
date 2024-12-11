@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from "@/lib/themes";
 
 interface EcosystemDropMenuProps {
   isOpen: boolean;
@@ -29,12 +30,16 @@ const icons = [
 ];
 
 const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenModal }) => {
+  const { theme } = useTheme();
+
   return (
     <div className="w-full md:w-[287px] 2xl:w-[388px] flex flex-col rounded-[25px] relative transition-all duration-400">
       <motion.div
         className="w-full rounded-[26px] absolute right-0 top-[-25px] max-w[388px] min-w-[287px]"
         animate={{ 
-          backgroundColor: isOpen ? '#222222' : 'transparent',
+          backgroundColor: isOpen 
+            ? (theme === 'dark' ? '#222222' : '#E6E5DF') 
+            : 'transparent',
           padding: isOpen ? '8px' : '0px',
           height: isOpen ? 'auto' : '56px'
         }}
@@ -45,7 +50,12 @@ const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenMod
             height: '56px',
             borderRadius: '26px'
           }}
-          className="mx-auto bg-[#454545] flex items-center justify-center cursor-pointer z-[2] relative transition-all duration-500"
+          className={`mx-auto flex items-center justify-center cursor-pointer z-[2] relative transition-all duration-500 
+            ${theme === 'dark' 
+              ? 'bg-[#454545] text-white' 
+              : 'bg-[#D5D4CE] text-black'
+            }`
+          }
           animate={{ 
             width: isOpen ? '100%' : '218px',
             height: isOpen ? '62px' : '56px',
@@ -53,7 +63,7 @@ const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenMod
           }}
           onClick={onOpenModal}
         >
-          <span className="text-[16px] text-white tracking-[5px] uppercase text-center">
+          <span className="text-[16px] tracking-[5px] uppercase text-center">
             Ecosystem
           </span>
         </motion.div>
@@ -61,7 +71,11 @@ const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenMod
         <AnimatePresence>
           {isOpen && (
             <motion.div 
-              className="w-full px-5 py-[30px] rounded-b-[26px] opacity-0"
+              className={`w-full px-5 py-[30px] rounded-b-[26px] opacity-0 
+                ${theme === 'dark' 
+                  ? 'bg-[#222222] text-white' 
+                  : 'bg-[#E6E5DF] text-black'}
+              `}
               initial={{ 
                 opacity: 0, 
                 height: 0,
@@ -78,27 +92,31 @@ const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenMod
               }}
             >
               <nav>
-                <ul className="flex flex-col gap-5">
-                  <li className="text-[24px] font-semibold text-center text-white self-center cursor-pointer">
+                <ul className={`flex flex-col gap-5 
+                  ${theme === 'dark' 
+                    ? 'text-white' 
+                    : 'text-black'}`
+                }>
+                  <li className="text-[24px] font-semibold text-center self-center cursor-pointer">
                     <Link href="/"> Agence</Link>
                   </li>
-                  <li className="text-[24px] text-center text-white self-center cursor-pointer relative">
+                  <li className="text-[24px] text-center self-center cursor-pointer relative">
                     <Link href="/"> References <span className="text-[#E0643A] text-[20px]">*</span></Link>
                   </li>
-                  <li className="text-[24px] text-center text-white self-center cursor-pointer">
+                  <li className="text-[24px] text-center self-center cursor-pointer">
                     <Link href="/"> Talents</Link>
                   </li>
-                  <li className="text-[24px] text-center text-white self-center cursor-pointer">
+                  <li className="text-[24px] text-center self-center cursor-pointer">
                     <Link href="/">  Wilo Insights</Link>
                   </li>
-                  <li className="text-[24px] text-center text-white self-center cursor-pointer">
+                  <li className="text-[24px] text-center self-center cursor-pointer">
                     <Link href="/Contact" className='flex items-center gap-2'>Contact
                       <Image 
                         src="/images/icons/ArrowUpLight.svg" 
                         alt="" 
                         width={13} 
                         height={13} 
-                        className='w-[13px] w-[13px]'
+                        className='w-[13px] h-[13px]'
                       />
                     </Link>
                   </li>
