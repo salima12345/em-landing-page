@@ -8,6 +8,8 @@ import Button from '@/components/ui/Button';
 import TeamReveal from '@/components/TeamReveal';
 import Footer from '@/components/layout/footer';
 import { teamGroups } from '@/Data/TeamData';
+import CaseStudy from '@/components/CaseStudy';
+import { CASE_STUDIES } from '@/Data/CaseStudiesData';
 
 interface ServiceItemProps {
   number: string;
@@ -205,64 +207,64 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
     services,
     servicesDescription,
   } = pageContent;
-   // Filter team members for the given slug
-   const group = teamGroups.find((group) => group.name.toLowerCase() === slug.toLowerCase());
-   const members = group ? group.members : [];
+
+  const group = teamGroups.find((group) => group.name.toLowerCase() === slug.toLowerCase());
+  const members = group ? group.members : [];
 
   return (
     <>
       <div className="container py-8">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-5">
-  <button
-    className="group w-[54px] h-[54px] rounded-full flex items-center justify-center bg-[#E6E5DF] transition-all duration-300"
-    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = servicesBgColor)}
-    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#E6E5DF')}
-  >
-    <Image
-      src="/images/icons/arrowLeftDark.svg"
-      alt="Arrow Left"
-      width={19}
-      height={19}
-      className="transition-all duration-300 group-hover:hidden"
-    />
-    <Image
-      src="/images/icons/arrowLeftLight.svg"
-      alt="Arrow Left Hover"
-      width={19}
-      height={19}
-      className="transition-all duration-300 hidden group-hover:block"
-    />
-  </button>
-  <button
-    className="group w-[54px] h-[54px] rounded-full flex items-center justify-center bg-[#E6E5DF] transition-all duration-300"
-    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = servicesBgColor)}
-    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#E6E5DF')}
-  >
-    <Image
-      src="/images/icons/arrowRight.svg"
-      alt="Arrow Right"
-      width={19}
-      height={19}
-      className="transition-all duration-300 group-hover:hidden"
-    />
-    <Image
-      src="/images/icons/arrowRightLight.svg"
-      alt="Arrow Right Hover"
-      width={19}
-      height={19}
-      className="transition-all duration-300 hidden group-hover:block"
-    />
-  </button>
-</div>
+            <div className="flex items-center gap-5">
+              <button
+                className="group w-[54px] h-[54px] rounded-full flex items-center justify-center bg-[#E6E5DF] transition-all duration-300"
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = servicesBgColor)}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#E6E5DF')}
+              >
+                <Image
+                  src="/images/icons/arrowLeftDark.svg"
+                  alt="Arrow Left"
+                  width={19}
+                  height={19}
+                  className="transition-all duration-300 group-hover:hidden"
+                />
+                <Image
+                  src="/images/icons/arrowLeftLight.svg"
+                  alt="Arrow Left Hover"
+                  width={19}
+                  height={19}
+                  className="transition-all duration-300 hidden group-hover:block"
+                />
+              </button>
+              <button
+                className="group w-[54px] h-[54px] rounded-full flex items-center justify-center bg-[#E6E5DF] transition-all duration-300"
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = servicesBgColor)}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#E6E5DF')}
+              >
+                <Image
+                  src="/images/icons/arrowRight.svg"
+                  alt="Arrow Right"
+                  width={19}
+                  height={19}
+                  className="transition-all duration-300 group-hover:hidden"
+                />
+                <Image
+                  src="/images/icons/arrowRightLight.svg"
+                  alt="Arrow Right Hover"
+                  width={19}
+                  height={19}
+                  className="transition-all duration-300 hidden group-hover:block"
+                />
+              </button>
+            </div>
 
-            <div className='max-h-[200px] overlow-hidden'>
-            <AnimatedTitle
-              text={title}
-              className="font-semibold text-[14px] animate-slide-in-up"
-              style={{ color: heroTextColor }}
-            />
+            <div className='max-h-[200px] overflow-hidden'>
+              <AnimatedTitle
+                text={title}
+                className="font-semibold text-[14px] animate-slide-in-up"
+                style={{ color: heroTextColor }}
+              />
             </div>
             <h3
               className="font-semibold text-[56px] animate-slide-in-up xl:max-w-[691px]"
@@ -287,6 +289,7 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
             </motion.div>
           </div>
         </div>
+
         <div className="py-12 flex items-end justify-end">
           <Button
             darkImageSrc="/images/icons/arrowAltV.svg"
@@ -294,6 +297,7 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
             altText="Arrow Icon"
           />
         </div>
+
         <div
           className="mt-10 py-12 rounded-[10px]"
           style={{ background: servicesBgColor }}
@@ -306,13 +310,13 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
             className="container"
           >
             <div
-              className="flex flex-col xl:flex-row gap-12 py-8 w-full gap-16 "
+              className="flex flex-col xl:flex-row gap-12 py-8 w-full gap-16"
               style={{ color: servicesTextColor }}
             >
               <p className="text-[20px] font-medium leading-[30px] max-w-[50%] whitespace-pre-line">
                 {servicesDescription}
               </p>
-              <div className="flex flex-col gap-8 pl-16 ">
+              <div className="flex flex-col gap-8 pl-16">
                 {services.map((service, index) => (
                   <ServiceItem
                     key={service}
@@ -324,20 +328,37 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
             </div>
           </motion.div>
         </div>
+
         <div className="mt-10 py-16">
           <AnimatedTitle
             text={`The ${title} Team`}
             className="font-semibold text-[36px] animate-slide-in-up"
           />
           <TeamReveal members={members} />
-          </div>
-          <div  className='mt-10 '>
-          <AnimatedTitle
-            text={"Case Studies"}
-            className="font-semibold text-[36px] animate-slide-in-up"
-          />
-             
-          </div>
+        </div>
+
+        <div className='mt-10'>
+          {CASE_STUDIES[slug] ? (
+            <>
+              <AnimatedTitle
+                text="Case Studies"
+                className="font-semibold text-[36px] animate-slide-in-up mb-8"
+              />
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                {CASE_STUDIES[slug].map((study, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: index * 0.2 }}
+                  >
+                    <CaseStudy {...study} />
+                  </motion.div>
+                ))}
+              </div>
+            </>
+          ) : null}
+        </div>
       </div>
       <Footer bgColor={servicesBgColor} buttonIcon="/images/icons/ArrowUpLight.svg" />
     </>
