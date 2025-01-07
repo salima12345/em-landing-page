@@ -37,7 +37,7 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
   }, [hoverIndex, controls]);
 
   return (
-    <div className="relative py-12">
+    <div className="relative ">
       <motion.div
         className="fixed w-[250px] h-[280px] pointer-events-none z-30 overflow-hidden rounded-[10px] shadow-2xl"
         style={{
@@ -102,7 +102,7 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
                     transition={{
                       duration: 0.3,
                       ease: [0.19, 1, 0.22, 1],
-                      delay: 0.1, // Slight delay after dot appears
+                      delay: 0.1, 
                     }}
                   >
                     {member.name}

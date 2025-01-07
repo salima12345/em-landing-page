@@ -1,16 +1,18 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+"use client"
+
+import React, { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 interface AnimatedTitleProps {
-  text: string;
-  className?: string;
-  style?: React.CSSProperties; 
+  text: string
+  className?: string
+  style?: React.CSSProperties
 }
 
 const AnimatedTitle: React.FC<AnimatedTitleProps> = ({ text, className, style }) => {
-  const characters = Array.from(text);
-  const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: true, margin: '-100px' });
+  const characters = Array.from(text)
+  const containerRef = useRef(null)
+  const isInView = useInView(containerRef, { once: true, margin: '-100px' })
 
   return (
     <div ref={containerRef} className={`overflow-hidden ${className}`} style={style}>
@@ -25,7 +27,7 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({ text, className, style })
             initial={{ y: '100%' }}
             animate={isInView ? { y: 0 } : { y: '100%' }}
             transition={{
-              duration: 0.5,
+              duration: 2,
               ease: [0.33, 1, 0.68, 1],
               delay: index * 0.02,
             }}
@@ -35,7 +37,8 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({ text, className, style })
         ))}
       </motion.div>
     </div>
-  );
-};
+  )
+}
 
-export default AnimatedTitle;
+export default AnimatedTitle
+

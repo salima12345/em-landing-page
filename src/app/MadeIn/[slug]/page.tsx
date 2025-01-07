@@ -80,20 +80,130 @@ const PAGE_CONTENT: Record<string, PageContent> = {
     ],
   },
   esg: {
-    subtitle: "Business Development",
-    title: "Harness your growth potential and broaden your horizons",
-    imageSrc: "https://www.eliott-markus.com/wp-content/uploads/2023/05/Boost.png",
+    subtitle: "CSR, Ethics and Soft law",
+    title: "Create and develop your impact",
+    imageSrc: "https://www.eliott-markus.com/wp-content/uploads/2023/05/Reform.png",
     imageAlt: "Chart Your Course",
     description: [
-      "Business development is crucial for ensuring the sustainability and success of your company.\n\n Our Business Development offer is designed to assist your company drive growth, identify new opportunities, and develop  strategic relationships. \n\n With Boost, we support you in the development of a strategy aligned with your organization, from the analysis stage through to the resulting operational actions, to ensure the sustainability of your business."
+      "In response to changes in legislation, regulations and standards, your company must demonstrate exemplary conduct and proactivity. This involves adopting the principles of sustainable governance through a clear, measurable, and integrated CSR strategy. \n\n With Reform, we work with you to formulate a transparent and responsible policy tailored to your business, based on a soft-law strategy, to highlight your commitments.We work with you to develop customized communication tools to serve your performance and image."
     ],
     services: [
-      { title: 'Analysis and Planning' },
-      { title: 'Marketing and Offering Marketecture' },
-      { title: 'Inbound Marketing and Customer Acquisition' },
-      { title: 'Marketing and Communication Strategies' },
-      { title: 'Strategic Partnerships' },
-      { title: 'Public Relations' },
+      { title: 'CSR Strategy' },
+      { title: 'ESG Report' },
+      { title: 'Code of Conduct' },
+      { title: 'Ethics Charter' },
+      { title: 'Diversity Book' },
+      { title: 'Culture Book' },
+     
+    ],
+  },
+  association: {
+    subtitle: "Associations and Organizations",
+    title: "Strengthen your voice and engage your community",
+    imageSrc: "https://www.eliott-markus.com/wp-content/uploads/2023/06/Engage@2x-min.png",
+    imageAlt: "Chart Your Course",
+    description: [
+      "Our team of communications experts has in-depth knowledge of the specific needs of associations and organizations. We understand the importance of communication for associations and organizations, whether it’s to boost their visibility, communicate effectively with their members, promote their events or influence public policies. That’s why we’ve developed Engage, an offer tailored to the unique needs of associations and organizations."
+    ],
+    services: [
+      { title: 'Communication strategy' },
+      { title: 'Rebranding' },
+      { title: 'Offering marketing and fundraising' },
+      { title: 'Internal communications' },
+      { title: 'Website and search engine optimization' },
+      { title: 'Media relations' },
+      { title: 'Public relations' },
+      { title: ' Lobbying' },
+
+
+     
+    ],
+  },
+  coporate: {
+    subtitle: "Start Up & Corporate Tech",
+    title: "Increase your appeal to all your stakeholders",
+    imageSrc: "https://www.eliott-markus.com/wp-content/uploads/2023/05/Growth.png",
+    imageAlt: "Chart Your Course",
+    description: [
+      "With the multiplication of communication channels, it’s becoming more and more difficult for startups to promote their value proposition, to speak out effectively, to be listened to and to gain recognition. With Value, we help them express their brand identity and design a bespoke influencer strategy."
+    ],
+    services: [
+      { title: 'Strategy' },
+      { title: 'Branding' },
+      { title: 'Influence' },
+      { title: 'Executive personal branding' },
+      { title: 'Public relations' },
+      { title: ' Media relations' },
+      { title: 'Social media' },
+      { title: 'Fundraising package' },
+
+
+     
+    ],
+  },
+  finance: {
+    subtitle: "Finance and investment professions",
+    title: "Increase your influence and visibility",
+    imageSrc: "https://www.eliott-markus.com/wp-content/uploads/2023/10/Value.png",
+    imageAlt: "Chart Your Course",
+    description: [
+      "Eliott & Markus has teamed up with COM’Value to support finance and investment professionals. This strategic alliance combines the strengths of two leading agencies to deliver unique solutions in branding, influence, 360° and multi-channel communication strategies. Together, Eliott & Markus and COM’Value are committed to offering in-depth, industry-specific expertise that responds directly to the needs of finance and investment professionals."
+    ],
+    services: [
+      { title: ' Influence strategy' },
+      { title: ' Media Relations' },
+      { title: 'Public Relation' },
+      { title: 'Brand image' },
+      { title: ' E-Reputation and websites' },
+     
+
+
+     
+    ],
+  },
+  crisis: {
+    subtitle: "Crisis Management",
+    title: "Preventing and managing crisis situations",
+    imageSrc: "https://www.eliott-markus.com/wp-content/uploads/2023/05/Welawcare.png",
+    imageAlt: "Chart Your Course",
+    description: [
+      "In the era of omnichannel communication, where crises are governed by a total interdependence between a company’s stakeholders, reputation, and legal responsibilities, crisis management must open up its spectrum of interventions in order to respond to increasingly complex situations. effectively protect a company’s image in the face of these new threats, We Law Care combines expertise in strategic crisis management, legal communication, reputation and influence, with a fine understanding of legal and judicial matters. Within one global offering, We Law Care brings together crisis managers, communicators, lawyers, cybersecurity experts, and e-reputation specialists."
+    ],
+    services: [
+      { title: 'Litigation PR' },
+      { title: ' Reputation, brand and image' },
+      { title: ' Internal crisis management' },
+      { title: 'Crisis plan structuring' },
+      { title: 'Management of high-stakes legal and social crises' },
+      { title: ' Training in crisis management' },
+
+     
+
+
+     
+    ],
+  },
+  branding: {
+    subtitle: "Personal Branding",
+    title: "Build and maintain your personal brand",
+    imageSrc: "https://www.eliott-markus.com/wp-content/uploads/2023/05/Spotlight.png",
+    imageAlt: "Chart Your Course",
+    description: [
+      "Your personal success has a positive impact on your company’s image and achievement.Our Personal Branding for Executives is designed to assist you in building a strong personal brand that enhances your leadership, credibility, and influence.With Spotlight, we define the expression of your personal brand and its operational application, turning it into an accelerator for your business development."
+    ],
+    services: [
+      { title: 'Assessment and Strategy' },
+      { title: ' Personal Brand Identity' },
+      { title: ' Online Reputation' },
+      { title: 'Referencing your Expertise' },
+      { title: ' Public Relations' },
+      { title: ' Communication and Leadership Coaching' },
+      { title: ' Content Management' },
+
+
+     
+
+
      
     ],
   },
@@ -159,9 +269,18 @@ const MadeInPage = ({ params }: { params: { slug: string } }) => {
               text={subtitle}
               className="font-semibold text-[14px]"
             />
-            <h5 className="font-semibold text-[56px] animate-slide-in-up">
-              {title}
-            </h5>
+            <div className="overflow-hidden">
+      <motion.h5
+        initial={{ y: "100%", opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 2, ease: [0.33, 1, 0.68, 1] }}
+        className="font-semibold text-[56px] "
+      >
+        {title}
+      </motion.h5>
+    </div>
+
+
           </div>
           <div className="w-[60px]">
             <Button

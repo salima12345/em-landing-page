@@ -264,19 +264,27 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
               </button>
             </div>
 
-            <div className='max-h-[200px] overflow-hidden'>
+            <div className=' overflow-hidden'>
               <AnimatedTitle
                 text={title}
                 className="font-semibold text-[14px] animate-slide-in-up"
                 style={{ color: heroTextColor }}
               />
             </div>
-            <h3
-              className="font-semibold text-[56px] animate-slide-in-up xl:max-w-[691px]"
-              style={{ color: heroTextColor }}
-            >
-              {description}
-            </h3>
+            <div className='overflow-hidden'>
+                <motion.h3
+                      initial={{ y: "100%", opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 2, ease: [0.33, 1, 0.68, 1] }}
+                      className="font-semibold text-[56px]  xl:max-w-[691px]"
+                      style={{ color: heroTextColor }}
+                    >
+                      {description}
+                    </motion.h3>
+
+
+            </div>
+          
           </div>
           <div className="w-[287px] h-[287px] relative rounded-[20px] overflow-hidden">
             <motion.div

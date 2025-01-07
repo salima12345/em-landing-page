@@ -9,11 +9,11 @@ const madeIn = [
   { name: "Interim Management", path: "/MadeIn/management" },
   { name: "Business Development", path: "/MadeIn/business" },
   { name: "ESG, Ethics and Soft Law", path: "/MadeIn/esg" },
-  { name: "Association and Organization", path: "/MadeIn/Association" },
-  { name: "Start-up & Corporate Tech", path: "/MadeIn/CoporateTech" },
-  { name: "Finance and Investment Professions", path: "/MadeIn/Finance" },
-  { name: "Crisis Management", path: "/MadeIn/CrisisManagement" },
-  { name: "Personal Branding", path: "/MadeIn/PersonalBranding" },
+  { name: "Association and Organization", path: "/MadeIn/association" },
+  { name: "Start-up & Corporate Tech", path: "/MadeIn/coporate" },
+  { name: "Finance and Investment Professions", path: "/MadeIn/finance" },
+  { name: "Crisis Management", path: "/MadeIn/crisis" },
+  { name: "Personal Branding", path: "/MadeIn/Branding" },
 ];
 
 const renderMadeInItem = (

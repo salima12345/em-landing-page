@@ -52,7 +52,7 @@ html {
   }
   
   :root[class~="dark"] {
-    --background: #222222;
+    --background: #0a0a0a;
     --foreground: #ededed;
   }
   
@@ -254,22 +254,6 @@ input:-webkit-autofill:focus {
  
 
   
-  @keyframes slide-in-up {
-    0% {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  @layer utilities {
-    .animate-slide-in-up {
-      animation: slide-in-up 2s ease-out forwards;
-    }
-    
-  
-  }
-
+   
+ 
  
