@@ -5,15 +5,15 @@ import { useRouter } from "next/navigation";
 import ExpandableSection from "./ExpandableSection";
 
 const madeIn = [
-  { name: "Creation and Launch", path: "/MadeIn/Creation" },
-  { name: "Interim Management", path: "/MadeIn/Creation" },
-  { name: "Business Development", path: "/MadeIn/Creation" },
-  { name: "ESG, Ethics and Soft Law", path: "/MadeIn/Creation" },
-  { name: "Association and Organization", path: "/MadeIn/Creation" },
-  { name: "Start-up & Corporate Tech", path: "/MadeIn/Creation" },
-  { name: "Finance and Investment Professions", path: "/MadeIn/Creation" },
-  { name: "Crisis Management", path: "/MadeIn/Creation" },
-  { name: "Personal Branding", path: "/MadeIn/Creation" },
+  { name: "Creation and Launch", path: "/MadeIn/creation" },
+  { name: "Interim Management", path: "/MadeIn/management" },
+  { name: "Business Development", path: "/MadeIn/business" },
+  { name: "ESG, Ethics and Soft Law", path: "/MadeIn/esg" },
+  { name: "Association and Organization", path: "/MadeIn/Association" },
+  { name: "Start-up & Corporate Tech", path: "/MadeIn/CoporateTech" },
+  { name: "Finance and Investment Professions", path: "/MadeIn/Finance" },
+  { name: "Crisis Management", path: "/MadeIn/CrisisManagement" },
+  { name: "Personal Branding", path: "/MadeIn/PersonalBranding" },
 ];
 
 const renderMadeInItem = (

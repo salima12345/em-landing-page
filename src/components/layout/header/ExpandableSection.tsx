@@ -39,9 +39,20 @@ function ExpandableSection<T>({
   const [hasScrolled, setHasScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isUserToggled, setIsUserToggled] = useState(false);
+  const [previousPathname, setPreviousPathname] = useState(pathname);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   const isControlled = parentExpanded !== undefined && parentSetExpanded !== undefined;
   const isExpanded = isControlled ? parentExpanded : localIsExpanded;
+
+  useEffect(() => {
+    if (pathname !== previousPathname) {
+      setIsNavigating(true);
+      setPreviousPathname(pathname);
+    } else {
+      setIsNavigating(false);
+    }
+  }, [pathname, previousPathname]);
 
   const handleAutoExpand = (shouldExpand: boolean) => {
     if (isControlled) {
@@ -119,8 +130,7 @@ function ExpandableSection<T>({
       >
         <button
           className={`w-full h-[56px] px-6 py-4 flex items-center justify-between
-          ${theme ==='dark' ? 'bg-grayDark text-white' : 'bg-[#E6E5DF] text-black'}`
-        }
+          ${theme ==='dark' ? 'bg-grayDark text-white' : 'bg-[#E6E5DF] text-black'}`}
           onClick={toggleExpand}
           aria-expanded={isExpanded}
           aria-controls={`${testId}-content`}
@@ -132,7 +142,7 @@ function ExpandableSection<T>({
             height={16}
             className={`transform ${isExpanded ? "rotate-180" : ""}`}
             style={{
-              transition: "transform 0.7s ease-in-out",
+              transition: isNavigating ? "none" : "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
             alt={isExpanded ? "Collapse" : "Expand"}
           />
@@ -140,16 +150,18 @@ function ExpandableSection<T>({
 
         <div
           id={`${testId}-content`}
-          className="flex flex-col gap-5 "
+          className="flex flex-col gap-5 origin-top"
           style={{
-            maxHeight: isExpanded ? "500px" : "0px",
+            maxHeight: isExpanded ? `${items.length * 50 + 20}px` : "0px",
             opacity: isExpanded ? 1 : 0,
-            transform: `scaleY(${isExpanded ? 1 : 0.8})`,
-            transition: `
-              max-height 0.7s ease-in-out,
-              opacity 0.7s ease-in-out ${isExpanded ? "0.2s" : "0s"},
-              transform 0.7s ease-in-out
-            `,
+            visibility: isExpanded ? "visible" : "hidden",
+            transition: isNavigating 
+              ? "none"
+              : `
+                max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1)
+              `
           }}
         >
           {items.map((item, index) =>
@@ -159,10 +171,6 @@ function ExpandableSection<T>({
               <div
                 key={index}
                 className={`px-5 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}
-                style={{
-                  transition: "all 0.7s ease-in-out",
-                  transitionDelay: isExpanded ? "0.2s" : "0s",
-                }}
               >
                 {JSON.stringify(item)}
               </div>

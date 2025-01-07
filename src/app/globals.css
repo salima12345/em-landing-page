@@ -44,10 +44,7 @@ html {
     scroll-behavior: auto !important;
   }
 
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+
   
   :root[class~="light"] {
     --background: #ffffff;

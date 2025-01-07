@@ -22,6 +22,14 @@ export function useTheme() {
 const PAGE_THEMES: Record<string, Theme> = {
   "/": "dark",
   "/Expertise/Strategy": "light",
+  "/Expertise/Media": "light",
+  "/Expertise/Design": "light",
+  "/Expertise/Web": "light",
+  "/Expertise/Content": "light",
+  "/Expertise/SocialMedia": "light",
+  "/Expertise/Outsourcing": "light",
+
+
 };
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

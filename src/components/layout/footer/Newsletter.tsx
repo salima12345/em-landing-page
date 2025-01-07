@@ -14,7 +14,7 @@ const schema = yup.object().shape({
 });
 
 export default function Newsletter() {
-  const { theme } = useTheme();
+  const { theme } = useTheme(); 
   const {
     control,
     handleSubmit,
@@ -36,8 +36,6 @@ export default function Newsletter() {
       ? "/images/icons/arrowRightLight.svg" 
       : "/images/icons/arrowRight.svg"; 
 
-  const borderBottomColor = theme === "dark" ? "border-[#454545]" : "border-black";
-
   return (
     <div className="w-full">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
@@ -47,9 +45,7 @@ export default function Newsletter() {
             name="email"
             control={control}
             render={({ field }) => (
-              <div
-                className={`flex items-center border-b pb-2 transition-colors focus-within:${borderBottomColor} w-full`}
-              >
+              <div className="flex items-center border-b pb-2 transition-colors focus-within:border-[#454545] w-full">
                 <Input
                   {...field}
                   type="email"
@@ -62,8 +58,8 @@ export default function Newsletter() {
                   <Image
                     src={arrowIcon}
                     alt="Arrow Right"
-                    width={25}
-                    height={25}
+                    width={19}
+                    height={19}
                     className="text-lg"
                   />
                 </button>
@@ -73,7 +69,6 @@ export default function Newsletter() {
           {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
         </div>
 
-        {/* Custom Checkbox for Terms */}
         <div className="mb-4">
           <CustomCheckbox
             name="agreeTerms"

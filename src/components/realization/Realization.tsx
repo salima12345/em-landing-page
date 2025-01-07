@@ -63,7 +63,6 @@ function Realization() {
       <AnimatedTitle text="Last creations" className="font-bold text-[21px] xl:text-[26px]" />
 
       <motion.div
-        id="gallery-work"
         className="fixed w-[385px] h-[280px] pointer-events-none z-30 overflow-hidden"
         style={{
           top: cursorPos.y,
