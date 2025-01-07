@@ -188,7 +188,12 @@ const PAGE_CONTENT: Record<string, PageContent> = {
 
 const ExpertisePage = ({ params }: { params: { slug: string } }) => {
   const ref = React.useRef(null);
+  const caseStudiesRef = React.useRef(null);
   const isInView = useInView(ref, { once: true });
+  const isCaseStudiesInView = useInView(caseStudiesRef, { 
+    once: true,
+    margin: "-100px"
+  });
   const { slug } = params;
 
   const pageContent = PAGE_CONTENT[slug];
@@ -337,27 +342,27 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
           <TeamReveal members={members} />
         </div>
 
-        <div className='mt-10'>
-          {CASE_STUDIES[slug] ? (
-            <>
-              <AnimatedTitle
-                text="Case Studies"
-                className="font-semibold text-[36px] animate-slide-in-up mb-8"
-              />
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                {CASE_STUDIES[slug].map((study, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.5, delay: index * 0.2 }}
-                  >
-                    <CaseStudy {...study} />
-                  </motion.div>
-                ))}
-              </div>
-            </>
-          ) : null}
+        <div className='mt-10' ref={caseStudiesRef}>
+    {CASE_STUDIES[slug] ? (
+      <>
+        <AnimatedTitle
+          text="Case Studies"
+          className="font-semibold text-[36px] animate-slide-in-up mb-8"
+        />
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+          {CASE_STUDIES[slug].map((study, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isCaseStudiesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+            >
+              <CaseStudy {...study} />
+            </motion.div>
+          ))}
+        </div>
+      </>
+    ) : null}
         </div>
       </div>
       <Footer bgColor={servicesBgColor} buttonIcon="/images/icons/ArrowUpLight.svg" />
