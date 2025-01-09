@@ -28,6 +28,7 @@ const PAGE_THEMES: Record<string, Theme> = {
   "/Expertise/Content": "light",
   "/Expertise/SocialMedia": "light",
   "/Expertise/Outsourcing": "light",
+  "/Team":"light",
 
 
 };

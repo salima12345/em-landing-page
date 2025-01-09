@@ -1,15 +1,11 @@
+'use client';
+
 import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
-
-interface TeamMember {
-  name: string;
-  image: string;
-  jobTitle: string;
-  hasBiography?: boolean;
-}
+import type { TeamMember } from "@/Data/TeamData";
 
 interface TeamRevealProps {
-  members: TeamMember[]; 
+  members: TeamMember[];
 }
 
 const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
@@ -64,7 +60,8 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
               <div
                 className="w-full h-full bg-cover bg-center transform transition-transform duration-500 ease-out hover:scale-105 [image-rendering:crisp-edges]"
                 style={{
-                  backgroundImage: `url(${member.image})`,
+                  backgroundImage: member.image ? `url(${member.image})` : 'none',
+                  backgroundColor: !member.image ? '#f3f4f6' : undefined,
                 }}
               />
             </div>
@@ -77,11 +74,11 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
           {members.map((member, index) => (
             <div
               key={index}
-              className="relative py-7 border-b-[0.5px] border-black cursor-pointer group"
+              className="relative py-7 border-b-[0.5px] border-border cursor-pointer group"
               onMouseEnter={() => setHoverIndex(index)}
               onMouseLeave={() => setHoverIndex(null)}
             >
-              <div className="flex  flex-col  gap-2 md:flex-row md:items-center md:gap-10">
+              <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-10">
                 <div className="flex items-center">
                   <motion.div
                     className="w-2 h-2 rounded-full bg-yellow-400 mr-2 opacity-0 scale-0 hidden md:block"
@@ -102,7 +99,7 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
                     transition={{
                       duration: 0.3,
                       ease: [0.19, 1, 0.22, 1],
-                      delay: 0.1, 
+                      delay: 0.1,
                     }}
                   >
                     {member.name}
@@ -146,4 +143,3 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
 };
 
 export default TeamReveal;
-
