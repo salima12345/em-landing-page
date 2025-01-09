@@ -219,7 +219,7 @@ const MadeInPage = ({ params }: { params: { slug: string } }) => {
   const isImageInView = useInView(imageRef, { once: true });
 
   if (!slug || typeof slug !== 'string') {
-    return <p>Loading...</p>; //  replace with a proper loading indicator
+    return <p>Loading...</p>; 
   }
 
   const content = PAGE_CONTENT[slug.toLowerCase()];
@@ -270,14 +270,14 @@ const MadeInPage = ({ params }: { params: { slug: string } }) => {
               className="font-semibold text-[14px]"
             />
             <div className="overflow-hidden">
-      <motion.h5
-        initial={{ y: "100%", opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 2, ease: [0.33, 1, 0.68, 1] }}
-        className="font-semibold text-[56px] "
-      >
-        {title}
-      </motion.h5>
+            <motion.h5
+      initial={{ y: "100%", opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 2, ease: [0.33, 1, 0.68, 1] }}
+      className="font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[56px]"
+    >
+      {title}
+    </motion.h5>
     </div>
 
 
@@ -315,8 +315,8 @@ const MadeInPage = ({ params }: { params: { slug: string } }) => {
           transition={{ duration: 1, delay: 0.5 }}
           className="container"
         >
-          <div className="mt-10 flex flex-col xl:flex-row items-start justify-center gap-16 max-w-6xl mx-auto">
-            <div className="text-[20px] font-medium leading-[30px] max-w-xl">
+          <div className="mt-10 flex flex-col xl:flex-row items-start justify-center gap-10 w-full xl:max-w-6xl mx-auto ">
+            <div className="text-[20px] font-medium leading-[30px] w-full xl:max-w-xl">
               {description.map((paragraph, index) => (
                 <p key={index}>
                   {paragraph

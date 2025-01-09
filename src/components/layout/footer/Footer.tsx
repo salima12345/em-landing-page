@@ -17,12 +17,12 @@ function Footer({
 }: FooterProps) {
   return (
     <footer className="relative w-full">
-      <div className="container mt-10 py-8">
-        <div className="flex items-center justify-between pb-8">
+      <div className="container mt-10  ">
+        <div className="flex items-center justify-between pb-5 xl:pb-8">
           <div>
             <AnimatedTitle
               text={`A project in mind? Let's talk!`}
-              className="font-medium text-[21px] lg:text-[31px] xl:text-[41px] 2xl:text-[51px] 3xl:text-[61px] max-w-[800px] animate-slide-in-up"
+              className="font-medium text-[21px] lg:text-[31px] xl:text-[41px] 2xl:text-[51px] 3xl:text-[61px] max-w-[800px] "
             />
           </div>
           <button

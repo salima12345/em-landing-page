@@ -219,7 +219,7 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
   return (
     <>
       <div className="container py-8">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-10 xl:flex-row xl:items-center xl:justify-between ">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-5">
               <button
@@ -267,17 +267,19 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
             <div className=' overflow-hidden'>
               <AnimatedTitle
                 text={title}
-                className="font-semibold text-[14px] animate-slide-in-up"
+                className="font-semibold text-[14px] "
                 style={{ color: heroTextColor }}
               />
             </div>
-            <div className='overflow-hidden'>
+            <div className='overflow-hidden py-2'>
                 <motion.h3
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: 2, ease: [0.33, 1, 0.68, 1] }}
-                      className="font-semibold text-[56px]  xl:max-w-[691px]"
-                      style={{ color: heroTextColor }}
+                      className="font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[56px] 
+                      max-w-full sm:max-w-[80%] md:max-w-[75%] lg:max-w-[70%] xl:max-w-[691px] 
+                       "
+                     style={{ color: heroTextColor }}
                     >
                       {description}
                     </motion.h3>
@@ -303,7 +305,7 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
           </div>
         </div>
 
-        <div className="py-12 flex items-end justify-end">
+        <div className=" py-20 flex items-end justify-end">
           <Button
             darkImageSrc="/images/icons/arrowAltV.svg"
             lightImageSrc="/images/icons/arrowAltVDark.svg"
@@ -312,7 +314,7 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
         </div>
 
         <div
-          className="mt-10 py-12 rounded-[10px]"
+          className=" rounded-[10px]"
           style={{ background: servicesBgColor }}
         >
           <motion.div
@@ -323,13 +325,13 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
             className="container"
           >
             <div
-              className="flex flex-col xl:flex-row gap-12 py-8 w-full gap-16"
+              className="flex flex-col xl:flex-row gap-12 py-8 w-full "
               style={{ color: servicesTextColor }}
             >
-              <p className="text-[20px] font-medium leading-[30px] max-w-[50%] whitespace-pre-line">
+              <p className="text-[20px] font-medium leading-[30px]  w-full xl:max-w-[50%]  whitespace-pre-line">
                 {servicesDescription}
               </p>
-              <div className="flex flex-col gap-8 pl-16">
+              <div className="flex flex-col gap-8 xl:pl-16">
                 {services.map((service, index) => (
                   <ServiceItem
                     key={service}
@@ -342,20 +344,20 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
           </motion.div>
         </div>
 
-        <div className="mt-10 py-16">
+        <div className="py-20">
           <AnimatedTitle
             text={`The ${title} Team`}
-            className="font-semibold text-[36px] animate-slide-in-up"
+            className="font-semibold text-[36px] "
           />
           <TeamReveal members={members} />
         </div>
 
-        <div className='mt-10' ref={caseStudiesRef}>
+        <div  ref={caseStudiesRef}>
     {CASE_STUDIES[slug] ? (
       <>
         <AnimatedTitle
           text="Case Studies"
-          className="font-semibold text-[36px] animate-slide-in-up mb-8"
+          className="font-semibold text-[36px]  mb-8"
         />
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
           {CASE_STUDIES[slug].map((study, index) => (

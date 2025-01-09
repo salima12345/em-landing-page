@@ -37,7 +37,7 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
   }, [hoverIndex, controls]);
 
   return (
-    <div className="relative ">
+    <div className="relative">
       <motion.div
         className="fixed w-[250px] h-[280px] pointer-events-none z-30 overflow-hidden rounded-[10px] shadow-2xl"
         style={{
@@ -81,10 +81,10 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
               onMouseEnter={() => setHoverIndex(index)}
               onMouseLeave={() => setHoverIndex(null)}
             >
-              <div className="flex items-center gap-10">
+              <div className="flex  flex-col  gap-2 md:flex-row md:items-center md:gap-10">
                 <div className="flex items-center">
                   <motion.div
-                    className="w-2 h-2 rounded-full bg-yellow-400 mr-2 opacity-0 scale-0"
+                    className="w-2 h-2 rounded-full bg-yellow-400 mr-2 opacity-0 scale-0 hidden md:block"
                     animate={{
                       opacity: hoverIndex === index ? 1 : 0,
                       scale: hoverIndex === index ? 1 : 0,
@@ -95,7 +95,7 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
                     }}
                   />
                   <motion.h3
-                    className="text-[23px] font-semibold"
+                    className="text-base sm:text-lg md:text-xl md:text-[23px] font-semibold"
                     animate={{
                       x: hoverIndex === index ? 10 : 0,
                     }}
@@ -109,7 +109,7 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
                   </motion.h3>
                 </div>
                 <motion.p
-                  className="text-[23px]"
+                  className="text-base sm:text-lg md:text-xl md:text-[23px]"
                   animate={{
                     x: hoverIndex === index ? 10 : 0,
                   }}
@@ -123,7 +123,7 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
                 </motion.p>
                 {member.hasBiography && (
                   <motion.span
-                    className="ml-4 px-3 py-1 bg-yellow-400 text-black text-sm rounded-full"
+                    className="md:ml-4 px-3 py-1 bg-yellow-400 text-black text-sm rounded-full w-[90px]"
                     animate={{
                       x: hoverIndex === index ? 10 : 0,
                     }}
@@ -146,3 +146,4 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
 };
 
 export default TeamReveal;
+

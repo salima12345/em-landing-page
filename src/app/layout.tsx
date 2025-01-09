@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
-import Header from "@/components/layout/header";
-import Footer from "@/components/layout/footer";
 import { ThemeProvider } from "@/lib/themes";
+import Header from "@/components/layout/header";
 
 export const metadata: Metadata = {
   title: "Elliot & Markus",
