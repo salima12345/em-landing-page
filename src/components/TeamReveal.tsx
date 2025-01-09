@@ -70,11 +70,13 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
       </motion.div>
 
       <div className="w-full max-w-[1200px]">
-        <div className="flex flex-col">
+        <div className="flex flex-col border-t-[0.5px] border-border">
           {members.map((member, index) => (
             <div
               key={index}
-              className="relative py-7 border-b-[0.5px] border-border cursor-pointer group"
+              className={`relative py-7 border-b-[0.5px] border-border cursor-pointer group ${
+                index === 0 ? 'pt-10' : ''
+              }`}
               onMouseEnter={() => setHoverIndex(index)}
               onMouseLeave={() => setHoverIndex(null)}
             >
