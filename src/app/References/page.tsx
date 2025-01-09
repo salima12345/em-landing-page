@@ -134,76 +134,108 @@ function References() {
     const matchesCategory = selectedCategory === 'all' || study.categories.includes(selectedCategory);
     return matchesSearch && matchesCategory;
   });
+
   return (
     <>
-    <div className="min-h-screen container relative px-10">
-      <div 
-        className={` hidden xl:flex items-center gap-4 mt-[30px] mb-[65px] bg-[#222222] rounded-[30px] px-[11px] h-[65px] transition-all duration-1000 z-[999]  ${
-          headerHidden ? 'sticky top-[30px]' : 'sticky top-[110px]'
-        }`}
-      >
-        <div className="flex items-center justify-between bg-[#313131] h-[46px] w-[335px] rounded-[27px]">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1 bg-transparent border-none outline-none font-medium text-[14px] text-white placeholder-white pl-[18px]"
-          />
-          <div className=" w-[35px] h-[35px] flex items-center justify-center bg-[#222222] rounded-full mr-[6px]">
-            <svg
-              className="w-4 h-4 text-gray-400"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
+      <div className="min-h-screen container relative px-10">
+        <div 
+          className={`hidden xl:flex items-center gap-4 mt-[30px] mb-[65px] bg-[#222222] rounded-[30px] px-[11px] h-[65px] transition-all duration-1000 z-[999] ${
+            headerHidden ? 'sticky top-[30px]' : 'sticky top-[110px]'
+          }`}
+        >
+          <div className="flex items-center justify-between bg-[#313131] h-[46px] w-[335px] rounded-[27px]">
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="flex-1 bg-transparent border-none outline-none font-medium text-[14px] text-white placeholder-white pl-[18px]"
+            />
+            <div className="w-[35px] h-[35px] flex items-center justify-center bg-[#222222] rounded-full mr-[6px]">
+              <svg
+                className="w-4 h-4 text-gray-400"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </div>
+          </div>
+          
+          <div className="flex-1">
+            <ul className="flex items-center gap-[15px]">
+              {CATEGORIES.map((category) => (
+                <li
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`font-medium text-[14px] px-[15px] rounded-[27px] cursor-pointer transition-all duration-500 flex items-center justify-center ${
+                    selectedCategory === category.id 
+                      ? 'h-[52px] rounded-[9px] transform scale-105' 
+                      : 'h-[40px]'
+                  } ${category.color}`}
+                >
+                  {category.label}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        
-        <div className=" flex-1">
-          <ul className="flex items-center gap-[15px]">
-            {CATEGORIES.map((category) => (
-              <li
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`font-medium text-[14px] px-[15px] rounded-[27px] cursor-pointer transition-all duration-500 flex items-center justify-center ${
-                  selectedCategory === category.id 
-                    ? 'h-[52px] rounded-[9px] transform scale-105' 
-                    : 'h-[40px]'
-                } ${category.color}`}
-              >
-                {category.label}
-              </li>
+
+        {filteredStudies.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-14 relative z-[10]">
+            {filteredStudies.slice(0, visibleItems).map((study, index) => (
+              <CaseStudy
+                key={index}
+                imageUrl={study.imageUrl}
+                title={study.title}
+                description={study.description}
+                expertise={study.expertise || []}
+                href={study.href}
+              />
             ))}
-          </ul>
-        </div>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-32 px-4">
+            <div className="bg-[#222222] rounded-full p-6 mb-6">
+              <svg
+                className="w-12 h-12 text-white"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                <line x1="21" y1="11" x2="13" y2="11" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-semibold mb-2">No results found</h3>
+            <p className="text-muted-foreground text-center max-w-[500px] mb-8">
+              {searchTerm 
+                ? `We couldn't find any results for "${searchTerm}"`
+                : `No projects found in the ${selectedCategory === 'all' ? 'selected category' : CATEGORIES.find(c => c.id === selectedCategory)?.label}`}
+            </p>
+            <button
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedCategory('all');
+              }}
+              className="px-6 py-3 bg-[#222222] text-white rounded-full hover:bg-[#333333] transition-colors"
+            >
+              Clear filters
+            </button>
+          </div>
+        )}
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-14 relative z-[10]">
-        {filteredStudies.slice(0, visibleItems).map((study, index) => (
-          <CaseStudy
-            key={index}
-            imageUrl={study.imageUrl}
-            title={study.title}
-            description={study.description}
-            expertise={study.expertise || []}
-            href={study.href}
-          />
-        ))}
-      </div>
-
-    </div>
-          <Footer />
-          </>
-
+      <Footer />
+    </>
   );
 }
 
