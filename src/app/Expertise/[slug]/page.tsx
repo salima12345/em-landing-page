@@ -10,6 +10,7 @@ import Footer from '@/components/layout/footer';
 import { teamGroups } from '@/Data/TeamData';
 import CaseStudy from '@/components/CaseStudy';
 import { CASE_STUDIES } from '@/Data/CaseStudiesData';
+import Header from '@/components/layout/header';
 
 interface ServiceItemProps {
   number: string;
@@ -218,6 +219,7 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
 
   return (
     <>
+    <Header/>
       <div className="container py-8">
         <div className="flex flex-col gap-10 xl:flex-row xl:items-center xl:justify-between ">
           <div className="flex flex-col gap-4">

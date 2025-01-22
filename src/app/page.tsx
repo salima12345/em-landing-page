@@ -7,10 +7,12 @@ import ValuesMobile from "@/components/em-valuesMobile/ValuesMobile";
 import Realization from "@/components/realization/Realization";
 import Clients from "@/components/clients/Clients";
 import Footer from '@/components/layout/footer';
+import Header from '@/components/layout/header';
 
 export default function Home() {
   return (
     <div  className="overflow-hidden bg-background text-foreground" >
+      <Header/>
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}

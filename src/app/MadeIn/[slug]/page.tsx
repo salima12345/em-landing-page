@@ -6,6 +6,7 @@ import { motion, useInView } from 'framer-motion';
 import AnimatedTitle from '@/components/ui/TitleReveal';
 import Button from '@/components/ui/Button';
 import Footer from '@/components/layout/footer';
+import Header from '@/components/layout/header';
 
 interface Service {
   title: string;
@@ -262,6 +263,7 @@ const MadeInPage = ({ params }: { params: { slug: string } }) => {
 
   return (
     <>
+    <Header/>
       <div className="py-8">
         <div className="container flex items-end justify-between">
           <div className="flex flex-col gap-4">

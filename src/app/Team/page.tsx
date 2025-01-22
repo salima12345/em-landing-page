@@ -1,17 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 import AnimatedTitle from '@/components/ui/TitleReveal';
 import TeamReveal from '@/components/TeamReveal';
 import { teamGroups } from '@/Data/TeamData';
 import type { TeamMember } from '@/Data/TeamData';
+import Footer from '@/components/layout/footer';
+import Header from '@/components/layout/header';
 
 const Team = () => {
   const [activeCategory, setActiveCategory] = useState('ALL');
   const imageRef = React.useRef(null);
   const isImageInView = useInView(imageRef, { once: true });
+  const teamListRef = useRef<HTMLDivElement>(null);
 
   const imageVariants = {
     hidden: {
@@ -32,7 +35,27 @@ const Team = () => {
     ? teamGroups.flatMap(group => group.members)
     : teamGroups.find(category => category.name === activeCategory)?.members || [];
 
+  const handleCategoryClick = (category: string) => {
+    setActiveCategory(category);
+    
+    // Scroll to the top of the team list
+    if (teamListRef.current) {
+      const listTop = teamListRef.current.offsetTop;
+      const currentScroll = window.pageYOffset;
+      
+      // Only scroll if we're not already at the top of the list
+      if (currentScroll > listTop) {
+        window.scrollTo({
+          top: listTop,
+          behavior: 'smooth'
+        });
+      }
+    }
+  };
+
   return (
+    <>
+    <Header/>
     <div className="py-8">
       <div className="container mx-auto px-4">
         <AnimatedTitle
@@ -44,7 +67,7 @@ const Team = () => {
             initial={{ y: "100%", opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 2, ease: [0.33, 1, 0.68, 1] }}
-            className="font-semibold text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-[36px] md:min-w-[400px]"
+            className="font-semibold text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-[36px] md:min-w-[560px]"
           >
             We are eliott & markus
           </motion.h5>
@@ -83,10 +106,10 @@ const Team = () => {
 
       <div className="container mx-auto px-4 mt-16">
         <div className="flex flex-col md:flex-row gap-24">
-          <div className="w-auto md:sticky md:top-4 self-start">
+          <div className="w-auto md:sticky md:top-28 self-start">
             <ul className="flex flex-row md:flex-col flex-wrap gap-3">
               <motion.li
-                onClick={() => setActiveCategory('ALL')}
+                onClick={() => handleCategoryClick('ALL')}
                 className={`w-fit px-4 py-2 rounded-full cursor-pointer text-sm font-medium transition-all duration-300 ${
                   activeCategory === 'ALL'
                     ? 'bg-[#222222] text-[#E6E5DF]'
@@ -100,7 +123,7 @@ const Team = () => {
               {teamGroups.map((category) => (
                 <motion.li
                   key={category.name}
-                  onClick={() => setActiveCategory(category.name)}
+                  onClick={() => handleCategoryClick(category.name)}
                   className={`w-fit px-4 py-2 rounded-full cursor-pointer text-sm font-medium transition-all duration-300 ${
                     activeCategory === category.name
                       ? 'bg-[#222222] text-[#E6E5DF]'
@@ -115,13 +138,16 @@ const Team = () => {
             </ul>
           </div>
           
-          <div className="flex-grow">
+          <div ref={teamListRef} className="flex-grow">
             <TeamReveal members={activeMembers} />
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
+    </>
   );
 };
 
 export default Team;
+

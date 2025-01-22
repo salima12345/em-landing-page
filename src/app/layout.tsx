@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import { ThemeProvider } from "@/lib/themes";
-import Header from "@/components/layout/header";
 
 export const metadata: Metadata = {
   title: "Elliot & Markus",
@@ -22,7 +21,6 @@ export default function RootLayout({
         <ThemeProvider>
           <SmoothScroll>
             <div className="flex flex-col min-h-screen  transition-colors duration-200">
-              <Header />
               <main className="flex-grow">
                 {children}
               </main>

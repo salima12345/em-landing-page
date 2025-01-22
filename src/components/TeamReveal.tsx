@@ -140,6 +140,7 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
           ))}
         </div>
       </div>
+
     </div>
   );
 };

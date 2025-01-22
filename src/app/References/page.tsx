@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import CaseStudy from '@/components/CaseStudy';
 import Footer from '@/components/layout/footer';
+import Header from '@/components/layout/header';
 
 const ITEMS_PER_PAGE = 6;
 
@@ -137,6 +138,7 @@ function References() {
 
   return (
     <>
+    <Header/>
       <div className="min-h-screen container relative px-10">
         <div 
           className={`hidden xl:flex items-center gap-4 mt-[30px] mb-[65px] bg-[#222222] rounded-[30px] px-[11px] h-[65px] transition-all duration-1000 z-[999] ${
