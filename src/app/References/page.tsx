@@ -141,7 +141,7 @@ function References() {
     <Header/>
       <div className="min-h-screen container relative px-10">
         <div 
-          className={`hidden xl:flex items-center gap-4 mt-[30px] mb-[65px] bg-[#222222] rounded-[30px] px-[11px] h-[65px] transition-all duration-1000 z-[999] ${
+          className={`hidden xl:flex items-center gap-4 mt-[30px] mb-[65px] bg-[#222222] rounded-[30px] px-[11px] h-[65px] transition-all duration-1000 z-30 ${
             headerHidden ? 'sticky top-[30px]' : 'sticky top-[110px]'
           }`}
         >
