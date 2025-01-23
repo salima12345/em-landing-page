@@ -1,4 +1,6 @@
-'use client'
+'use client';
+import React from 'react';
+
 import { motion } from 'framer-motion';
 import Hero from "@/components/hero/Hero";
 import About from "@/components/about/About";
@@ -11,7 +13,7 @@ import Header from '@/components/layout/header';
 
 export default function Home() {
   return (
-    <div  className="overflow-hidden bg-background text-foreground" >
+    < >
       <Header/>
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -69,7 +71,7 @@ export default function Home() {
       >
         <Footer />
       </motion.div>
-    </div>
+    </>
   );
 }
 

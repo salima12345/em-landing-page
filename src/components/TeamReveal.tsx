@@ -148,4 +148,3 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
 }
 
 export default TeamReveal
-
