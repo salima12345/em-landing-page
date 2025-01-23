@@ -1,36 +1,44 @@
-'use client';
+"use client"
 
-import React, { useState, useEffect } from "react";
-import { motion, useAnimation } from "framer-motion";
-import type { TeamMember } from "@/Data/TeamData";
+import type React from "react"
+import { useState, useEffect, useMemo } from "react"
+import { motion, useAnimation } from "framer-motion"
+import type { TeamMember } from "@/Data/TeamData"
 
 interface TeamRevealProps {
-  members: TeamMember[];
+  members: TeamMember[]
 }
 
 const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  const controls = useAnimation();
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null)
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
+  const controls = useAnimation()
+
+  const membersWithImages = useMemo(() => members.filter((member) => member.image), [members])
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setCursorPos({ x: e.clientX, y: e.clientY });
-    };
+      setCursorPos({ x: e.clientX, y: e.clientY })
+    }
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [])
 
   useEffect(() => {
-    controls.start({
-      y: -280 * (hoverIndex ?? 0),
-      transition: {
-        duration: 0.3,
-        ease: [0.19, 1, 0.22, 1],
-      },
-    });
-  }, [hoverIndex, controls]);
+    if (hoverIndex !== null) {
+      const imageIndex = membersWithImages.findIndex((member) => members.indexOf(member) === hoverIndex)
+      if (imageIndex !== -1) {
+        controls.start({
+          y: -280 * imageIndex,
+          transition: {
+            duration: 0.2,
+            ease: [0.19, 1, 0.22, 1],
+          },
+        })
+      }
+    }
+  }, [hoverIndex, controls, members, membersWithImages])
 
   return (
     <div className="relative">
@@ -43,8 +51,7 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
         }}
         initial={{ opacity: 0 }}
         animate={{
-          opacity: hoverIndex === null ? 0 : 1,
-          scale: hoverIndex === null ? 0.95 : 1,
+          opacity: hoverIndex !== null && members[hoverIndex]?.image ? 1 : 0,
           transition: {
             duration: 0.2,
             ease: [0.19, 1, 0.22, 1],
@@ -52,16 +59,12 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
         }}
       >
         <motion.div className="w-full flex flex-col" animate={controls}>
-          {members.map((member, index) => (
-            <div
-              key={index}
-              className="w-full h-[280px] rounded-[10px] overflow-hidden"
-            >
+          {membersWithImages.map((member, index) => (
+            <div key={index} className="w-full h-[280px] rounded-[10px] overflow-hidden">
               <div
                 className="w-full h-full bg-cover bg-center transform transition-transform duration-500 ease-out hover:scale-105 [image-rendering:crisp-edges]"
                 style={{
-                  backgroundImage: member.image ? `url(${member.image})` : 'none',
-                  backgroundColor: !member.image ? '#f3f4f6' : undefined,
+                  backgroundImage: `url(${member.image})`,
                 }}
               />
             </div>
@@ -75,7 +78,7 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
             <div
               key={index}
               className={`relative py-7 border-b-[0.5px] border-border cursor-pointer group ${
-                index === 0 ? 'pt-10' : ''
+                index === 0 ? "pt-10" : ""
               }`}
               onMouseEnter={() => setHoverIndex(index)}
               onMouseLeave={() => setHoverIndex(null)}
@@ -140,9 +143,9 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
           ))}
         </div>
       </div>
-
     </div>
-  );
-};
+  )
+}
 
-export default TeamReveal;
+export default TeamReveal
+
