@@ -1,25 +1,23 @@
 "use client";
 
-import React, { PropsWithChildren, useEffect } from "react";
-import { ReactLenis } from "@studio-freight/react-lenis";
+import React, { PropsWithChildren, useEffect, useRef } from "react";
+import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 import { LenisOptions } from "@studio-freight/lenis";
+import { usePathname } from "next/navigation";
 
 const SmoothScroll = ({ children }: PropsWithChildren) => {
-  useEffect(() => {
-    // Sauvegarde la position du scroll avant le rafraîchissement
-    if (typeof window !== 'undefined') {
-      window.addEventListener('beforeunload', () => {
-        sessionStorage.setItem('scrollPosition', window.scrollY.toString());
-      });
-    }
+  const pathname = usePathname(); 
+  const lenisRef = useRef<any>(null); 
 
-    // Restaure la position du scroll après le rafraîchissement
-    const scrollPosition = sessionStorage.getItem('scrollPosition');
-    if (scrollPosition) {
-      window.scrollTo(0, parseInt(scrollPosition));
-      sessionStorage.removeItem('scrollPosition');
+  useLenis((lenis) => {
+    lenisRef.current = lenis; 
+  });
+
+  useEffect(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
     }
-  }, []);
+  }, [pathname]); 
 
   const lenisOptions: LenisOptions = {
     duration: 3.5,
@@ -32,11 +30,7 @@ const SmoothScroll = ({ children }: PropsWithChildren) => {
   };
 
   return (
-    <ReactLenis 
-      root 
-      options={lenisOptions}
-      autoRaf={true}
-    >
+    <ReactLenis root options={lenisOptions} autoRaf={true}>
       {children}
     </ReactLenis>
   );
