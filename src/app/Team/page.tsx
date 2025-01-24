@@ -35,23 +35,20 @@ const Team = () => {
     ? teamGroups.flatMap(group => group.members)
     : teamGroups.find(category => category.name === activeCategory)?.members || [];
 
-  const handleCategoryClick = (category: string) => {
-    setActiveCategory(category);
-    
-    // Scroll to the top of the team list
-    if (teamListRef.current) {
-      const listTop = teamListRef.current.offsetTop;
-      const currentScroll = window.pageYOffset;
+    const handleCategoryClick = (category: string) => {
+      setActiveCategory(category);
       
-      // Only scroll if we're not already at the top of the list
-      if (currentScroll > listTop) {
-        window.scrollTo({
-          top: listTop,
-          behavior: 'smooth'
-        });
-      }
-    }
-  };
+      // Scroll down to the top of the list
+      setTimeout(() => {
+        if (teamListRef.current) {
+          const listTop = teamListRef.current.getBoundingClientRect().top + window.scrollY - 100;
+          window.scrollTo({
+            top: listTop,
+            behavior: 'smooth'
+          });
+        }
+      }, 0);
+    };
 
   return (
     <>

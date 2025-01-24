@@ -107,7 +107,7 @@ const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenMod
                     <Link href="/Team"> Talents</Link>
                   </li>
                   <li className="text-[24px] text-center self-center cursor-pointer">
-                    <Link href="/">  Wilo Insights</Link>
+                    <Link href="/Wilo">  Wilo Insights</Link>
                   </li>
                   <li className="text-[24px] text-center self-center cursor-pointer">
                     <Link href="/Contact" className='flex items-center gap-2'>Contact
