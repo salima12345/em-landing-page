@@ -4,12 +4,16 @@ import type React from "react"
 import { useState, useEffect, useMemo } from "react"
 import { motion, useAnimation } from "framer-motion"
 import type { TeamMember } from "@/Data/TeamData"
+import { useRouter } from "next/navigation"
+
+
 
 interface TeamRevealProps {
   members: TeamMember[]
 }
 
 const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
+  const router = useRouter()
   const [hoverIndex, setHoverIndex] = useState<number | null>(null)
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
   const controls = useAnimation()
@@ -39,6 +43,12 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
       }
     }
   }, [hoverIndex, controls, members, membersWithImages])
+
+  const handleMemberClick = (member: TeamMember) => {
+    if (member.hasBiography) {
+      router.push(`/Bio/${member.slug}`)
+    }
+  }
 
   return (
     <div className="relative">
@@ -82,6 +92,7 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
               }`}
               onMouseEnter={() => setHoverIndex(index)}
               onMouseLeave={() => setHoverIndex(null)}
+              onClick={() => handleMemberClick(member)}
             >
               <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-10">
                 <div className="flex items-center">

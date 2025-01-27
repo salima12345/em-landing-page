@@ -1,16 +1,19 @@
 export interface TeamMember {
-    name: string;
-    image: string;
-    jobTitle: string;
-    hasBiography?: boolean;
-    description?: string;
-  }
-  
-  export interface TeamGroup {
-    name: string;
-    members: TeamMember[];
-  }
-  
+  name: string; 
+  image: string; 
+  jobTitle: string; 
+  hasBiography?: boolean; 
+  description?: string;
+  slug?: string; 
+  email?: string; 
+  linkedIn?: string; 
+  quote?: string; 
+}
+
+export interface TeamGroup {
+  name: string; 
+  members: TeamMember[]; 
+}
   export const teamGroups: TeamGroup[] = [
     {
       name: "Strategy",
@@ -19,13 +22,24 @@ export interface TeamMember {
           name: "Gwénaëlle Henri",
           image: "https://www.eliott-markus.com/wp-content/uploads/2023/11/Capture-decran-2023-11-10-a-19.24.14.png",
           jobTitle: "President & Founder",
-          hasBiography: true
+          hasBiography: true,
+          slug: "gwenaelle-henri",
+          email: "gwenaelle.henri@example.com",
+          linkedIn: "https://linkedin.com/in/gwenaelle-henri",
+          quote: "Challenging, supporting and revealing brands is our DNA. We believe in the power of innovation, audacity and creativity to push brands to new heights. ",
+          description:
+            "Gwénaëlle is a passionate marketing and communications professional. With her creativity, strategic expertise and commitment to excellence, she has made a name for herself as a recognized expert.\n\n With an impressive track record, Gwénaëlle has acquired solid expertise in the fields of branding, marketing and organizational communications. Her holistic approach and ability to understand the unique needs of each client enable  her to develop effective and tailored strategies. \n\nGwenaëlle is known for her innovative spirit and ability to creatively meet challenges. She is constantly on the lookout for the latest trends and best practices in marketing and communications, in order to offer clients innovative and high-impact solutions.\n\nShe is also an expert in communications for professional services firms, mastering their specific issues and ethics.\n\nWithin the agency, Gwénaëlle oversees the management of special projects with high strategic value: repositioning, mergers as well as innovative projects."
+        
+  
+
         },
         {
           name: "Ilias Meslohi",
           image: "https://www.eliott-markus.com/wp-content/uploads/2023/05/Ilias_Meslohi-scaled.jpg",
           jobTitle: "Head of Strategy",
-          hasBiography: true
+          hasBiography: true,
+          slug: "ilyas-Maslohi"
+
         },
         {
             name: "Chama Loufa",
@@ -59,7 +73,9 @@ export interface TeamMember {
             name: "Christelle Rivière",
             image: "https://www.eliott-markus.com/wp-content/uploads/2023/05/Christelle-Riviere.jpg",
             jobTitle: "Media Consultant & Influence Senior",
-            hasBiography: true
+            hasBiography: true,
+            slug:"christelle-rivière"
+
           },
           {
             name: "Florence Jouffroy",
@@ -93,13 +109,15 @@ export interface TeamMember {
             name: "Younes Quorsane",
             image: "https://www.eliott-markus.com/wp-content/uploads/2023/05/EM_SITE_PHOTOS_CASA.jpg.webp",
             jobTitle: "Chief Technical Officer (CTO)",
-            hasBiography: true
+            hasBiography: true,
+            slug:"younes-quorsane"
           },
           {
             name: "Btissame Qorchi",
             image: "https://www.eliott-markus.com/wp-content/uploads/2023/05/Btissame_Qorchi-scaled.jpg.webp",
             jobTitle: "Infrastructure & Tech Manager",
-            hasBiography: true
+            hasBiography: true,
+            slug:"btissame-qochi"
 
           },
          
@@ -153,7 +171,8 @@ export interface TeamMember {
             name: "Houssam Chhih",
             image: "https://www.eliott-markus.com/wp-content/uploads/2023/05/Houssam_Chhih-scaled.jpg.webp",
             jobTitle: "Head of Design",
-            hasBiography: true
+            hasBiography: true,
+            slug:"houssam-chhih"
           },
           {
             name: "Mehdi Belhajjam",
@@ -191,13 +210,17 @@ export interface TeamMember {
           name: "Gwénaëlle Henri",
           image: "https://www.eliott-markus.com/wp-content/uploads/2023/11/Capture-decran-2023-11-10-a-19.24.14.png",
           jobTitle: "President & Founder",
-          hasBiography: true
+          hasBiography: true,
+          slug: "gwenaelle-henri"
+
         },
         {
           name: "Ilias Meslohi",
           image: "https://www.eliott-markus.com/wp-content/uploads/2023/05/Ilias_Meslohi-scaled.jpg",
           jobTitle: "Head of Strategy",
-          hasBiography: true
+          hasBiography: true,
+          slug: "ilyas-Maslohi"
+
         },
         {
             name: "Chama Loufa",
@@ -208,7 +231,6 @@ export interface TeamMember {
             name: "Sara Elkinani",
             image: "https://www.eliott-markus.com/wp-content/uploads/2023/05/Sara_Elkinani-scaled.jpg",
             jobTitle: "Brand Consultant",
-            hasBiography: true
           },
           {
             name: "Hind Sody",
@@ -219,7 +241,6 @@ export interface TeamMember {
             name: "Florence Jouffroy",
             image: "https://www.eliott-markus.com/wp-content/uploads/2023/11/EM_SITE_Florence-Jouffroy.png",
             jobTitle: "Senior Advisor",
-            hasBiography: true
           }
         // Autres membres...
       ]
@@ -231,7 +252,9 @@ export interface TeamMember {
             name: "Houssam Chhih",
             image: "https://www.eliott-markus.com/wp-content/uploads/2023/05/Houssam_Chhih-scaled.jpg.webp",
             jobTitle: "Head of Design",
-            hasBiography: true
+            hasBiography: true,
+            slug: "houssam-chhih"
+
           },
           {
             name: "Mehdi Belhajjam",
@@ -269,13 +292,18 @@ export interface TeamMember {
           name: "Gwénaëlle Henri",
           image: "https://www.eliott-markus.com/wp-content/uploads/2023/11/Capture-decran-2023-11-10-a-19.24.14.png",
           jobTitle: "President & Founder",
-          hasBiography: true
+          hasBiography: true,
+          slug: "gwenaelle-henri"
+
         },
         {
           name: "Ilias Meslohi",
           image: "https://www.eliott-markus.com/wp-content/uploads/2023/05/Ilias_Meslohi-scaled.jpg",
           jobTitle: "Head of Strategy",
-          hasBiography: true
+          hasBiography: true,
+          slug: "ilyas-Maslohi"
+
+
         },
         {
             name: "Chama Loufa",
@@ -286,7 +314,6 @@ export interface TeamMember {
             name: "Sara Elkinani",
             image: "https://www.eliott-markus.com/wp-content/uploads/2023/05/Sara_Elkinani-scaled.jpg",
             jobTitle: "Brand Consultant",
-            hasBiography: true
           },
           {
             name: "Hind Sody",

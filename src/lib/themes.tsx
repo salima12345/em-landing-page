@@ -4,6 +4,7 @@ import { createContext, useContext, ReactNode, useState, useEffect } from "react
 import { usePathname } from "next/navigation";
 
 type Theme = "light" | "dark";
+
 type ThemeContextType = {
   theme: Theme;
   setTheme: (theme: Theme) => void;
@@ -21,28 +22,31 @@ export function useTheme() {
 
 const PAGE_THEMES: Record<string, Theme> = {
   "/": "dark",
-  "/Expertise/Strategy": "light",
-  "/Expertise/Media": "light",
-  "/Expertise/Design": "light",
-  "/Expertise/Web": "light",
-  "/Expertise/Content": "light",
-  "/Expertise/SocialMedia": "light",
-  "/Expertise/Outsourcing": "light",
-  "/Team":"light",
-  "/Wilo":"light",
-
-
-
+  "/Team": "light",
+  "/Wilo": "light",
 };
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+
   const [theme, setTheme] = useState<Theme>(() => {
+    // Check if the current path is a Bio or Expertise page
+    if (pathname.startsWith('/Bio/') || pathname.startsWith('/Expertise/')) {
+      return 'light';
+    }
     return PAGE_THEMES[pathname] || "dark";
   });
 
   useEffect(() => {
-    const newTheme = PAGE_THEMES[pathname] || "dark";
+    let newTheme: Theme;
+
+    // Check if the current path is a Bio or Expertise page
+    if (pathname.startsWith('/Bio/') || pathname.startsWith('/Expertise/')) {
+      newTheme = 'light';
+    } else {
+      newTheme = PAGE_THEMES[pathname] || "dark";
+    }
+
     setTheme(newTheme);
   }, [pathname]);
 
