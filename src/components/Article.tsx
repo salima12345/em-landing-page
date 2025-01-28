@@ -1,13 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
+import { formatDate } from '@/utils/date';
 
-const formatDate = (date: Date) => {
-  const months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-  ];
-  return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
-};
+
 
 const cn = (...classes: (string | undefined)[]) => {
   return classes.filter(Boolean).join(' ');

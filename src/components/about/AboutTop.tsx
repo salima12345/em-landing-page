@@ -5,6 +5,7 @@ import Expertise from '../layout/header/Expertise';
 import MadeIn from '../layout/header/MadeIn';
 import Button from '../ui/Button';
 import { motion } from 'framer-motion';
+import { MoveVertical } from 'lucide-react';
 
 function AboutTop() {
   const scrollToSection = () => {
@@ -47,8 +48,9 @@ function AboutTop() {
           
           <div className='w-[60px]'>
             <Button
-              darkImageSrc="/images/icons/arrowAltV.svg"
-              lightImageSrc='/images/icons/arrowAltVDark.svg'
+              Icon={MoveVertical}
+              lightIconColor="#333333"
+              darkIconColor="#ffffff"
               altText="Arrow Icon"
               onClick={scrollToSection}
             />

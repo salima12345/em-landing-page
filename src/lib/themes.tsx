@@ -23,7 +23,6 @@ export function useTheme() {
 const PAGE_THEMES: Record<string, Theme> = {
   "/": "dark",
   "/Team": "light",
-  "/Wilo": "light",
 };
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
@@ -31,7 +30,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const [theme, setTheme] = useState<Theme>(() => {
     // Check if the current path is a Bio or Expertise page
-    if (pathname.startsWith('/Bio/') || pathname.startsWith('/Expertise/')) {
+    if (pathname.startsWith('/Bio/') || pathname.startsWith('/Expertise/')  || pathname.startsWith('/Wilo/')) {
       return 'light';
     }
     return PAGE_THEMES[pathname] || "dark";
@@ -41,7 +40,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     let newTheme: Theme;
 
     // Check if the current path is a Bio or Expertise page
-    if (pathname.startsWith('/Bio/') || pathname.startsWith('/Expertise/')) {
+    if (pathname.startsWith('/Bio/') || pathname.startsWith('/Expertise/')  || pathname.startsWith('/Wilo/')) {
       newTheme = 'light';
     } else {
       newTheme = PAGE_THEMES[pathname] || "dark";

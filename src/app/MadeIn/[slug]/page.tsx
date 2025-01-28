@@ -7,6 +7,7 @@ import AnimatedTitle from '@/components/ui/TitleReveal';
 import Button from '@/components/ui/Button';
 import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
+import { MoveVertical } from 'lucide-react';
 
 interface Service {
   title: string;
@@ -286,8 +287,9 @@ const MadeInPage = ({ params }: { params: { slug: string } }) => {
           </div>
           <div className="w-[60px]">
             <Button
-              lightImageSrc="/images/icons/arrowAltVdark.svg"
-              darkImageSrc="/images/icons/arrowAltV.svg"
+               Icon={MoveVertical}
+               lightIconColor="#333333"
+               darkIconColor="#ffffff"
               altText={buttonAlt}
               onClick={handleScrollToNextContent}
             />

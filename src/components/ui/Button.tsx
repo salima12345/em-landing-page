@@ -1,49 +1,50 @@
-
 "use client";
 
 import React from "react";
 import MagneticButton from "./MagneticButton";
-import Image from "next/image";
 import { useTheme } from "@/lib/themes";
+import { LucideIcon } from "lucide-react";
 
 interface ButtonProps {
-  lightImageSrc: string; 
-  darkImageSrc: string;  
+  Icon: LucideIcon;
   altText: string;
   onClick?: () => void;
-  imageWidth?: number;
-  imageHeight?: number;
+  iconSize?: number;
+  text?: string;
+  isFixedSize?: boolean;
+  buttonSize?: string;
+  lightIconColor?: string;
+  darkIconColor?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
-  lightImageSrc,
-  darkImageSrc,
+  Icon,
   altText,
   onClick,
-  imageWidth = 16,
-  imageHeight = 16,
+  iconSize = 16,
+  text,
+  isFixedSize = true,
+  buttonSize = "54px",
+  lightIconColor = "black",
+  darkIconColor = "white"
 }) => {
   const { theme } = useTheme();
 
-  const iconSrc = theme === "dark" ? darkImageSrc : lightImageSrc;
+  const iconColor = theme === "dark" ? darkIconColor : lightIconColor;
 
   return (
     <MagneticButton>
       <button
-        className={`rounded-full flex items-center justify-center w-[54px] h-[54px]
-          ${theme === "dark" 
-            ? "bg-grayDark text-white" 
-            : "bg-[#E6E5DF] text-black"
-          }`}
+        className={`flex items-center justify-center gap-2 rounded-full
+          ${theme === "dark" ? "bg-grayDark text-white" : "bg-[#E6E5DF] text-black"}
+          ${isFixedSize ? "w-14 h-14" : "px-5 py-4"}`
+        }
         onClick={onClick}
+        title={altText}
       >
-        <Image
-          src={iconSrc}
-          alt={altText}
-          width={imageWidth}
-          height={imageHeight}
-          className="w-4 h-4"
-        />
+        <Icon size={iconSize} color={iconColor} />
+        
+        {text && <span className="text-sm ">{text}</span>}
       </button>
     </MagneticButton>
   );

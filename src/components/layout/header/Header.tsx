@@ -14,6 +14,7 @@ import MadeIn from "./MadeIn";
 import EcosystemDropMenu from "./EcosystemDropMenu";
 import EcosystemModal from "./EcosystemModal/EcosystemModal";
 import Button from "@/components/ui/Button";
+import { Menu } from "lucide-react";
 
 export default function Header() {
   const pathname = usePathname();
@@ -159,8 +160,10 @@ export default function Header() {
               <div className="flex items-center flex-col items-end">
                 <div className="flex items-center gap-2 [@media(min-width:1190px)]:pb-2 [@media(min-width:1190px)]:pt-4">
                   <Button
-                    lightImageSrc={isMenuOpen ? "/images/icons/closeDark.svg" : "/images/icons/burgerMenuDark.svg"}
-                    darkImageSrc={isMenuOpen ? "/images/icons/close.svg" : "/images/icons/burgerMenu.svg"}
+                    Icon={Menu}
+                     lightIconColor="#333333"
+                     darkIconColor="#ffffff"
+                   
                     altText="Menu"
                     onClick={handleBurgerClick}
                   />

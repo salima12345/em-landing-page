@@ -11,6 +11,7 @@ import { teamGroups } from '@/Data/TeamData';
 import CaseStudy from '@/components/CaseStudy';
 import { CASE_STUDIES } from '@/Data/CaseStudiesData';
 import Header from '@/components/layout/header';
+import { MoveVertical } from 'lucide-react';
 
 interface ServiceItemProps {
   number: string;
@@ -309,8 +310,10 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
 
         <div className=" py-20 flex items-end justify-end">
           <Button
-            darkImageSrc="/images/icons/arrowAltV.svg"
-            lightImageSrc="/images/icons/arrowAltVDark.svg"
+            Icon={MoveVertical}
+            lightIconColor="#333333"
+            darkIconColor="#ffffff"
+           
             altText="Arrow Icon"
           />
         </div>
