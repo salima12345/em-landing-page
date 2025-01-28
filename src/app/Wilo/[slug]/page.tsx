@@ -121,6 +121,16 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
                 height={162} 
                 className="rounded-lg w-full h-[162px] object-cover"
               />
+              <div className="flex flex-wrap gap-2 mt-4">
+               {article.keywords.map((keyword, index) => (
+                 <div 
+                  key={index}
+                  className="px-4 py-2 rounded-full bg-[#E6E5DF] text-sm"
+                  >
+                 {keyword}
+                  </div>
+               ))}
+            </div>
             </motion.div>
 
             <motion.div 

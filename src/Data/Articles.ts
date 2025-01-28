@@ -1,4 +1,3 @@
-
 export interface ArticleSection {
     title?: string;
     body: string;
@@ -12,8 +11,9 @@ export interface ArticleData {
     publishDate: Date;
     category: string;
     slug: string;
-    author: string; 
-    content: ArticleSection[]; 
+    author: string;
+    keywords: string[];  
+    content: ArticleSection[];
 }
 
 export const articles: ArticleData[] = [
@@ -26,6 +26,7 @@ export const articles: ArticleData[] = [
         publishDate: new Date("2023-01-01"),
         slug: "the-future-of-web-development",
         author: "John Doe",
+        keywords: [ "PWA", "Edge Computing", "Serverless"],
         content: [
             {
                 title: "Introduction",
@@ -49,7 +50,8 @@ export const articles: ArticleData[] = [
         imageUrl: "https://picsum.photos/seed/design/400/300",
         publishDate: new Date("2023-02-15"),
         slug: "design-systems-in-modern-applications",
-        author: "Jane Smith", 
+        author: "Jane Smith",
+        keywords: ["Design Systems", "Style Guide", "Design Tokens", "Accessibility"],
         content: [
             {
                 title: "Legal Tech driven by the profession",
@@ -74,6 +76,7 @@ export const articles: ArticleData[] = [
         publishDate: new Date("2023-03-10"),
         slug: "ai-in-software-engineering",
         author: "Alice Johnson",
+        keywords: ["AI", "Machine Learning", "Automated Testing", "Code Generation", "DevOps", "Neural Networks"],
         content: [
             {
                 title: "Introduction to AI in Software",
@@ -97,7 +100,8 @@ export const articles: ArticleData[] = [
         imageUrl: "https://picsum.photos/seed/ux/400/300",
         publishDate: new Date("2023-04-05"),
         slug: "ux-design-principles",
-        author: "Michael Brown", 
+        author: "Michael Brown",
+        keywords: ["UX", "User Experience", "Interaction Design", "Usability", "Information Architecture", "Wireframing"],
         content: [
             {
                 title: "Legal Tech driven by the profession",
