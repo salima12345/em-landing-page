@@ -62,11 +62,10 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
   };
   const relatedArticles = articles.filter(a => a.category === article.category && a.slug !== article.slug);
 
-
   return (
     <>
       <Header />
-      <div className="container mt-16 flex gap-24">
+      <div className="container  mt-16 mx-auto flex flex-col md:flex-row gap-8 md:gap-24 ">
         <motion.div 
           className="max-h-[80px]"
           variants={fadeUp}
@@ -107,7 +106,7 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
             
             <AnimatedTitle 
               text={article.title}
-              className="font-semibold md:text-4xl text-2xl mt-2"
+              className="font-semibold text-2xl md:text-4xl mt-2"
             />
 
             <motion.div
@@ -119,18 +118,8 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
                 alt="article image"
                 width={792} 
                 height={162} 
-                className="rounded-lg w-full h-[162px] object-cover"
+                className="rounded-lg w-full h-auto md:h-[162px] object-cover"
               />
-              <div className="flex flex-wrap gap-2 mt-4">
-               {article.keywords.map((keyword, index) => (
-                 <div 
-                  key={index}
-                  className="px-4 py-2 rounded-full bg-[#E6E5DF] text-sm"
-                  >
-                 {keyword}
-                  </div>
-               ))}
-            </div>
             </motion.div>
 
             <motion.div 
@@ -144,9 +133,9 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
                   variants={fadeUp}
                 >
                   {section.title && (
-                    <h2 className="text-2xl font-bold pb-4">{section.title}</h2>
+                    <h2 className="text-xl md:text-2xl font-bold pb-4">{section.title}</h2>
                   )}
-                  <p className="text-lg leading-relaxed font-medium text-neutral-800 mb-6">
+                  <p className="text-base md:text-lg leading-relaxed font-medium text-neutral-800 mb-6">
                     {section.body}
                   </p>
                 </motion.div>
@@ -157,12 +146,12 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
               variants={fadeUp}
               className="mt-12 py-6 border-y border-[#D5D4CE]"
             >
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
                 <AnimatedTitle 
                   text="Share"
                   className="font-semibold text-lg text-[#222]"
                 />
-                <ul className="flex items-center gap-[70px]">
+                <ul className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-[70px]">
                   <MagneticButton>
                     <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <a
@@ -226,14 +215,13 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
               </div>
             </motion.div>
 
-           
             {relatedArticles.length > 0 && (
               <motion.div 
                 variants={fadeUp}
                 className="mt-[75px]"
               >
-                <h2 className="text-[34px] font-semibold text-[#222] mb-8">More articles</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-[115px]">
+                <h2 className="text-2xl md:text-[34px] font-semibold text-[#222] mb-8">More articles</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-[115px]">
                   {relatedArticles.map((relatedArticle) => (
                     <Article
                       key={relatedArticle.slug}
@@ -252,7 +240,7 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
         </div>
 
         <motion.div 
-          className="flex gap-4 self-start"
+          className="flex gap-4 self-start mt-8 md:mt-0"
           variants={fadeUp}
           initial="hidden"
           animate="visible"
