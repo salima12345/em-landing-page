@@ -15,10 +15,9 @@ interface CaseStudyProps {
   title: string;
   description: string;
   expertise: Expertise[];
-  href: string;
-}
+  slug: string; }
 
-function CaseStudy({ imageUrl, title, expertise, description, href }: CaseStudyProps) {
+function CaseStudy({ imageUrl, title, expertise, description, slug }: CaseStudyProps) {
   const { theme } = useTheme();
   const ref = React.useRef(null);
   const isInView = useInView(ref, {
@@ -28,7 +27,7 @@ function CaseStudy({ imageUrl, title, expertise, description, href }: CaseStudyP
 
   return (
     <Link
-      href={href}
+    href={`/References/${slug}`} 
       className="block"
     >
       <div className='flex flex-col gap-4 max-w-[590px]'>
