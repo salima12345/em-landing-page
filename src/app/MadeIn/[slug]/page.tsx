@@ -218,7 +218,6 @@ const MadeInPage = ({ params }: { params: { slug: string } }) => {
   const nextContentRef = React.useRef<HTMLDivElement>(null);
 
   const isInView = useInView(ref, { once: true });
-  const isImageInView = useInView(imageRef, { once: true });
 
   if (!slug || typeof slug !== 'string') {
     return <p>Loading...</p>; 
@@ -295,12 +294,12 @@ const MadeInPage = ({ params }: { params: { slug: string } }) => {
             />
           </div>
         </div>
-        <div className="relative mt-8 mx-4 2xl:mx-12 w-auto xl:h-[344px] h-[255px] overflow-hidden rounded-lg ">
+        <div className="relative mt-8 mx-4 2xl:mx-12 w-auto h-[255px] xl:h-[344px] overflow-hidden rounded-lg ">
           <motion.div
             ref={imageRef}
             variants={imageVariants}
             initial="hidden"
-            animate={isImageInView ? "visible" : "hidden"}
+            animate="visible"
             className="h-full w-full "
           >
             <Image
@@ -309,6 +308,7 @@ const MadeInPage = ({ params }: { params: { slug: string } }) => {
               layout="fill"
               objectFit="cover"
               className="rounded-lg"
+              
             />
           </motion.div>
         </div>
