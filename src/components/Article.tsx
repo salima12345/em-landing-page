@@ -32,7 +32,7 @@ const Article = ({
 
   return (
     <article className={cn("border-t border-t-[#d5d4ce] max-w-[600px] overflow-hidden cursor-pointer", className)}>
-      <div className="p-6">
+      <div className="py-6">
         <div className="flex items-center justify-between text-sm mb-4">
           <time className="text-[14px] font-medium">
             {formatDate(publishDate)}

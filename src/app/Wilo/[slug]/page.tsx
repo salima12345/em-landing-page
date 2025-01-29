@@ -65,7 +65,7 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
   return (
     <>
       <Header />
-      <div className="container  mt-16 mx-auto flex flex-col md:flex-row gap-8 md:gap-24 ">
+      <div className="container mt-16 mx-auto flex flex-col xl:flex-row gap-8 xl:gap-24">
         <motion.div 
           className="max-h-[80px]"
           variants={fadeUp}
@@ -94,7 +94,29 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
               }
             }}
           >
-            <AnimatedTitle 
+            <motion.div 
+              className="flex gap-4 justify-end mb-6"
+              variants={fadeUp}
+            >
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group px-6 py-4 rounded-full flex items-center justify-center bg-[#E6E5DF] hover:bg-[#D1D0CB] transition-all duration-300"
+              >
+                <ArrowLeft className="w-5 h-5 group-hover:text-black transition-colors duration-300 text-[#646464]" />
+              </motion.button>
+              
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group px-6 py-4 rounded-full flex items-center justify-center bg-[#E6E5DF] hover:bg-[#D1D0CB] transition-all duration-300"
+              >
+                <ArrowRight className="w-5 h-5 group-hover:text-black transition-colors duration-300 text-[#646464]" />
+              </motion.button>
+            </motion.div>
+
+          <div className="xl:mr-[170px]">
+          <AnimatedTitle 
               text={formatDate(new Date(article.publishDate))} 
               className="font-medium text-sm text-neutral-800"
             />
@@ -141,79 +163,90 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
                 </motion.div>
               ))}
             </motion.div>
+            </div>
+
 
             <motion.div 
-              variants={fadeUp}
-              className="mt-12 py-6 border-y border-[#D5D4CE]"
-            >
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
-                <AnimatedTitle 
-                  text="Share"
-                  className="font-semibold text-lg text-[#222]"
-                />
-                <ul className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-[70px]">
-                  <MagneticButton>
-                    <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <a
-                        href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-4"
-                      >
-                        <span className="text-base text-[#222]">LinkedIn</span>
-                        <div className="w-11 h-11 rounded-full bg-[#E6E5DF] flex items-center justify-center">
-                          <Linkedin className="w-5 h-5 text-[#222]" />
-                        </div>
-                      </a>
-                    </motion.li>
-                  </MagneticButton>
-                  <MagneticButton>
-                    <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <a
-                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-4"
-                      >
-                        <span className="text-base text-[#222]">Facebook</span>
-                        <div className="w-11 h-11 rounded-full bg-[#E6E5DF] flex items-center justify-center">
-                          <Facebook className="w-5 h-5 text-[#222]" />
-                        </div>
-                      </a>
-                    </motion.li>
-                  </MagneticButton>
-                  <MagneticButton>
-                    <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <a
-                        href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-4"
-                      >
-                        <span className="text-base text-[#222]">Twitter</span>
-                        <div className="w-11 h-11 rounded-full bg-[#E6E5DF] flex items-center justify-center">
-                          <Twitter className="w-5 h-5 text-[#222]" />
-                        </div>
-                      </a>
-                    </motion.li>
-                  </MagneticButton>
-                  <MagneticButton>
-                    <motion.li 
-                      whileHover={{ scale: 1.05 }} 
-                      whileTap={{ scale: 0.95 }}
-                      onClick={handleCopyLink}
-                    >
-                      <button className="flex items-center gap-4">
-                        <span className="text-base text-[#222]">Copy the link</span>
-                        <div className="w-11 h-11 rounded-full bg-[#E6E5DF] flex items-center justify-center">
-                          <LinkIcon className="w-5 h-5 text-[#222]" />
-                        </div>
-                      </button>
-                    </motion.li>
-                  </MagneticButton>
-                </ul>
-              </div>
-            </motion.div>
+  variants={fadeUp}
+  className="mt-12 py-6 border-y border-[#D5D4CE]"
+>
+  <div className="flex flex-col xl:flex-row items-center justify-between gap-6 xl:gap-0">
+    <AnimatedTitle 
+      text="Share"
+      className="font-semibold text-lg text-[#222] w-full xl:w-auto text-center xl:text-left"
+    />
+    <ul className="grid grid-cols-2 lg:flex w-full lg:w-auto gap-y-6 gap-x-4 lg:gap-[70px]">
+      <MagneticButton >
+        <motion.li 
+          whileHover={{ scale: 1.05 }} 
+          whileTap={{ scale: 0.95 }}
+        >
+          <a
+            href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-6 w-full xl:justify-start xl:gap-4"
+          >
+            <span className="text-base text-[#222]">LinkedIn</span>
+            <div className="w-11 h-11 rounded-full bg-[#E6E5DF] flex items-center justify-center">
+              <Linkedin className="w-5 h-5 text-[#222]" />
+            </div>
+          </a>
+        </motion.li>
+      </MagneticButton>
+      <MagneticButton >
+        <motion.li 
+          whileHover={{ scale: 1.05 }} 
+          whileTap={{ scale: 0.95 }}
+        >
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-6 w-full xl:justify-start xl:gap-4"
+          >
+            <span className="text-base text-[#222]">Facebook</span>
+            <div className="w-11 h-11 rounded-full bg-[#E6E5DF] flex items-center justify-center">
+              <Facebook className="w-5 h-5 text-[#222]" />
+            </div>
+          </a>
+        </motion.li>
+      </MagneticButton>
+      <MagneticButton >
+        <motion.li 
+          whileHover={{ scale: 1.05 }} 
+          whileTap={{ scale: 0.95 }}
+        >
+          <a
+            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-6 w-full xl:justify-start xl:gap-4"
+          >
+            <span className="text-base text-[#222]">Twitter</span>
+            <div className="w-11 h-11 rounded-full bg-[#E6E5DF] flex items-center justify-center">
+              <Twitter className="w-5 h-5 text-[#222]" />
+            </div>
+          </a>
+        </motion.li>
+      </MagneticButton>
+      <MagneticButton >
+        <motion.li 
+          whileHover={{ scale: 1.05 }} 
+          whileTap={{ scale: 0.95 }}
+          onClick={handleCopyLink}
+        >
+          <button className="flex items-center gap-6 w-full xl:justify-start xl:gap-4">
+            <span className="text-base text-[#222]">Copy the link</span>
+            <div className="w-11 h-11 rounded-full bg-[#E6E5DF] flex items-center justify-center">
+              <LinkIcon className="w-5 h-5 text-[#222]" />
+            </div>
+          </button>
+        </motion.li>
+      </MagneticButton>
+    </ul>
+  </div>
+</motion.div>
 
             {relatedArticles.length > 0 && (
               <motion.div 
@@ -221,7 +254,7 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
                 className="mt-[75px]"
               >
                 <h2 className="text-2xl md:text-[34px] font-semibold text-[#222] mb-8">More articles</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-[115px]">
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-[115px]">
                   {relatedArticles.map((relatedArticle) => (
                     <Article
                       key={relatedArticle.slug}
@@ -235,32 +268,8 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
                 </div>
               </motion.div>
             )}
-
           </motion.div>
         </div>
-
-        <motion.div 
-          className="flex gap-4 self-start mt-8 md:mt-0"
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.button 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group px-6 py-4 rounded-full flex items-center justify-center bg-[#E6E5DF] hover:bg-[#D1D0CB] transition-all duration-300"
-          >
-            <ArrowLeft className="w-5 h-5 group-hover:text-black transition-colors duration-300 text-[#646464]" />
-          </motion.button>
-          
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group px-6 py-4 rounded-full flex items-center justify-center bg-[#E6E5DF] hover:bg-[#D1D0CB] transition-all duration-300"
-          >
-            <ArrowRight className="w-5 h-5 group-hover:text-black transition-colors duration-300 text-[#646464]" />
-          </motion.button>
-        </motion.div>
       </div>
       <Footer />
     </>

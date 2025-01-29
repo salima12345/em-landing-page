@@ -23,6 +23,7 @@ export function useTheme() {
 const PAGE_THEMES: Record<string, Theme> = {
   "/": "dark",
   "/Team": "light",
+  "/Wilo":"light",
 };
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
