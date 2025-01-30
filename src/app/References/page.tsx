@@ -4,9 +4,20 @@ import React, { useState, useEffect } from 'react';
 import CaseStudy from '@/components/CaseStudy';
 import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
-import { CATEGORIES, CASE_STUDIES, ITEMS_PER_PAGE } from '@/Data/CaseStudiesData';
+import {  CASE_STUDIES, ITEMS_PER_PAGE } from '@/Data/CaseStudiesData';
 
+const CATEGORIES = [
+  { id: 'all', label: 'All', color: 'bg-white text-black' },
+  { id: 'strategy', label: 'Strategy', color: 'bg-[#274424] text-white' },
+  { id: 'media', label: 'Media', color: 'bg-[#f2bd41] text-[#e0643a]' },
+  { id: 'design', label: 'Design', color: 'bg-[#ecc6c7] text-[#1d4520]' },
+  { id: 'tech', label: 'Tech/Web', color: 'bg-[#2c5dcd] text-[#a6d4f9]' },
+  { id: 'content', label: 'Edition/Content', color: 'bg-[#e0643a] text-white' },
+  { id: 'social', label: 'Social Media/SEO', color: 'bg-[#afd3f5] text-[#125ed4]' },
+  { id: 'outsourcing', label: 'Outsourcing', color: 'bg-[#f1efe6] text-black' },
+];
 function References() {
+  
   const [visibleItems, setVisibleItems] = useState(ITEMS_PER_PAGE);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');

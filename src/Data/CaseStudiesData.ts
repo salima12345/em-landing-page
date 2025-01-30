@@ -7,7 +7,6 @@ interface ContentBlock {
 
 interface BlogPost {
   title: string;
-  date: string;
   author: string;
   summary: string;
   content: ContentBlock[];
@@ -23,24 +22,13 @@ interface CaseStudy {
   blogs?: BlogPost[];
 }
 
-export const CATEGORIES = [
-  { id: 'all', label: 'All', color: 'bg-white text-black' },
-  { id: 'strategy', label: 'Strategy', color: 'bg-[#274424] text-white' },
-  { id: 'media', label: 'Media', color: 'bg-[#f2bd41] text-[#e0643a]' },
-  { id: 'design', label: 'Design', color: 'bg-[#ecc6c7] text-[#1d4520]' },
-  { id: 'tech', label: 'Tech/Web', color: 'bg-[#2c5dcd] text-[#a6d4f9]' },
-  { id: 'content', label: 'Edition/Content', color: 'bg-[#e0643a] text-white' },
-  { id: 'social', label: 'Social Media/SEO', color: 'bg-[#afd3f5] text-[#125ed4]' },
-  { id: 'outsourcing', label: 'Outsourcing', color: 'bg-[#f1efe6] text-black' },
-];
-
 export const ITEMS_PER_PAGE = 6;
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
     imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
     title: "E-Commerce Platform",
-    description: "Modern e-commerce solution with advanced features and seamless user experience",
+    description: "On the eve of its 17th anniversary, the challenge is to illustrate the leadership, uniqueness, and richness of the Oasys heritage while highlighting the group's relevance—as well as its boldness—and aligning the distinctive values of the satellite brands with the expectations of the subsidiary brands",
     expertise: [
       { name: "Web Development" },
       { name: "UI/UX Design" },
@@ -51,17 +39,16 @@ export const CASE_STUDIES: CaseStudy[] = [
     blogs: [
       {
         title: "Building a Scalable E-commerce Platform",
-        date: "2024-01-15",
         author: "Sarah Johnson",
         summary: "A deep dive into the technical challenges and solutions",
         content: [
           {
             type: "text",
-            content: "When we embarked on this e-commerce project, we knew scalability would be our biggest challenge. The client needed a platform that could handle millions of products and concurrent users while maintaining sub-second response times.",
+            content: "On the eve of its 17th anniversary, the challenge is to illustrate the leadership, uniqueness, and richness of the Oasys heritage while highlighting the group's relevance—as well as its boldness—and aligning the distinctive values of the satellite brands with the expectations of the subsidiary brands",
           },
           {
             type: "image",
-            content: "/images/ecommerce-architecture.jpg",
+            content: "https://images.pexels.com/photos/326514/pexels-photo-326514.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
             description: "High-level architecture diagram of the platform",
             layout: "full"
           },
@@ -71,14 +58,13 @@ export const CASE_STUDIES: CaseStudy[] = [
           },
           {
             type: "video",
-            content: "/videos/demo-walkthrough.mp4",
+            content: "https://player.vimeo.com/video/76979871?h=8272103f6e",
             description: "Platform features demonstration"
           }
         ]
       },
       {
         title: "Optimizing User Experience",
-        date: "2024-01-20",
         author: "David Lee",
         summary: "How we achieved a 95+ Performance Score",
         content: [
@@ -88,7 +74,7 @@ export const CASE_STUDIES: CaseStudy[] = [
           },
           {
             type: "image",
-            content: "/images/performance-metrics.jpg",
+            content: "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
             description: "Performance improvements over time",
             layout: "right"
           },
@@ -113,7 +99,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     blogs: [
       {
         title: "Accessibility First Design",
-        date: "2024-01-20",
         author: "Michael Chen",
         summary: "How we achieved WCAG AAA compliance",
         content: [
@@ -123,7 +108,7 @@ export const CASE_STUDIES: CaseStudy[] = [
           },
           {
             type: "image",
-            content: "/images/accessibility-audit.jpg",
+            content: "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
             description: "Accessibility audit results",
             layout: "right"
           },
@@ -135,7 +120,6 @@ export const CASE_STUDIES: CaseStudy[] = [
       },
       {
         title: "Content Strategy Evolution",
-        date: "2024-01-25",
         author: "Emma Wilson",
         summary: "Developing a content-first approach",
         content: [
@@ -145,7 +129,7 @@ export const CASE_STUDIES: CaseStudy[] = [
           },
           {
             type: "image",
-            content: "/images/content-matrix.jpg",
+            content: "https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
             description: "Content strategy framework",
             layout: "full"
           }
@@ -163,7 +147,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     blogs: [
       {
         title: "Viral Campaign Analysis",
-        date: "2024-02-01",
         author: "Alex Rivera",
         summary: "Breaking down our most successful campaign",
         content: [
@@ -173,13 +156,13 @@ export const CASE_STUDIES: CaseStudy[] = [
           },
           {
             type: "image",
-            content: "/images/campaign-metrics.jpg",
+            content: "https://images.pexels.com/photos/3183157/pexels-photo-3183157.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
             description: "Campaign performance dashboard",
             layout: "full"
           },
           {
             type: "video",
-            content: "/videos/campaign-highlights.mp4",
+            content: "https://player.vimeo.com/video/76979871?h=8272103f6e",
             description: "Campaign highlight reel"
           }
         ]
@@ -200,7 +183,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     blogs: [
       {
         title: "Integrated Marketing Approach",
-        date: "2024-02-10",
         author: "David Park",
         summary: "Creating a cohesive digital marketing ecosystem",
         content: [
@@ -210,7 +192,7 @@ export const CASE_STUDIES: CaseStudy[] = [
           },
           {
             type: "image",
-            content: "/images/marketing-funnel.jpg",
+            content: "https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
             description: "Marketing funnel visualization",
             layout: "right"
           },
@@ -235,7 +217,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     blogs: [
       {
         title: "Building the Startup Ecosystem",
-        date: "2024-02-15",
         author: "Lisa Chen",
         summary: "Creating a platform that connects founders with investors",
         content: [
@@ -245,7 +226,7 @@ export const CASE_STUDIES: CaseStudy[] = [
           },
           {
             type: "image",
-            content: "/images/platform-dashboard.jpg",
+            content: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
             description: "Investor dashboard overview",
             layout: "full"
           },
@@ -270,7 +251,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     blogs: [
       {
         title: "Data-Driven Healthcare Decisions",
-        date: "2024-02-20",
         author: "Dr. James Wilson",
         summary: "How analytics is transforming healthcare delivery",
         content: [
@@ -280,12 +260,12 @@ export const CASE_STUDIES: CaseStudy[] = [
           },
           {
             type: "video",
-            content: "/videos/analytics-demo.mp4",
+            content: "https://player.vimeo.com/video/76979871?h=8272103f6e",
             description: "Dashboard walkthrough"
           },
           {
             type: "image",
-            content: "/images/analytics-impact.jpg",
+            content: "https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
             description: "Impact metrics",
             layout: "left"
           }
@@ -295,7 +275,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     imageUrl: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2340&auto=format&fit=crop",
-    title: "Educational Platform",
+    title: "Create a common base for daughter brands and satellite brands to belong to the Oasys & Cie group",
     description: "Online learning platform with interactive features",
     expertise: [],
     categories: ['tech', 'content'],
@@ -303,7 +283,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     blogs: [
       {
         title: "Reimagining Online Education",
-        date: "2024-02-25",
         author: "Maria Rodriguez",
         summary: "Creating an engaging virtual learning environment",
         content: [
@@ -313,20 +292,19 @@ export const CASE_STUDIES: CaseStudy[] = [
           },
           {
             type: "image",
-            content: "/images/learning-dashboard.jpg",
+            content: "https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
             description: "Student learning dashboard",
             layout: "full"
           },
           {
             type: "video",
-            content: "/videos/interactive-demo.mp4",
+            content: "https://player.vimeo.com/video/76979871?h=8272103f6e",
             description: "Interactive features showcase"
           }
         ]
       },
       {
         title: "Analytics in Education",
-        date: "2024-03-01",
         author: "John Smith",
         summary: "Using data to improve learning outcomes",
         content: [
@@ -336,7 +314,7 @@ export const CASE_STUDIES: CaseStudy[] = [
           },
           {
             type: "image",
-            content: "/images/learning-metrics.jpg",
+            content: "https://images.pexels.com/photos/590020/pexels-photo-590020.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
             description: "Learning analytics dashboard",
             layout: "right"
           }
@@ -346,7 +324,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     imageUrl: "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2340&auto=format&fit=crop",
-    title: "Real Estate App",
+    title: "Branding and development strategy for pan-African law firm ADNA",
     description: "Property management and listing application",
     expertise: [
       { name: "Mobile Development" },
@@ -357,7 +335,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     blogs: [
       {
         title: "Revolutionizing Property Management",
-        date: "2024-03-01",
         author: "Tom Anderson",
         summary: "How we simplified property management through technology",
         content: [
@@ -367,20 +344,19 @@ export const CASE_STUDIES: CaseStudy[] = [
           },
           {
             type: "image",
-            content: "/images/app-screens.jpg",
+            content: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
             description: "Key app screens",
             layout: "right"
           },
           {
             type: "video",
-            content: "/videos/feature-walkthrough.mp4",
+            content: "https://player.vimeo.com/video/76979871?h=8272103f6e",
             description: "Feature demonstration"
           }
         ]
       },
       {
         title: "UX Research Findings",
-        date: "2024-03-05",
         author: "Rachel Kim",
         summary: "Key insights from our user research",
         content: [
@@ -390,7 +366,7 @@ export const CASE_STUDIES: CaseStudy[] = [
           },
           {
             type: "image",
-            content: "/images/user-research.jpg",
+            content: "https://images.pexels.com/photos/3184299/pexels-photo-3184299.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
             description: "User research findings",
             layout: "full"
           }

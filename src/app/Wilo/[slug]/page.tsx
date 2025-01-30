@@ -1,5 +1,4 @@
-'use client';
-
+"use client";
 import React from "react";
 import { notFound } from "next/navigation";
 import Header from "@/components/layout/header";
@@ -12,14 +11,10 @@ import Article from "@/components/Article";
 import Image from "next/image";
 import { 
     ArrowLeft, 
-    ArrowRight, 
-    Link as LinkIcon,
-    Linkedin,
-    Facebook,
-    Twitter
+    ArrowRight
 } from "lucide-react";
 import { motion } from "framer-motion";
-import MagneticButton from "@/components/ui/MagneticButton";
+import Share from "@/components/Share"; 
 
 interface Props {
   params: { slug: string };
@@ -57,9 +52,6 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
     notFound();
   }
 
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-  };
   const relatedArticles = articles.filter(a => a.category === article.category && a.slug !== article.slug);
 
   return (
@@ -115,138 +107,58 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
               </motion.button>
             </motion.div>
 
-          <div className="xl:mr-[170px]">
-          <AnimatedTitle 
-              text={formatDate(new Date(article.publishDate))} 
-              className="font-medium text-sm text-neutral-800"
-            />
-            
-            <AnimatedTitle 
-              text={article.author}
-              className="font-semibold text-lg mt-5"
-            />
-            
-            <AnimatedTitle 
-              text={article.title}
-              className="font-semibold text-2xl md:text-4xl mt-2"
-            />
-
-            <motion.div
-              variants={scaleIn}
-              className="mt-6"
-            >
-              <Image 
-                src={article.imageUrl} 
-                alt="article image"
-                width={792} 
-                height={162} 
-                className="rounded-lg w-full h-auto md:h-[162px] object-cover"
+            <div className="xl:mr-[170px]">
+              <AnimatedTitle 
+                text={formatDate(new Date(article.publishDate))} 
+                className="font-medium text-sm text-neutral-800"
               />
-            </motion.div>
+              
+              <AnimatedTitle 
+                text={article.author}
+                className="font-semibold text-lg mt-5"
+              />
+              
+              <AnimatedTitle 
+                text={article.title}
+                className="font-semibold text-2xl md:text-4xl mt-2"
+              />
 
-            <motion.div 
-              variants={fadeUp}
-              className="mt-8"
-            >
-              {article.content.map((section, index) => (
-                <motion.div 
-                  key={index} 
-                  className="flex flex-col gap-4"
-                  variants={fadeUp}
-                >
-                  {section.title && (
-                    <h2 className="text-xl md:text-2xl font-bold pb-4">{section.title}</h2>
-                  )}
-                  <p className="text-base md:text-lg leading-relaxed font-medium text-neutral-800 mb-6">
-                    {section.body}
-                  </p>
-                </motion.div>
-              ))}
-            </motion.div>
+              <motion.div
+                variants={scaleIn}
+                className="mt-6"
+              >
+                <Image 
+                  src={article.imageUrl} 
+                  alt="article image"
+                  width={792} 
+                  height={162} 
+                  className="rounded-lg w-full h-auto md:h-[162px] object-cover"
+                />
+              </motion.div>
+
+              <motion.div 
+                variants={fadeUp}
+                className="mt-8"
+              >
+                {article.content.map((section, index) => (
+                  <motion.div 
+                    key={index} 
+                    className="flex flex-col gap-4"
+                    variants={fadeUp}
+                  >
+                    {section.title && (
+                      <h2 className="text-xl md:text-2xl font-bold pb-4">{section.title}</h2>
+                    )}
+                    <p className="text-base md:text-lg leading-relaxed font-medium text-neutral-800 mb-6">
+                      {section.body}
+                    </p>
+                  </motion.div>
+                ))}
+              </motion.div>
             </div>
 
-
-            <motion.div 
-  variants={fadeUp}
-  className="mt-12 py-6 border-y border-[#D5D4CE]"
->
-  <div className="flex flex-col xl:flex-row items-center justify-between gap-6 xl:gap-0">
-    <AnimatedTitle 
-      text="Share"
-      className="font-semibold text-lg text-[#222] w-full xl:w-auto text-center xl:text-left"
-    />
-    <ul className="grid grid-cols-2 lg:flex w-full lg:w-auto gap-y-6 gap-x-4 lg:gap-[70px]">
-      <MagneticButton >
-        <motion.li 
-          whileHover={{ scale: 1.05 }} 
-          whileTap={{ scale: 0.95 }}
-        >
-          <a
-            href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-6 w-full xl:justify-start xl:gap-4"
-          >
-            <span className="text-base text-[#222]">LinkedIn</span>
-            <div className="w-11 h-11 rounded-full bg-[#E6E5DF] flex items-center justify-center">
-              <Linkedin className="w-5 h-5 text-[#222]" />
-            </div>
-          </a>
-        </motion.li>
-      </MagneticButton>
-      <MagneticButton >
-        <motion.li 
-          whileHover={{ scale: 1.05 }} 
-          whileTap={{ scale: 0.95 }}
-        >
-          <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-6 w-full xl:justify-start xl:gap-4"
-          >
-            <span className="text-base text-[#222]">Facebook</span>
-            <div className="w-11 h-11 rounded-full bg-[#E6E5DF] flex items-center justify-center">
-              <Facebook className="w-5 h-5 text-[#222]" />
-            </div>
-          </a>
-        </motion.li>
-      </MagneticButton>
-      <MagneticButton >
-        <motion.li 
-          whileHover={{ scale: 1.05 }} 
-          whileTap={{ scale: 0.95 }}
-        >
-          <a
-            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-6 w-full xl:justify-start xl:gap-4"
-          >
-            <span className="text-base text-[#222]">Twitter</span>
-            <div className="w-11 h-11 rounded-full bg-[#E6E5DF] flex items-center justify-center">
-              <Twitter className="w-5 h-5 text-[#222]" />
-            </div>
-          </a>
-        </motion.li>
-      </MagneticButton>
-      <MagneticButton >
-        <motion.li 
-          whileHover={{ scale: 1.05 }} 
-          whileTap={{ scale: 0.95 }}
-          onClick={handleCopyLink}
-        >
-          <button className="flex items-center gap-6 w-full xl:justify-start xl:gap-4">
-            <span className="text-base text-[#222]">Copy the link</span>
-            <div className="w-11 h-11 rounded-full bg-[#E6E5DF] flex items-center justify-center">
-              <LinkIcon className="w-5 h-5 text-[#222]" />
-            </div>
-          </button>
-        </motion.li>
-      </MagneticButton>
-    </ul>
-  </div>
-</motion.div>
+            {/* Use the Share component here */}
+            <Share url={window.location.href} />
 
             {relatedArticles.length > 0 && (
               <motion.div 
