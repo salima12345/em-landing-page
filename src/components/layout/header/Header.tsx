@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -14,7 +13,7 @@ import MadeIn from "./MadeIn";
 import EcosystemDropMenu from "./EcosystemDropMenu";
 import EcosystemModal from "./EcosystemModal/EcosystemModal";
 import Button from "@/components/ui/Button";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 export default function Header() {
   const pathname = usePathname();
@@ -43,10 +42,15 @@ export default function Header() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
+      // Always show the header if the menu is open
+      if (isMenuOpen) {
+        setHeaderVisible(true);
+        return;
+      }
+
+      // Hide the header only if scrolling down and not at the top
       if (currentScrollY > lastScrollY && currentScrollY > 150) {
         setHeaderVisible(false);
-        setIsMenuOpen(false);
-        setIsModalOpen(false);
       } else {
         setHeaderVisible(true);
       }
@@ -58,7 +62,7 @@ export default function Header() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollY]);
+  }, [lastScrollY, isMenuOpen]); // Add isMenuOpen as a dependency
 
   const handleBurgerClick = () => {
     const newMenuState = !isMenuOpen;
@@ -159,14 +163,21 @@ export default function Header() {
               </div>
               <div className="flex items-center flex-col items-end">
                 <div className="flex items-center gap-2 [@media(min-width:1190px)]:pb-2 [@media(min-width:1190px)]:pt-4">
-                  <Button
-                    Icon={Menu}
-                     lightIconColor="#333333"
-                     darkIconColor="#ffffff"
-                   
-                    altText="Menu"
-                    onClick={handleBurgerClick}
-                  />
+                  <motion.div
+                    key={isMenuOpen ? "close" : "menu"}
+                    initial={{ opacity: 0, rotate: -90 }}
+                    animate={{ opacity: 1, rotate: 0 }}
+                    exit={{ opacity: 0, rotate: 90 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Button
+                      Icon={isMenuOpen ? X : Menu}
+                      lightIconColor="#333333"
+                      darkIconColor="#ffffff"
+                      altText="Menu"
+                      onClick={handleBurgerClick}
+                    />
+                  </motion.div>
                 </div>
                 <div className="hidden [@media(min-width:1190px)]:block">
                   <LanguageSelector />
