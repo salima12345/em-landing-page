@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, ReactNode } from "react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation"; 
 import { useTheme } from "@/lib/themes";
 
 interface ExpandableSectionProps<T> {
@@ -34,6 +34,7 @@ function ExpandableSection<T>({
 }: ExpandableSectionProps<T>): React.JSX.Element {
   const { theme } = useTheme();
   const pathname = usePathname();
+  const router = useRouter(); // Use the useRouter hook
   const isHomePage = pathname === "/";
   const [localIsExpanded, setLocalIsExpanded] = useState(defaultExpanded);
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -106,7 +107,13 @@ function ExpandableSection<T>({
     );
   }
 
-  const toggleExpand = () => {
+  const toggleExpand = (e: React.MouseEvent) => {
+    // Prevent toggle if clicking a link or any child of a link
+    const clickedElement = e.target as HTMLElement;
+    if (clickedElement.closest('a') || clickedElement.closest('link')) {
+      return;
+    }
+
     setIsUserToggled(true);
     const newExpandedState = !isExpanded;
     if (isControlled) {
@@ -116,22 +123,28 @@ function ExpandableSection<T>({
     }
   };
 
+  const handleLinkClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault(); // Prevent default link behavior
+    setIsNavigating(true); // Set navigating state to true
+    router.push(href); // Navigate immediately
+  };
+
   return (
     <div className={`relative ${pushContent ? "mb-4" : ""}`} data-testid={testId}>
       <div
         className={`${
           pushContent ? "" : "absolute z-[50]"
-        } xl:w-[287px] w-full overflow-hidden rounded-[26px] cursor-pointer transition-colors duration-300
+        } xl:w-[287px] w-full overflow-hidden rounded-[26px] transition-colors duration-300
         ${theme === 'dark' ? 'bg-grayDark text-white' : 'bg-[#E6E5DF] text-black'}
         ${className}`}
         style={{
           zIndex: isExpanded ? 10 : "auto",
         }}
+        onClick={toggleExpand}
       >
         <button
-          className={`w-full h-[56px] px-6 py-4 flex items-center justify-between
+          className={`w-full h-[56px] px-6 py-4 flex items-center justify-between cursor-pointer
           ${theme ==='dark' ? 'bg-grayDark text-white' : 'bg-[#E6E5DF] text-black'}`}
-          onClick={toggleExpand}
           aria-expanded={isExpanded}
           aria-controls={`${testId}-content`}
         >
@@ -161,8 +174,10 @@ function ExpandableSection<T>({
                 max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
                 opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
                 visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1)
-              `
+              `,
+            pointerEvents: isExpanded ? "auto" : "none" // Prevent interaction when collapsed
           }}
+          onClick={(e) => e.stopPropagation()} // Prevent clicks inside content from triggeri
         >
           {items.map((item, index) =>
             renderItem ? (
