@@ -38,14 +38,13 @@ function CaseStudyPage() {
 
   return (
     <>
-      <Header />
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
         className="pb-20"
       >
-        <div className="max-w-6xl mx-auto  mt-6 md:mt-10 container">
+        <div className="max-w-6xl mx-auto  mt-6 md:mt-16 container">
           {/* Breadcrumb */}
           <div className="breadcrumb">
             <ul className="flex items-center gap-2 font-medium text-sm md:text-base">

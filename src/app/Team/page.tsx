@@ -51,8 +51,7 @@ const Team = () => {
 
   return (
     <>
-      <Header />
-      <main className="min-h-screen">
+      <main className="min-h-screen mt-16">
         <section >
           <div className="container mx-auto px-4">
             <AnimatedTitle

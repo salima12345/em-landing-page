@@ -56,7 +56,6 @@ const ArticlePage: React.FC<Props> = ({ params }) => {
 
   return (
     <>
-      <Header />
       <div className="container mt-16 mx-auto flex flex-col xl:flex-row gap-8 xl:gap-24">
         <motion.div 
           className="max-h-[80px]"

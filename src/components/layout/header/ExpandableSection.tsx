@@ -34,7 +34,7 @@ function ExpandableSection<T>({
 }: ExpandableSectionProps<T>): React.JSX.Element {
   const { theme } = useTheme();
   const pathname = usePathname();
-  const router = useRouter(); // Use the useRouter hook
+  const router = useRouter(); 
   const isHomePage = pathname === "/";
   const [localIsExpanded, setLocalIsExpanded] = useState(defaultExpanded);
   const [hasScrolled, setHasScrolled] = useState(false);

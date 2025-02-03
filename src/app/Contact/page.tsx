@@ -17,7 +17,6 @@ import ExpertiseMenu from './components/Expertise';
 import { Expertise as ExpertiseType } from './components/Expertise';
 import { Expertise as MadeInType } from './components/MadeIn';
 import { Subject } from '@/types/enums';
-import Header from '@/components/layout/header';
 
 const Contact: React.FC = () => {
   const {
@@ -61,8 +60,7 @@ const Contact: React.FC = () => {
 
   return (
     <>
-    <Header/>
-    <div className="container mx-auto px-4 h-screen">
+    <div className="container mx-auto px-4 h-screen mt-16">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="relative w-full rounded-[27px] bg-grayDark p-5 md:p-8 flex flex-col xl:flex-row gap-5"

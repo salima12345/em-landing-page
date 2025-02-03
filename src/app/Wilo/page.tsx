@@ -31,7 +31,6 @@ const ArticleGrid: React.FC = () => {
 
   return (
     <>
-      <Header />
       <div className="container mx-auto px-4 mt-16">
         <div className="flex flex-col md:flex-row gap-24">
           {/* Category Filters */}

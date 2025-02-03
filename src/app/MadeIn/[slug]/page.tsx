@@ -263,8 +263,7 @@ const MadeInPage = ({ params }: { params: { slug: string } }) => {
 
   return (
     <>
-    <Header/>
-      <div className="py-8">
+      <div className="py-8 mt-16">
         <div className="container flex items-end justify-between">
           <div className="flex flex-col gap-4">
             <AnimatedTitle

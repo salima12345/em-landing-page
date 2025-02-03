@@ -37,6 +37,12 @@ interface PageContent {
   footerIcon?: string;
 }
 
+interface CaseStudy {
+  title: string;
+  description: string;
+  imageSrc: string;
+}
+
 const PAGE_CONTENT: Record<string, PageContent> = {
   Strategy: {
     title: 'Strategy',
@@ -220,7 +226,6 @@ const ExpertisePage = ({ params }: { params: { slug: string } }) => {
 
   return (
     <>
-    <Header/>
       <div className="container py-8">
         <div className="flex flex-col gap-10 xl:flex-row xl:items-center xl:justify-between ">
           <div className="flex flex-col gap-4">

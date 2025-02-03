@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import { ThemeProvider } from "@/lib/themes";
+import Header from "@/components/layout/header";
+
 export const metadata: Metadata = {
   title: "Elliot & Markus",
 };
@@ -18,14 +20,15 @@ export default function RootLayout({
         className="min-h-screen min-w-full max-w-[1440px] font-gilroy overflow-x-hidden scrollbar-hide"
       >
         <ThemeProvider>
-
-          <SmoothScroll>
-            <div className="flex flex-col min-h-screen  transition-colors duration-200">
+          {/* Move SmoothScroll inside the main content */}
+          <div className="flex flex-col min-h-screen transition-colors duration-200">
+            <Header />
+            <SmoothScroll>
               <main className="flex-grow">
                 {children}
               </main>
-            </div>
-          </SmoothScroll>
+            </SmoothScroll>
+          </div>
         </ThemeProvider>
       </body>
     </html>

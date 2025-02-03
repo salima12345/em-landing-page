@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -33,9 +35,11 @@ const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenMod
   const { theme } = useTheme();
 
   return (
-    <div className="w-full md:w-[287px] 2xl:w-[388px] flex flex-col rounded-[25px] relative transition-all duration-400">
+    <div className=" w-[290px] md:w-[388px] lg:w-[288px] xl:w-[388px] 2xl:w-[388px] flex flex-col rounded-[25px] relative transition-all duration-400 ">
       <motion.div
-        className="w-full rounded-[26px] absolute right-0 top-[-25px] max-w[388px] min-w-[287px]"
+        className={`w-full rounded-[26px] absolute right-0 -top-[25px] max-w-[388px] min-w-[287px] 
+          md:top-[-25px] md:right-0 md:rounded-[26px]
+          ${theme === 'dark' ? 'bg-[#222222]' : 'bg-[#E6E5DF]'}`}
         animate={{ 
           backgroundColor: isOpen 
             ? (theme === 'dark' ? '#222222' : '#E6E5DF') 
@@ -53,9 +57,8 @@ const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenMod
           className={`mx-auto flex items-center justify-center cursor-pointer z-[2] relative transition-all duration-500 
             ${theme === 'dark' 
               ? 'bg-[#454545] text-white' 
-              : 'bg-[#D5D4CE] text-black'
-            }`
-          }
+              : 'bg-[#D5D4CE] text-black'}
+            md:w-[218px] w-full md:rounded-[26px] rounded-none`}
           animate={{ 
             width: isOpen ? '100%' : '218px',
             height: isOpen ? '62px' : '56px',
@@ -71,11 +74,10 @@ const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenMod
         <AnimatePresence>
           {isOpen && (
             <motion.div 
-              className={`w-full px-5 py-[30px] rounded-b-[26px] opacity-0 
+              className={`w-full px-4 md:px-5 py-6 md:py-[30px] rounded-none md:rounded-b-[26px] opacity-0 
                 ${theme === 'dark' 
                   ? 'bg-[#222222] text-white' 
-                  : 'bg-[#E6E5DF] text-black'}
-              `}
+                  : 'bg-[#E6E5DF] text-black'}`}
               initial={{ 
                 opacity: 0, 
                 height: 0,
@@ -95,35 +97,35 @@ const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenMod
                 <ul className={`flex flex-col gap-5 
                   ${theme === 'dark' 
                     ? 'text-white' 
-                    : 'text-black'}`
-                }>
-                  <li className="text-[24px] font-semibold text-center self-center cursor-pointer">
+                    : 'text-black'}`}
+                >
+                  <li className="text-[20px] md:text-[24px] font-semibold text-center self-center cursor-pointer">
                     <Link href="/"> Agence</Link>
                   </li>
-                  <li className="text-[24px] text-center self-center cursor-pointer relative">
+                  <li className="text-[20px] md:text-[24px] text-center self-center cursor-pointer relative">
                     <Link href="/References"> References <span className="text-[#E0643A] text-[20px]">*</span></Link>
                   </li>
-                  <li className="text-[24px] text-center self-center cursor-pointer">
+                  <li className="text-[20px] md:text-[24px] text-center self-center cursor-pointer">
                     <Link href="/Team"> Talents</Link>
                   </li>
-                  <li className="text-[24px] text-center self-center cursor-pointer">
-                    <Link href="/Wilo">  Wilo Insights</Link>
+                  <li className="text-[20px] md:text-[24px] text-center self-center cursor-pointer">
+                    <Link href="/Wilo"> Wilo Insights</Link>
                   </li>
-                  <li className="text-[24px] text-center self-center cursor-pointer">
-                    <Link href="/Contact" className='flex items-center gap-2'>Contact
+                  <li className="text-[20px] md:text-[24px] text-center self-center cursor-pointer">
+                    <Link href="/Contact" className="flex items-center gap-2">Contact
                       <Image 
                         src="/images/icons/ArrowUpLight.svg" 
                         alt="" 
                         width={13} 
                         height={13} 
-                        className='w-[13px] h-[13px]'
+                        className="w-[13px] h-[13px]"
                       />
                     </Link>
                   </li>
                 </ul>
               </nav>
-              <div className="mt-10">
-                <ul className="w-[170px] mx-auto flex items-center justify-between">
+              <div className="mt-6 md:mt-10">
+                <ul className="w-[140px] md:w-[170px] mx-auto flex items-center justify-between">
                   {icons.map((icon, index) => (
                     <li key={index}>
                       <Link href={(() => {
@@ -145,7 +147,7 @@ const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenMod
                           alt={icon.alt} 
                           width={15} 
                           height={15} 
-                          className="transition-all duration-500 hover:opacity-70 w-[15px] h-[15px] cursor-pointer"
+                          className="w-[15px] h-[15px] cursor-pointer transition-all duration-500 hover:opacity-70"
                         />
                       </Link>
                     </li>

@@ -36,6 +36,7 @@ export default function Header() {
     setMadeInUserCollapsed(false);
     setIsExpertiseExpanded(false);
     setIsMadeInExpanded(false);
+    document.body.classList.remove("menu-open");
   }, [pathname]);
 
   useEffect(() => {
@@ -62,11 +63,12 @@ export default function Header() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollY, isMenuOpen]); // Add isMenuOpen as a dependency
+  }, [lastScrollY, isMenuOpen]);
 
   const handleBurgerClick = () => {
     const newMenuState = !isMenuOpen;
     setIsMenuOpen(newMenuState);
+    document.body.classList.toggle("menu-open", newMenuState);
 
     if (!newMenuState) {
       setExpertiseUserCollapsed(false);
@@ -81,6 +83,7 @@ export default function Header() {
 
   const handleCloseMenu = () => {
     setIsMenuOpen(false);
+    document.body.classList.remove("menu-open");
     setExpertiseUserCollapsed(false);
     setMadeInUserCollapsed(false);
     setIsExpertiseExpanded(false);
@@ -90,6 +93,7 @@ export default function Header() {
   const handleOpenModal = () => {
     setIsModalOpen(true);
     setIsMenuOpen(false);
+    document.body.classList.remove("menu-open");
   };
 
   const handleCloseModal = () => {
@@ -187,6 +191,24 @@ export default function Header() {
           </motion.div>
         </AnimatePresence>
       </section>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "100vh" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="sticky inset-0 z-40 bg-background [@media(min-width:1190px)]:hidden mx-auto mt-[130px]"
+          >
+                  <EcosystemDropMenu 
+                    isOpen={true}
+                    onClose={handleCloseMenu}
+                    onOpenModal={handleOpenModal}
+                  />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {isModalOpen && <EcosystemModal onClose={handleCloseModal} />}
     </>
