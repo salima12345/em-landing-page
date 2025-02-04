@@ -10,7 +10,6 @@ import Footer from '@/components/layout/footer';
 import { teamGroups } from '@/Data/TeamData';
 import CaseStudy from '@/components/CaseStudy';
 import { CASE_STUDIES } from '@/Data/CaseStudiesData';
-import Header from '@/components/layout/header';
 import { MoveVertical } from 'lucide-react';
 
 interface ServiceItemProps {
