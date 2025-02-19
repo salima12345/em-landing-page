@@ -68,8 +68,9 @@ export default function Header() {
   const handleBurgerClick = () => {
     const newMenuState = !isMenuOpen;
     setIsMenuOpen(newMenuState);
+    setHeaderVisible(true);
     document.body.classList.toggle("menu-open", newMenuState);
-
+  
     if (!newMenuState) {
       setExpertiseUserCollapsed(false);
       setMadeInUserCollapsed(false);

@@ -1,3 +1,4 @@
+import purgeCSSPlugin from '@fullhuman/postcss-purgecss';
 module.exports = {
   content: [
     "./src/app/**/*.{js,ts,jsx,tsx}",
@@ -29,5 +30,13 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('cssnano')({
+      preset: 'default',
+    }),
+    purgeCSSPlugin({
+      content: ['./**/*.html']
+    }),
+   
+  ],
 };

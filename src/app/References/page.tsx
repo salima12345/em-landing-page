@@ -1,39 +1,55 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { useQuery } from '@apollo/client';
 import CaseStudy from '@/components/CaseStudy';
 import Footer from '@/components/layout/footer';
-import Header from '@/components/layout/header';
-import {  CASE_STUDIES, ITEMS_PER_PAGE } from '@/Data/CaseStudiesData';
+import { GET_EXPERTISES } from '@/lib/graphql/queries/ExpertiseQuery';
+import { GET_REFERENCES } from '@/lib/graphql/queries/ReferenceQueries';
 
-const CATEGORIES = [
-  { id: 'all', label: 'All', color: 'bg-white text-black' },
-  { id: 'strategy', label: 'Strategy', color: 'bg-[#274424] text-white' },
-  { id: 'media', label: 'Media', color: 'bg-[#f2bd41] text-[#e0643a]' },
-  { id: 'design', label: 'Design', color: 'bg-[#ecc6c7] text-[#1d4520]' },
-  { id: 'tech', label: 'Tech/Web', color: 'bg-[#2c5dcd] text-[#a6d4f9]' },
-  { id: 'content', label: 'Edition/Content', color: 'bg-[#e0643a] text-white' },
-  { id: 'social', label: 'Social Media/SEO', color: 'bg-[#afd3f5] text-[#125ed4]' },
-  { id: 'outsourcing', label: 'Outsourcing', color: 'bg-[#f1efe6] text-black' },
-];
+const COLOR_MAP = {
+  '67': { class: 'bg-[#274424] text-white', label: 'Strategy' },
+  '74': { class: 'bg-[#f2bd41] text-[#e0643a]', label: 'Media' },
+  '75': { class: 'bg-[#ecc6c7] text-[#1d4520]', label: 'Design' },
+  '76': { class: 'bg-[#2c5dcd] text-[#a6d4f9]', label: 'Tech/Web' },
+  '77': { class: 'bg-[#e0643a] text-white', label: 'Edition/Content' },
+  '78': { class: 'bg-[#afd3f5] text-[#125ed4]', label: 'Social Media/SEO' },
+  '73': { class: 'bg-[#f1efe6] text-black', label: 'Outsourcing' }
+};
+
+const DEFAULT_COLOR = 'bg-[#6B7280] text-white'; // Default color for unmatched IDs
+
 function References() {
-  
-  const [visibleItems, setVisibleItems] = useState(ITEMS_PER_PAGE);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [headerHidden, setHeaderHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
+  // Fetch data from WordPress using GraphQL queries
+  const { data: referencesData } = useQuery(GET_REFERENCES);
+  const { data: expertisesData } = useQuery(GET_EXPERTISES);
+
+  const references = referencesData?.references?.nodes || [];
+  const expertises = expertisesData?.expertises?.nodes || [];
+
+  // Debug expertiseId values
+  console.log(expertises.map(e => ({ id: e.expertiseId, title: e.title })));
+
+  // Dynamically generate categories from expertises
+  const CATEGORIES = [
+    { id: 'all', label: 'All', color: 'bg-white text-black' },
+    ...expertises.map(expertise => ({
+      id: expertise.expertiseId,
+      label: expertise.title,
+      color: COLOR_MAP[expertise.expertiseId]?.class || DEFAULT_COLOR
+    }))
+  ];
+
+  // Handle scroll to hide/show header
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > lastScrollY && currentScrollY > 150) {
-        setHeaderHidden(true);
-      } else {
-        setHeaderHidden(false);
-      }
-      
+      setHeaderHidden(currentScrollY > lastScrollY && currentScrollY > 150);
       setLastScrollY(currentScrollY);
     };
 
@@ -41,21 +57,25 @@ function References() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
-  const filteredStudies = CASE_STUDIES.filter(study => {
+  // Filter studies based on search term and selected category
+  const filteredStudies = references.filter(study => {
+    const expertiseIds = study.singleReferences?.expertises?.nodes?.map(e => e.id) || [];
     const matchesSearch = study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         study.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || study.categories.includes(selectedCategory);
+                         (study.content && study.content.toLowerCase().includes(searchTerm.toLowerCase()));
+    const matchesCategory = selectedCategory === 'all' || 
+                          expertiseIds.includes(selectedCategory);
+
     return matchesSearch && matchesCategory;
   });
 
   return (
     <>
-      <div className="min-h-screen container relative px-10 mt-16">
-        <div 
-          className={`hidden xl:flex items-center gap-4 mt-[30px] mb-[65px] bg-[#222222] rounded-[30px] px-[11px] h-[65px] transition-all duration-1000 z-30 ${
-            headerHidden ? 'sticky top-[30px]' : 'sticky top-[110px]'
-          }`}
-        >
+      <div className="min-h-screen container relative px-10 ">
+        {/* Header with search and categories */}
+        <div className={`hidden xl:flex items-center gap-4 mt-[30px] mb-[65px] bg-[#222222] rounded-[30px] px-[11px] h-[65px] transition-all duration-1000 z-30 ${
+          headerHidden ? 'sticky top-[30px]' : 'sticky top-[110px]'}`}>
+
+          {/* Search Input */}
           <div className="flex items-center justify-between bg-[#313131] h-[46px] w-[335px] rounded-[27px]">
             <input
               type="text"
@@ -79,7 +99,8 @@ function References() {
               </svg>
             </div>
           </div>
-          
+
+          {/* Categories */}
           <div className="flex-1">
             <ul className="flex items-center gap-[15px]">
               {CATEGORIES.map((category) => (
@@ -99,18 +120,22 @@ function References() {
           </div>
         </div>
 
+        {/* Case Studies Grid */}
         {filteredStudies.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-14 relative z-[10]">
-          {filteredStudies.slice(0, visibleItems).map((study, index) => (
-  <CaseStudy
-    key={index}
-    imageUrl={study.imageUrl}
-    title={study.title}
-    description={study.description}
-    expertise={study.expertise}
-    slug={study.slug}  
-  />
-))}
+            {filteredStudies.map((study) => (
+              <CaseStudy
+                key={study.slug}
+                imageUrl={study.featuredImage?.node?.sourceUrl}
+                title={study.title}
+                description={study.content ? study.content.substring(0, 150) + '...' : ''}
+                expertise={study.singleReferences?.expertises?.nodes?.map(e => ({
+                  id: e.id,
+                  name: expertises.find(exp => exp.id === e.id)?.title || 'Uncategorized'
+                })) || []}
+                slug={study.slug}
+              />
+            ))}
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-32 px-4">

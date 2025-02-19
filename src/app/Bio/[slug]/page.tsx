@@ -37,7 +37,7 @@ function Bio() {
     <>
       <div className="flex flex-col my-16">
         <div className="w-full max-w-[1200px] mx-auto px-4">
-          <div className="flex flex-col xl:flex-row justify-end gap-8">
+          <div className="flex flex-col xl:flex-row justify-end gap-16">
             <div className="xl:sticky top-44 h-max">
               {/* Breadcrumb */}
               <div className="flex items-center gap-1 mb-10">
@@ -52,14 +52,19 @@ function Bio() {
                   alt="Arrow Right"
                   width={19}
                   height={19}
+                  loading="lazy"
                   className="transition-all duration-300"
+                  style={{
+                    width: '19px',
+                    height: '19px',
+                  }}
                 />
                 <span className="text-[14px] font-medium">{member.name}</span>
               </div>
 
               {/* Left side content */}
-              <div className="flex flex-col md:flex-row justify-between  xl:ml-16 mt-10 xl:w-[670px]">
-                <div className="flex flex-col mt-8 w-full md:w-[290px]">
+              <div className="flex flex-col md:flex-row justify-between  xl:ml-16 mt-10 xl:w-[730px] ">
+                <div className="flex flex-col mt-8 w-full md:w-[299px]">
                   <AnimatedTitle
                     text={member.name}
                     className="font-semibold text-[28px] md:text-[36px] leading-[38px] text-[#222] mb-3"
@@ -75,6 +80,11 @@ function Bio() {
                       width={17}
                       height={17}
                       className="transition-all duration-300"
+                      style={{
+                        width: '17px',
+                        height: '17px',
+                      }}
+                      loading="lazy"
                     />
                     <Image
                       src="https://www.eliott-markus.com/wp-content/themes/em-wp/images/bio-icons/mail.svg"
@@ -82,6 +92,11 @@ function Bio() {
                       width={17}
                       height={17}
                       className="transition-all duration-300 "
+                      style={{
+                        width: '17px',
+                        height: '17px',
+                      }}
+                      loading="lazy"
                     />
                   </div>
                 </div>
@@ -93,6 +108,11 @@ function Bio() {
                     width={348}
                     height={513}
                     className="w-full h-full object-cover"
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                    }}
+                    loading="lazy"
                   />
                 </div>
               </div>

@@ -4,21 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import AnimatedTitle from "../ui/TitleReveal";
 import Image from "next/image";
-
-const items = [
-  {
-    title: "From August Debouzy to the A.D. experience: branding for a success story",
-    image: "https://www.eliott-markus.com/wp-content/uploads/2023/08/Groupe-1597@2x-min.png",
-  },
-  {
-    title: "From U.V & Associés to Screeb notaires: innovative positioning for a successful rebranding",
-    image: "https://www.eliott-markus.com/wp-content/uploads/2023/08/Groupe-1876@2x-min.png",
-  },
-  {
-    title: "Create a common base for daughter brands and satellite brands to belong to the Oasys & Cie group",
-    image: "https://www.eliott-markus.com/wp-content/uploads/2023/08/Groupe-1928@2x.png",
-  },
-];
+import { CASE_STUDIES } from "@/Data/CaseStudiesData";
 
 interface WorkItemProps {
   title: string;
@@ -42,6 +28,12 @@ function Realization() {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const controls = useAnimation();
+
+  // Fetch the last 3 case studies
+  const items = CASE_STUDIES.slice(-3).map((caseStudy) => ({
+    title: caseStudy.title,
+    image: caseStudy.imageUrl,
+  }));
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -76,6 +68,7 @@ function Realization() {
         }}
       >
         <motion.div
+          style={{ position: 'relative' }}
           id="work-images"
           className="w-full h-[840px] flex flex-col"
           animate={controls}
@@ -110,6 +103,7 @@ function Realization() {
                 alt=""
                 width={114}
                 height={114}
+                loading="lazy"
                 className="w-[114px] h-[114px] "
               />
             </div>

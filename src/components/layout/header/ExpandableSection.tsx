@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useState, ReactNode } from "react";
+import React, { useEffect, useState, ReactNode, useCallback } from "react";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation"; 
+import { usePathname } from "next/navigation";
 import { useTheme } from "@/lib/themes";
 
 interface ExpandableSectionProps<T> {
@@ -30,11 +30,9 @@ function ExpandableSection<T>({
   isHeader = false,
   isExpanded: parentExpanded,
   setExpanded: parentSetExpanded,
-  isMenuOpen = false,
 }: ExpandableSectionProps<T>): React.JSX.Element {
   const { theme } = useTheme();
   const pathname = usePathname();
-  const router = useRouter(); 
   const isHomePage = pathname === "/";
   const [localIsExpanded, setLocalIsExpanded] = useState(defaultExpanded);
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -55,13 +53,13 @@ function ExpandableSection<T>({
     }
   }, [pathname, previousPathname]);
 
-  const handleAutoExpand = (shouldExpand: boolean) => {
+  const handleAutoExpand = useCallback((shouldExpand: boolean) => {
     if (isControlled) {
       parentSetExpanded(shouldExpand);
     } else {
       setLocalIsExpanded(shouldExpand);
     }
-  };
+  }, [isControlled, parentSetExpanded]);
 
   useEffect(() => {
     setMounted(true);
@@ -91,7 +89,7 @@ function ExpandableSection<T>({
         clearTimeout(timer);
       };
     }
-  }, [isHeader, isHomePage, hasScrolled, isUserToggled]);
+  }, [isHeader, isHomePage, hasScrolled, isUserToggled, handleAutoExpand]);
 
   useEffect(() => {
     if (isControlled && !isUserToggled) {
@@ -108,7 +106,6 @@ function ExpandableSection<T>({
   }
 
   const toggleExpand = (e: React.MouseEvent) => {
-    // Prevent toggle if clicking a link or any child of a link
     const clickedElement = e.target as HTMLElement;
     if (clickedElement.closest('a') || clickedElement.closest('link')) {
       return;
@@ -121,12 +118,6 @@ function ExpandableSection<T>({
     } else {
       setLocalIsExpanded(newExpandedState);
     }
-  };
-
-  const handleLinkClick = (e: React.MouseEvent, href: string) => {
-    e.preventDefault(); // Prevent default link behavior
-    setIsNavigating(true); // Set navigating state to true
-    router.push(href); // Navigate immediately
   };
 
   return (
@@ -158,6 +149,7 @@ function ExpandableSection<T>({
               transition: isNavigating ? "none" : "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
             alt={isExpanded ? "Collapse" : "Expand"}
+            priority={true}
           />
         </button>
 
@@ -175,9 +167,9 @@ function ExpandableSection<T>({
                 opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
                 visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1)
               `,
-            pointerEvents: isExpanded ? "auto" : "none" // Prevent interaction when collapsed
+            pointerEvents: isExpanded ? "auto" : "none"
           }}
-          onClick={(e) => e.stopPropagation()} // Prevent clicks inside content from triggeri
+          onClick={(e) => e.stopPropagation()}
         >
           {items.map((item, index) =>
             renderItem ? (

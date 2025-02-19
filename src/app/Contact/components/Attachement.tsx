@@ -6,7 +6,6 @@ interface AttachmentFieldProps {
 }
 
 const AttachmentField: React.FC<AttachmentFieldProps> = ({ onFileSelect }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -18,7 +17,6 @@ const AttachmentField: React.FC<AttachmentFieldProps> = ({ onFileSelect }) => {
     const file = event.target.files?.[0] || null;
     setSelectedFile(file);
     onFileSelect(file);
-    setIsExpanded(false);
   };
 
   return (

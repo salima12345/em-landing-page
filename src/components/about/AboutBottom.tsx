@@ -15,7 +15,6 @@ function AnimatedNumber({ targetValue, duration = 2000, shouldStart }: AnimatedN
   const hasAnimated = useRef(false);
 
   useEffect(() => {
-    // Only start animation if it hasn't run before and shouldStart is true
     if (!shouldStart || hasAnimated.current) {
       return;
     }
@@ -86,10 +85,11 @@ function StatCard({ title, value, staticValue = false, isOrdinal = false, trigge
 
 function AboutBottom() {
   const [hasTriggered, setHasTriggered] = useState(false);
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
   const controls = useAnimation();
   
   useEffect(() => {
+    const currentRef = sectionRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && !hasTriggered) {
@@ -100,13 +100,13 @@ function AboutBottom() {
       { threshold: 0.5 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (currentRef) {
+      observer.observe(currentRef);
     }
     
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [controls, hasTriggered]);

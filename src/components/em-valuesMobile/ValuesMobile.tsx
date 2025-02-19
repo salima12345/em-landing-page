@@ -65,6 +65,8 @@ const ValuesMobile = () => {
                     height={266}
                     src={image.src}
                     alt={image.alt}
+                    priority={true} 
+
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute bottom-6 left-6 right-6">
@@ -108,6 +110,8 @@ const ValuesMobile = () => {
                   height={306}
                   src={image.src}
                   alt={image.alt}
+                  priority={true} 
+
                   className="w-[306px] h-[306px] object-contain hover:scale-105 transition-transform duration-300"
                 />
               )}

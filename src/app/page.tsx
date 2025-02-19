@@ -1,38 +1,49 @@
-'use client';
-import React from 'react';
-
+"use client"
+import React, { Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
-import Hero from "@/components/hero/Hero";
-import About from "@/components/about/About";
-import Values from "@/components/em-values/Values";
-import ValuesMobile from "@/components/em-valuesMobile/ValuesMobile";
-import Realization from "@/components/realization/Realization";
-import Clients from "@/components/clients/Clients";
-import Footer from '@/components/layout/footer';
 
-export default function Home() {
+// Lazy load components
+const Hero = lazy(() => import('@/components/hero/Hero'));
+const About = lazy(() => import('@/components/about/About'));
+const Values = lazy(() => import('@/components/em-values/Values'));
+const ValuesMobile = lazy(() => import('@/components/em-valuesMobile/ValuesMobile'));
+const Realization = lazy(() => import('@/components/realization/Realization'));
+const Clients = lazy(() => import('@/components/clients/Clients'));
+const Footer = lazy(() => import('@/components/layout/footer'));
+
+// Loading component
+const LoadingFallback = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
+  </div>
+);
+
+function App() {
   return (
-    < >
+    <Suspense fallback={<LoadingFallback />}>
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: .5 }}
+        transition={{ duration: 0.3 }}
+        className="overflow-hidden"
       >
         <Hero />
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.5 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
       >
         <About />
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
         className="hidden xl:block"
       >
         <Values />
@@ -40,36 +51,42 @@ export default function Home() {
 
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
         className="xl:hidden"
       >
         <ValuesMobile />
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1.5 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
       >
         <Realization />
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 2 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
       >
         <Clients />
       </motion.div>
+
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 2 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
       >
         <Footer />
       </motion.div>
-    </>
+    </Suspense>
   );
 }
 
+export default App;

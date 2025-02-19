@@ -61,7 +61,7 @@ export default function Clients() {
       >
         {clientCategories.map((category, index) => (
           <SwiperSlide key={index} className="!w-auto">
-            <Link href={category.href} className="bg-grayDark rounded-[26px] p-8 block">
+            <Link   rel="preload" href={category.href} className="bg-grayDark rounded-[26px] p-8 block">
               <h3 className="font-medium text-[22px] whitespace-nowrap">{category.title}</h3>
             </Link>
           </SwiperSlide>

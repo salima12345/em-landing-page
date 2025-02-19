@@ -12,6 +12,7 @@ import LawCareImage from './LawCareImage';
 import BlancheImage from './BlancheImage';
 import WiloImage from './WiloImage';
 import DeskImage from './DeskImage';
+import { X } from 'lucide-react';
 
 interface EcosystemModalProps {
   onClose: () => void;
@@ -42,11 +43,8 @@ export default function EcosystemModal({ onClose }: EcosystemModalProps) {
       variants={containerVariants}
     >
       <div className="absolute top-4 right-4 ml-5 z-[9999]">
-        <Button
-          imageSrc="/images/icons/close.svg"
-          altText="close"
-          onClick={onClose}
-        />
+       <Button Icon={X} altText="Close" onClick={onClose}/>
+        
       </div>
 
       <motion.div

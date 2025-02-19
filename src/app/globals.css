@@ -83,7 +83,9 @@ input:-webkit-autofill:focus {
 
 
 .container {
-  @apply mx-auto px-4 py-6 max-w-[1440px];
+  
+  @apply mx-auto px-4 py-6 max-w-[1440px] ;
+
 }
 
 @media (min-width: 481px) {
@@ -160,7 +162,12 @@ input:-webkit-autofill:focus {
     position: relative;
   }
   
-  
+  .em-values .content-em-values .images .img,
+.em-values .content-em-values .images .values {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
   
   .em-values .content-em-values .images .values {
     width: 266px;

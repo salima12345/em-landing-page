@@ -15,9 +15,12 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({ text, className, style })
   const isInView = useInView(containerRef, { once: true, amount: 0.5 })
 
   return (
-    <h1 ref={containerRef} className={`overflow-hidden ${className}`} style={style}>
+    <h1 ref={containerRef} className={`overflow-hidden ${className}`}
+    style={{ ...style, position: 'relative' }}>
       {characters.map((char, index) => (
         <motion.span
+        style={{  position: 'relative' }}
+
           key={index}
           className="inline-block"
           initial={{ opacity: 0, y: '50%' }}

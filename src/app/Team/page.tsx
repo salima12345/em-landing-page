@@ -9,13 +9,14 @@ import { teamGroups } from '@/Data/TeamData';
 import type { TeamMember } from '@/Data/TeamData';
 import Footer from '@/components/layout/footer';
 import { useLenis } from "@studio-freight/react-lenis";
+import type Lenis from '@studio-freight/lenis/types';
 
 const Team = () => {
   const [activeCategory, setActiveCategory] = useState('ALL');
   const imageRef = useRef(null);
   const teamSectionRef = useRef<HTMLDivElement>(null);
-  const lenisRef = useRef<any>(null);
-  const { scrollYProgress } = useScroll();
+  const lenisRef = useRef<Lenis | null>(null);
+    const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -72,6 +73,8 @@ const Team = () => {
             <div className="overflow-hidden flex flex-col xl:flex-row items-start gap-6 xl:gap-16 w-full">
               <div className='xl:min-w-[560px]'>
                 <motion.h5
+                  style={{  position: 'relative' }}
+
                   initial={{ y: "100%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 2, ease: [0.33, 1, 0.68, 1] }}
@@ -82,6 +85,8 @@ const Team = () => {
               </div>
               <div className="flex-1">
                 <motion.p
+                   style={{ position: 'relative' }}
+
                   initial={{ y: "100%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 2, ease: [0.33, 1, 0.68, 1] }}
@@ -97,18 +102,27 @@ const Team = () => {
 
           <div className="relative mt-8 mx-4 2xl:mx-16 w-auto h-[255px] xl:h-[344px] overflow-hidden rounded-lg">
             <motion.div
+
               ref={imageRef}
               variants={imageVariants}
               initial="hidden"
               animate="visible"
               className="h-full w-full"
+              style={{
+                width: '100%',
+                height: 'auto',
+              }}
             >
               <Image
                 src="https://www.eliott-markus.com/wp-content/uploads/2023/05/talent-bg-scaled.jpg.webp"
                 alt="Eliott & Markus Team"
-                layout="fill"
-                objectFit="cover"
+                width={255}
+                height={344}
                 className="rounded-lg"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                }}
               />
             </motion.div>
           </div>
@@ -116,6 +130,7 @@ const Team = () => {
           <div ref={teamSectionRef} className="container mx-auto px-4 mt-16 md:mt-24">
             <div className="flex flex-col md:flex-row gap-12 md:gap-24">
               <motion.div 
+
                 className="w-full md:w-auto md:sticky md:top-28 self-start"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}

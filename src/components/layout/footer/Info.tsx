@@ -29,8 +29,8 @@ export default function Info() {
           <p className="font-semibold">Follow us</p>
           <div className="flex items-center">
             <div className="flex flex-col gap-2 pr-16 ">
-              <Link href="/">LinkedIn</Link>
-              <Link href="/">Twitter</Link>
+              <Link href="/"   rel="preload">LinkedIn</Link>
+              <Link href="/"   rel="preload"    >Twitter</Link>
             </div>
             <div className="flex flex-col gap-2">
               <Link href="/">Facebook</Link>

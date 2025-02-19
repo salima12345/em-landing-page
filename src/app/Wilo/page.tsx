@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Article from "@/components/Article";
-import Header from "@/components/layout/header";
 import { articles } from "@/Data/Articles";
 import Footer from "@/components/layout/footer";
 
@@ -64,7 +63,8 @@ const ArticleGrid: React.FC = () => {
             {filteredArticles.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 {filteredArticles.map((article) => (
-                  <Link key={article.slug} href={`/Wilo/${article.slug}`}>
+                  <Link   rel="preload"
+                  key={article.slug} href={`/Wilo/${article.slug}`}>
                     <Article {...article} />
                   </Link>
                 ))}
