@@ -26,8 +26,8 @@ function References() {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   // Fetch data from WordPress using GraphQL queries
-  const { data: referencesData } = useQuery(GET_REFERENCES);
-  const { data: expertisesData } = useQuery(GET_EXPERTISES);
+  const { data: referencesData, loading: referencesLoading } = useQuery(GET_REFERENCES);
+  const { data: expertisesData, loading: expertisesLoading } = useQuery(GET_EXPERTISES);
 
   const references = referencesData?.references?.nodes || [];
   const expertises = expertisesData?.expertises?.nodes || [];
@@ -67,6 +67,15 @@ function References() {
 
     return matchesSearch && matchesCategory;
   });
+
+  // Loading state
+  if (referencesLoading || expertisesLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 "></div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -138,38 +147,41 @@ function References() {
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-32 px-4">
-            <div className="bg-[#222222] rounded-full p-6 mb-6">
-              <svg
-                className="w-12 h-12 text-white"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+          // Empty state only shown after data is loaded and no results are found
+          !referencesLoading && !expertisesLoading && (
+            <div className="flex flex-col items-center justify-center py-32 px-4">
+              <div className="bg-[#222222] rounded-full p-6 mb-6">
+                <svg
+                  className="w-12 h-12 text-white"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <line x1="21" y1="11" x2="13" y2="11" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-semibold mb-2">No results found</h3>
+              <p className="text-muted-foreground text-center max-w-[500px] mb-8">
+                {searchTerm 
+                  ? `We couldn't find any results for "${searchTerm}"`
+                  : `No projects found in the ${selectedCategory === 'all' ? 'selected category' : CATEGORIES.find(c => c.id === selectedCategory)?.label}`}
+              </p>
+              <button
+                onClick={() => {
+                  setSearchTerm('');
+                  setSelectedCategory('all');
+                }}
+                className="px-6 py-3 bg-[#222222] text-white rounded-full hover:bg-[#333333] transition-colors"
               >
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                <line x1="21" y1="11" x2="13" y2="11" />
-              </svg>
+                Clear filters
+              </button>
             </div>
-            <h3 className="text-2xl font-semibold mb-2">No results found</h3>
-            <p className="text-muted-foreground text-center max-w-[500px] mb-8">
-              {searchTerm 
-                ? `We couldn't find any results for "${searchTerm}"`
-                : `No projects found in the ${selectedCategory === 'all' ? 'selected category' : CATEGORIES.find(c => c.id === selectedCategory)?.label}`}
-            </p>
-            <button
-              onClick={() => {
-                setSearchTerm('');
-                setSelectedCategory('all');
-              }}
-              className="px-6 py-3 bg-[#222222] text-white rounded-full hover:bg-[#333333] transition-colors"
-            >
-              Clear filters
-            </button>
-          </div>
+          )
         )}
       </div>
       <Footer />
