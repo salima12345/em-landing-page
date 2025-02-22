@@ -51,3 +51,29 @@ export const GET_TALENTS_BY_IDS = gql`
     }
   }
 `;
+export const GET_TALENTS_PAGE = gql`
+  query GetTalentsPage {
+    pages {
+      nodes {
+        template {
+          ... on Template_Talents {
+            templateName
+            talentsPage {
+              description
+              jobsEm {
+                city
+                date
+                title
+                type
+              }
+              subtitle
+              subtitleEmJobs
+              title
+              titleEmJobs
+            }
+          }
+        }
+      }
+    }
+  }
+`;

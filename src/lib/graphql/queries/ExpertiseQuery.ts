@@ -8,11 +8,10 @@ export const GET_EXPERTISES = gql`
         singleExpertises {
           subtitle
           team {
-            edges {
-              node {
+              nodes {
                 id
               }
-            }
+            
           }
           services {
             service

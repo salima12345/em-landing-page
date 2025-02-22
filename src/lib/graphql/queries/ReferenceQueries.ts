@@ -40,33 +40,32 @@ export const GET_REFERENCES = gql`
 `;
 
 export const GET_REFERENCE_BY_SLUG = gql`
-  query GetReferenceBySlug($slug: String!) {
-    references(where: { name: $slug }) {
-      nodes {
-        title
-        featuredImage {
-          node {
-            sourceUrl
-          }
+  query GetReferenceBySlug($id: ID!) {
+    reference(id: $id, idType: SLUG) {
+      title
+      content
+      slug
+      featuredImage {
+        node {
+          sourceUrl
         }
-        slug
-        singleReferences {
-          gallery {
-            description
-            image {
-              node {
-                sourceUrl
-              }
-            }
-            video {
-              node {
-                sourceUrl
-              }
+      }
+      singleReferences {
+        companyName
+        linkCompanyWebsite
+        gallery {
+          description
+          image {
+            node {
+              sourceUrl
             }
           }
-          linkCompanyWebsite
+          video {
+            node {
+              sourceUrl
+            }
+          }
         }
-        content
         expertises {
           nodes {
             id

@@ -1,37 +1,43 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState, useEffect, useMemo } from "react"
-import { motion, useAnimation } from "framer-motion"
-import type { TeamMember } from "@/Data/TeamData"
-import { useRouter } from "next/navigation"
+import React, { useState, useEffect, useMemo } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { useRouter } from "next/navigation";
 
-
-
-interface TeamRevealProps {
-  members: TeamMember[]
+interface TeamMember {
+  id: string;
+  image?: string;
+  name: string;
+  jobTitle: string;
+  hasBiography: boolean;
+  slug: string;
 }
 
-const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
-  const router = useRouter()
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null)
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
-  const controls = useAnimation()
+const TeamReveal: React.FC<{ members: TeamMember[] }> = ({ members }) => {
+  const router = useRouter();
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const controls = useAnimation();
 
-  const membersWithImages = useMemo(() => members.filter((member) => member.image), [members])
+  const membersWithImages = useMemo(
+    () => members.filter((member) => member.image),
+    [members]
+  );
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setCursorPos({ x: e.clientX, y: e.clientY })
-    }
+      setCursorPos({ x: e.clientX, y: e.clientY });
+    };
 
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   useEffect(() => {
     if (hoverIndex !== null) {
-      const imageIndex = membersWithImages.findIndex((member) => members.indexOf(member) === hoverIndex)
+      const imageIndex = membersWithImages.findIndex(
+        (member) => members.indexOf(member) === hoverIndex
+      );
       if (imageIndex !== -1) {
         controls.start({
           y: -280 * imageIndex,
@@ -39,16 +45,10 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
             duration: 0.2,
             ease: [0.19, 1, 0.22, 1],
           },
-        })
+        });
       }
     }
-  }, [hoverIndex, controls, members, membersWithImages])
-
-  const handleMemberClick = (member: TeamMember) => {
-    if (member.hasBiography) {
-      router.push(`/Bio/${member.slug}`)
-    }
-  }
+  }, [hoverIndex, controls, members, membersWithImages]);
 
   return (
     <div className="relative">
@@ -86,13 +86,13 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
         <div className="flex flex-col border-t-[0.5px] border-border">
           {members.map((member, index) => (
             <div
-              key={index}
+              key={member.id}
               className={`relative py-7 border-b-[0.5px] border-border cursor-pointer group ${
                 index === 0 ? "pt-10" : ""
               }`}
               onMouseEnter={() => setHoverIndex(index)}
               onMouseLeave={() => setHoverIndex(null)}
-              onClick={() => handleMemberClick(member)}
+              onClick={() => member.hasBiography && router.push(`/Bio/${member.slug}`)}
             >
               <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-10">
                 <div className="flex items-center">
@@ -155,7 +155,7 @@ const TeamReveal: React.FC<TeamRevealProps> = ({ members }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TeamReveal
+export default TeamReveal;

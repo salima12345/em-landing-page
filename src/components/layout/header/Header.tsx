@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,7 +19,6 @@ export default function Header() {
   const pathname = usePathname();
   const { theme } = useTheme();
 
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [headerVisible, setHeaderVisible] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,38 +38,38 @@ export default function Header() {
     document.body.classList.remove("menu-open");
   }, [pathname]);
 
+  // Scroll handler with useCallback to memoize the function
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY;
+
+    // Always show the header if the menu is open
+    if (isMenuOpen) {
+      setHeaderVisible(true);
+      return;
+    }
+
+    // Hide the header only if scrolling down and not at the top
+    if (currentScrollY > 150) {
+      setHeaderVisible(currentScrollY < window.scrollY);
+    } else {
+      setHeaderVisible(true);
+    }
+  }, [isMenuOpen]);
+
+  // Add scroll event listener
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // Always show the header if the menu is open
-      if (isMenuOpen) {
-        setHeaderVisible(true);
-        return;
-      }
-
-      // Hide the header only if scrolling down and not at the top
-      if (currentScrollY > lastScrollY && currentScrollY > 150) {
-        setHeaderVisible(false);
-      } else {
-        setHeaderVisible(true);
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollY, isMenuOpen]);
+  }, [handleScroll]);
 
   const handleBurgerClick = () => {
     const newMenuState = !isMenuOpen;
     setIsMenuOpen(newMenuState);
     setHeaderVisible(true);
     document.body.classList.toggle("menu-open", newMenuState);
-  
+
     if (!newMenuState) {
       setExpertiseUserCollapsed(false);
       setMadeInUserCollapsed(false);
@@ -131,7 +130,11 @@ export default function Header() {
                 <>
                   <Link href="/" className="flex-shrink-0">
                     <Image
-                      src={theme === "dark" ? "/images/logo.svg" : "/images/darkLogo.svg"}
+                      src={
+                        theme === "dark"
+                          ? "/images/logo.svg"
+                          : "/images/darkLogo.svg"
+                      }
                       alt="logo"
                       width={120}
                       height={50}
@@ -139,23 +142,23 @@ export default function Header() {
                     />
                   </Link>
                   <div className="hidden [@media(min-width:1190px)]:flex items-center gap-5 ml-[44px] 2xl:ml-[88px]">
-                    <Expertise 
+                    <Expertise
                       isHeader={true}
                       isExpanded={isExpertiseExpanded}
                       setExpanded={handleExpertiseToggle}
                       defaultExpanded={false}
                       isMenuOpen={isMenuOpen}
                     />
-                    <MadeIn 
+                    <MadeIn
                       isHeader={true}
                       isExpanded={isMadeInExpanded}
                       setExpanded={handleMadeInToggle}
                       defaultExpanded={false}
                       isMenuOpen={isMenuOpen}
                     />
-                    <EcosystemDropMenu 
-                      isOpen={isMenuOpen} 
-                      onClose={handleCloseMenu} 
+                    <EcosystemDropMenu
+                      isOpen={isMenuOpen}
+                      onClose={handleCloseMenu}
                       onOpenModal={handleOpenModal}
                     />
                   </div>
@@ -202,11 +205,11 @@ export default function Header() {
             exit={{ opacity: 0, height: 0 }}
             className="sticky inset-0 z-40 bg-background [@media(min-width:1190px)]:hidden mx-auto mt-[130px]"
           >
-                  <EcosystemDropMenu 
-                    isOpen={true}
-                    onClose={handleCloseMenu}
-                    onOpenModal={handleOpenModal}
-                  />
+            <EcosystemDropMenu
+              isOpen={true}
+              onClose={handleCloseMenu}
+              onOpenModal={handleOpenModal}
+            />
           </motion.div>
         )}
       </AnimatePresence>
