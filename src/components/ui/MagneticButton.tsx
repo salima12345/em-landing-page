@@ -44,16 +44,18 @@ function MagneticButton({ children, distance = 0.6 }: MagneticButtonType) {
     return () => {
       document.removeEventListener('mousemove', calculateDistance);
     };
-  }, [ref, isHovered]);
+  }, [ref, isHovered, distance, x, y]);
 
   return (
     <motion.div
+
       ref={ref}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
         x: springX,
-        y: springY
+        y: springY,
+        position:'relative'
       }}>
       {children}
     </motion.div>

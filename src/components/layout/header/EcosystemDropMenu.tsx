@@ -2,40 +2,44 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from "@/lib/themes";
-
+import { Linkedin, Twitter, Instagram, Facebook, ArrowUpRight } from 'lucide-react';
 interface EcosystemDropMenuProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenModal: () => void;
 }
 
-const icons = [
-  {
-    url: 'https://www.eliott-markus.com/wp-content/themes/em-wp/images/em-menu/linkedin.svg',
-    alt: 'LinkedIn'
-  },
-  {
-    url: 'https://www.eliott-markus.com/wp-content/themes/em-wp/images/em-menu/x_icon.svg',
-    alt: 'X'
-  },
-  {
-    url: 'https://www.eliott-markus.com/wp-content/themes/em-wp/images/em-menu/instagram.svg',
-    alt: 'Instagram'
-  },
-  {
-    url: 'https://www.eliott-markus.com/wp-content/themes/em-wp/images/em-menu/facebook.svg',
-    alt: 'Facebook'
-  }
-];
-
 const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenModal }) => {
   const { theme } = useTheme();
 
+  // Tableau d'icônes Lucide avec leurs liens
+  const icons = [
+    {
+      icon: Linkedin,
+      link: 'https://www.linkedin.com/company/eliott-&-markus/',
+      alt: 'LinkedIn'
+    },
+    {
+      icon: Twitter,
+      link: 'https://www.twitter.com/EliottMarkus',
+      alt: 'X'
+    },
+    {
+      icon: Instagram,
+      link: 'https://www.instagram.com/eliottmarkus',
+      alt: 'Instagram'
+    },
+    {
+      icon: Facebook,
+      link: 'https://www.facebook.com/eliottmarkus',
+      alt: 'Facebook'
+    }
+  ];
+
   return (
-    <div className=" w-[290px] md:w-[388px] lg:w-[288px] xl:w-[388px] 2xl:w-[388px] flex flex-col rounded-[25px] relative transition-all duration-400 ">
+    <div className="w-[290px] md:w-[388px] lg:w-[288px] xl:w-[388px] 2xl:w-[388px] flex flex-col rounded-[25px] relative transition-all duration-400">
       <motion.div
         className={`w-full rounded-[26px] absolute right-0 -top-[25px] max-w-[388px] min-w-[287px] 
           md:top-[-25px] md:right-0 md:rounded-[26px]
@@ -43,7 +47,7 @@ const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenMod
         animate={{ 
           backgroundColor: isOpen 
             ? (theme === 'dark' ? '#222222' : '#E6E5DF') 
-            : 'transparent',
+            : 'rgba(34, 34, 34, 0)',
           padding: isOpen ? '8px' : '0px',
           height: isOpen ? 'auto' : '56px'
         }}
@@ -74,6 +78,7 @@ const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenMod
         <AnimatePresence>
           {isOpen && (
             <motion.div 
+              style={{ position: 'relative' }}
               className={`w-full px-4 md:px-5 py-6 md:py-[30px] rounded-none md:rounded-b-[26px] opacity-0 
                 ${theme === 'dark' 
                   ? 'bg-[#222222] text-white' 
@@ -100,25 +105,24 @@ const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenMod
                     : 'text-black'}`}
                 >
                   <li className="text-[20px] md:text-[24px] font-semibold text-center self-center cursor-pointer">
-                    <Link href="/"> Agence</Link>
+                    <Link href="/">Agence</Link>
                   </li>
                   <li className="text-[20px] md:text-[24px] text-center self-center cursor-pointer relative">
-                    <Link href="/References"> References <span className="text-[#E0643A] text-[20px]">*</span></Link>
+                    <Link href="/References">References <span className="text-[#E0643A] text-[20px]">*</span></Link>
                   </li>
                   <li className="text-[20px] md:text-[24px] text-center self-center cursor-pointer">
-                    <Link href="/Team"> Talents</Link>
+                    <Link href="/Team">Talents</Link>
                   </li>
                   <li className="text-[20px] md:text-[24px] text-center self-center cursor-pointer">
-                    <Link href="/Wilo"> Wilo Insights</Link>
+                    <Link href="/Wilo">Wilo Insights</Link>
                   </li>
                   <li className="text-[20px] md:text-[24px] text-center self-center cursor-pointer">
-                    <Link href="/Contact" className="flex items-center gap-2">Contact
-                      <Image 
-                        src="/images/icons/ArrowUpLight.svg" 
-                        alt="" 
-                        width={13} 
-                        height={13} 
-                        className="w-[13px] h-[13px]"
+                  <Link href="/Contact" className="flex items-center gap-2">
+                      Contact
+                      <ArrowUpRight 
+                        size={20} 
+                        color={theme === 'dark' ? '#ffffff' : '#000000'} 
+                        className="cursor-pointer transition-all duration-500 hover:opacity-70"
                       />
                     </Link>
                   </li>
@@ -128,26 +132,11 @@ const EcosystemDropMenu: React.FC<EcosystemDropMenuProps> = ({ isOpen, onOpenMod
                 <ul className="w-[140px] md:w-[170px] mx-auto flex items-center justify-between">
                   {icons.map((icon, index) => (
                     <li key={index}>
-                      <Link href={(() => {
-                        switch (icon.alt) {
-                          case 'LinkedIn':
-                            return 'https://www.linkedin.com/company/eliott-&-markus/';
-                          case 'X':
-                            return 'https://www.twitter.com/EliottMarkus';
-                          case 'Instagram':
-                            return 'https://www.instagram.com/eliottmarkus';
-                          case 'Facebook':
-                            return 'https://www.facebook.com/eliottmarkus';
-                          default:
-                            return '/';
-                        }
-                      })()} target="_blank" rel="noopener noreferrer">
-                        <Image 
-                          src={icon.url} 
-                          alt={icon.alt} 
-                          width={15} 
-                          height={15} 
-                          className="w-[15px] h-[15px] cursor-pointer transition-all duration-500 hover:opacity-70"
+                      <Link href={icon.link} target="_blank" rel="noopener noreferrer">
+                        <icon.icon 
+                          size={20}
+                          color={theme === 'dark' ? '#ffffff' : '#000000'} 
+                          className="cursor-pointer transition-all duration-500 hover:opacity-70"
                         />
                       </Link>
                     </li>

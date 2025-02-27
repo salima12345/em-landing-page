@@ -61,6 +61,8 @@ const SliderSwiper = () => {
                 src={slide.url}
                 alt={slide.alt}
                 className="w-full h-full object-contain"
+                loading={index === 0 ? "eager" : "lazy"} 
+                priority={index === 0} 
               />
             </div>
           </SwiperSlide>

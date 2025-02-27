@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React from 'react';
 import Image from 'next/image';
@@ -10,14 +10,15 @@ interface Expertise {
   name: string;
 }
 
-interface CaseStudyProps {
+interface CaseStudyCardProps {
   imageUrl: string;
   title: string;
-  description: string;
-  expertise: Expertise[];
-  slug: string; }
+  description?: string; // Marked as optional since it's not used
+  expertise: Expertise[] | null | undefined;
+  slug: string;
+}
 
-function CaseStudy({ imageUrl, title, expertise, description, slug }: CaseStudyProps) {
+function CaseStudyCard({ imageUrl, title, expertise, slug }: CaseStudyCardProps) {
   const { theme } = useTheme();
   const ref = React.useRef(null);
   const isInView = useInView(ref, {
@@ -25,11 +26,10 @@ function CaseStudy({ imageUrl, title, expertise, description, slug }: CaseStudyP
     margin: "-100px"
   });
 
+  const expertiseList = Array.isArray(expertise) ? expertise : [];
+
   return (
-    <Link
-    href={`/References/${slug}`} 
-      className="block"
-    >
+    <Link href={`/References/${slug}`} className="block">
       <div className='flex flex-col gap-4 max-w-[590px]'>
         <motion.div
           ref={ref}
@@ -45,6 +45,7 @@ function CaseStudy({ imageUrl, title, expertise, description, slug }: CaseStudyP
           } : { opacity: 0, y: 100 }}
         >
           <motion.div
+            style={{ position: 'relative' }} 
             className="w-full h-full"
             initial={{ scale: 1.4 }}
             animate={isInView ? {
@@ -59,8 +60,9 @@ function CaseStudy({ imageUrl, title, expertise, description, slug }: CaseStudyP
               src={imageUrl}
               alt={title}
               fill
-              className="object-cover"
               sizes="(max-width: 590px) 100vw, 590px"
+              priority
+              className="object-cover"
             />
           </motion.div>
         </motion.div>
@@ -71,7 +73,7 @@ function CaseStudy({ imageUrl, title, expertise, description, slug }: CaseStudyP
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-wrap gap-2"
         >
-          {expertise.map((item, index) => (
+          {expertiseList.map((item, index) => (
             <span
               key={index}
               className={`
@@ -92,11 +94,11 @@ function CaseStudy({ imageUrl, title, expertise, description, slug }: CaseStudyP
           transition={{ duration: 0.6, delay: 0.4 }}
           className={`text-[20px] font-medium text-foreground`}
         >
-          {description}
+          {title}
         </motion.div>
       </div>
     </Link>
   );
 }
 
-export default CaseStudy;
+export default CaseStudyCard;

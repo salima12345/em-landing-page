@@ -1,38 +1,17 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useRouter } from "next/navigation"; 
+import React, { useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import ExpandableSection from "./ExpandableSection";
+import { useQuery } from '@apollo/client';
+import { GET_ALL_MADE_IN } from "@/lib/graphql/queries/MadeInQueries";
 
-const madeIn = [
-  { name: "Creation and Launch", path: "/MadeIn/creation" },
-  { name: "Interim Management", path: "/MadeIn/management" },
-  { name: "Business Development", path: "/MadeIn/business" },
-  { name: "ESG, Ethics and Soft Law", path: "/MadeIn/esg" },
-  { name: "Association and Organization", path: "/MadeIn/association" },
-  { name: "Start-up & Corporate Tech", path: "/MadeIn/coporate" },
-  { name: "Finance and Investment Professions", path: "/MadeIn/finance" },
-  { name: "Crisis Management", path: "/MadeIn/crisis" },
-  { name: "Personal Branding", path: "/MadeIn/Branding" },
-];
-
-const renderMadeInItem = (
-  item: { name: string; path: string },
-  index: number,
-  totalItems: number,
-  router: ReturnType<typeof useRouter>
-) => (
-  <div
-    key={index}
-    className={`group relative flex items-center gap-3 cursor-pointer px-5 transition-colors duration-200 ${
-      index === totalItems - 1 ? "pb-4" : ""
-    }`}
-    onClick={() => router.push(item.path)} 
-  >
-    <p className="font-semibold">{item.name}</p>
-    <div className="absolute top-0 right-0 h-full bg-[#E0643A] rounded-l-[10px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 w-[5px]"></div>
-  </div>
-);
+interface MadeInItem {
+  title: string;
+  slug: string;
+  path: string;
+  id: string;
+}
 
 interface MadeInProps {
   defaultExpanded?: boolean;
@@ -43,6 +22,12 @@ interface MadeInProps {
   isMenuOpen?: boolean;
 }
 
+interface MadeInNode {
+  title: string;
+  slug: string;
+  id: string;
+}
+
 export default function MadeIn({
   defaultExpanded = false,
   pushContent = false,
@@ -51,20 +36,71 @@ export default function MadeIn({
   setExpanded,
   isMenuOpen = false,
 }: MadeInProps) {
-  const router = useRouter(); 
+  const router = useRouter();
+  const pathname = usePathname();
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  const { data, loading, error } = useQuery(GET_ALL_MADE_IN);
+
+  const madeInItems: MadeInItem[] = data?.allMadeInEM?.nodes?.map((item: MadeInNode) => ({
+    title: item.title,
+    slug: item.slug,
+    path: `/MadeIn/${item.slug}`,
+    id: item.id,
+  })) || [];
+
+  const renderMadeInItem = (item: MadeInItem, index: number, totalItems: number) => {
+    const isActive = pathname === item.path;
+
+    const handleClick = async () => {
+      if (isNavigating || pathname === item.path) return;
+
+      setIsNavigating(true);
+
+      if (setExpanded) {
+        setExpanded(false);
+      }
+
+      await new Promise(resolve => setTimeout(resolve, 150));
+      router.push(item.path);
+
+      setTimeout(() => {
+        setIsNavigating(false);
+      }, 300);
+    };
+
+    return (
+      <div
+        key={index}
+        className={`
+          group relative flex items-center gap-3 cursor-pointer px-5 
+          transition-all duration-200 ease-in-out
+          ${isNavigating ? 'opacity-50 pointer-events-none' : 'opacity-100'}
+          ${index === totalItems - 1 ? "pb-4" : ""}
+        `}
+        onClick={handleClick}
+      >
+        <p className={`font-semibold ${isActive ? 'text-[#E0643A]' : ''}`}>
+          {item.title}
+        </p>
+        <div className="absolute top-0 right-0 h-full bg-[#E0643A] rounded-l-[10px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 w-[5px]"></div>
+      </div>
+    );
+  };
+
+  const hasData = !loading && !error && madeInItems.length > 0;
+  const effectiveIsExpanded = hasData ? isExpanded : false;
 
   return (
-    <ExpandableSection
+    <ExpandableSection<MadeInItem>
       title="Made in e&m"
-      items={madeIn}
-      renderItem={(item, index) =>
-        renderMadeInItem(item, index, madeIn.length, router)
-      }
+      items={madeInItems}
+      renderItem={renderMadeInItem}
       testId="made-in"
       defaultExpanded={defaultExpanded}
       pushContent={pushContent}
       isHeader={isHeader}
-      isExpanded={isExpanded}
+      isExpanded={effectiveIsExpanded}
       setExpanded={setExpanded}
       isMenuOpen={isMenuOpen}
     />

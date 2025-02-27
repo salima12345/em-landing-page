@@ -1,5 +1,5 @@
 import React from 'react';
-import { Control, Controller, FieldValues, Path } from 'react-hook-form';
+import { Control, Controller, FieldValues, Path, PathValue } from 'react-hook-form';
 
 export interface CustomCheckboxProps<T extends FieldValues> {
   name: Path<T>;
@@ -23,7 +23,7 @@ export function CustomCheckbox<T extends FieldValues>({
       <Controller
         name={name}
         control={control}
-        defaultValue={defaultValue as any}
+        defaultValue={defaultValue as unknown as PathValue<T, Path<T>>}
         render={({ field: { onChange: fieldOnChange, value, ref } }) => (
           <div className="relative">
             <input

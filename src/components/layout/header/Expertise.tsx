@@ -1,26 +1,17 @@
-'use client';
-
 import React, { useState } from "react";
 import ExpandableSection from "./ExpandableSection";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
+import { useQuery } from '@apollo/client';
+import { GET_EXPERTISES } from "@/lib/graphql/queries/ExpertiseQuery";
 
 interface ExpertiseItem {
   icon: string;
   text: string;
   path: string;
+  expertiseId: number;
 }
-
-const expertises: ExpertiseItem[] = [
-  { icon: "/images/expertises/icons/strategy.svg", text: "Marketing Strategy", path: "/Expertise/Strategy" },
-  { icon: "/images/expertises/icons/influence.svg", text: "Media Relations", path: "/Expertise/Media" },
-  { icon: "/images/expertises/icons/design.svg", text: "Visual Design", path: "/Expertise/Design" },
-  { icon: "/images/expertises/icons/tech.svg", text: "Tech & Web", path: "/Expertise/Web" },
-  { icon: "/images/expertises/icons/content.svg", text: "Publishing & Content", path: "/Expertise/Content" },
-  { icon: "/images/expertises/icons/influence.svg", text: "Social Media / SEO", path: "/Expertise/SocialMedia" },
-  { icon: "/images/expertises/icons/consulting.svg", text: "Outsourcing", path: "/Expertise/Outsourcing" },
-];
 
 interface ExpertiseProps {
   defaultExpanded?: boolean;
@@ -29,6 +20,17 @@ interface ExpertiseProps {
   isExpanded?: boolean;
   setExpanded?: (expanded: boolean) => void;
   isMenuOpen?: boolean;
+}
+
+interface ExpertiseNode {
+  featuredImage: {
+    node: {
+      sourceUrl: string;
+    };
+  };
+  title: string;
+  slug: string;
+  expertiseId: number;
 }
 
 export default function Expertise({
@@ -43,24 +45,30 @@ export default function Expertise({
   const pathname = usePathname();
   const [isNavigating, setIsNavigating] = useState(false);
 
+  const { data, loading, error } = useQuery(GET_EXPERTISES);
+
+  const expertises: ExpertiseItem[] = data?.expertises?.nodes?.map((expertise: ExpertiseNode) => ({
+    icon: expertise.featuredImage?.node?.sourceUrl || "/images/expertises/icons/default.svg",
+    text: expertise.title,
+    path: `/Expertise/${expertise.slug}`,
+    expertiseId: expertise.expertiseId
+  })) || [];
+
   const renderExpertiseItem = (item: ExpertiseItem, index: number, totalItems: number) => {
     const isActive = pathname === item.path;
-    
+
     const handleClick = async () => {
       if (isNavigating || pathname === item.path) return;
-      
+
       setIsNavigating(true);
-      
+
       if (setExpanded) {
         setExpanded(false);
       }
 
-      // Add a small delay for visual feedback
       await new Promise(resolve => setTimeout(resolve, 150));
-      
       router.push(item.path);
-      
-      // Reset navigation state after a delay
+
       setTimeout(() => {
         setIsNavigating(false);
       }, 300);
@@ -78,20 +86,23 @@ export default function Expertise({
         onClick={handleClick}
       >
         <div className="relative w-5 h-5">
-          <Image 
-            src={item.icon} 
-            alt={item.text} 
+          <Image
+            src={item.icon}
+            alt={item.text}
             fill
             className={`transition-transform duration-200 ${isActive ? 'scale-110' : ''}`}
             style={{ objectFit: 'contain' }}
           />
         </div>
-        <p className={`font-medium transition-colors duration-200  }`}>
+        <p className={`font-medium transition-colors duration-200`}>
           {item.text}
         </p>
       </div>
     );
   };
+
+  const hasData = !loading && !error && expertises.length > 0;
+  const effectiveIsExpanded = hasData ? isExpanded : false;
 
   return (
     <ExpandableSection<ExpertiseItem>
@@ -102,7 +113,7 @@ export default function Expertise({
       defaultExpanded={defaultExpanded}
       pushContent={pushContent}
       isHeader={isHeader}
-      isExpanded={isExpanded}
+      isExpanded={effectiveIsExpanded}
       setExpanded={setExpanded}
       isMenuOpen={isMenuOpen}
     />

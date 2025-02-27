@@ -16,7 +16,11 @@ function Copyright() {
           alt="Mirovia" 
           width={100} 
           height={90} 
-          className='w-[100px]' 
+          style={{
+            width: '100%',
+            height: 'auto',
+          }}
+          
         />
       </Link>
     </div>

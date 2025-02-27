@@ -1,8 +1,18 @@
-"use client";
+'use client';
+
 import React from 'react';
 import AnimatedTitle from '../ui/TitleReveal';
 import Image from 'next/image';
+import { useQuery } from '@apollo/client';
+import { HOME_PAGE_QUERY } from '@/lib/graphql/queries/HomeQueries';
+
 const ValuesMobile = () => {
+  // Récupérer les données de la requête GraphQL
+  const { data, loading, error } = useQuery(HOME_PAGE_QUERY);
+
+  // Extraire titleEmValues
+  const titleEmValues = data?.pages?.nodes[0]?.template?.home?.titleEmValues || "";
+
   const images = [
     {
       id: "inclusion",
@@ -11,12 +21,12 @@ const ValuesMobile = () => {
       rotate: "-3deg"
     },
     {
-        id: "values",
-        src: "https://www.eliott-markus.com/wp-content/uploads/2023/05/marie.png",
-        alt: "Values",
-        rotate: "-1deg",
-        isValueCard: true
-      },
+      id: "values",
+      src: "https://www.eliott-markus.com/wp-content/uploads/2023/05/marie.png",
+      alt: "Values",
+      rotate: "-1deg",
+      isValueCard: true
+    },
     {
       id: "intelligence",
       src: "https://www.eliott-markus.com/wp-content/themes/em-wp/images/em-values/intelligence.png",
@@ -35,14 +45,17 @@ const ValuesMobile = () => {
       alt: "Authenticité",
       rotate: "3deg"
     },
-  
   ];
 
+  // Gestion du chargement et des erreurs
+  if (loading) return <div className="h-[500px] flex items-center justify-center">Chargement...</div>;
+  if (error) return <div className="h-[500px] flex items-center justify-center text-red-500">Erreur : {error.message}</div>;
+
   return (
-    <section className="container mt-10 py-8 flex flex-col items-center ">
-   <div className="mb-8 text-center px-6">
+    <section className="container mt-10 py-8 flex flex-col items-center">
+      <div className="mb-8 text-center px-6">
         <AnimatedTitle 
-          text="We're not just a way of doing, we're also a way of being." 
+          text={titleEmValues} 
           className="font-bold text-[30px] leading-tight"
         />
       </div>
@@ -65,6 +78,7 @@ const ValuesMobile = () => {
                     height={266}
                     src={image.src}
                     alt={image.alt}
+                    priority={true} 
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute bottom-6 left-6 right-6">
@@ -108,6 +122,7 @@ const ValuesMobile = () => {
                   height={306}
                   src={image.src}
                   alt={image.alt}
+                  priority={true} 
                   className="w-[306px] h-[306px] object-contain hover:scale-105 transition-transform duration-300"
                 />
               )}

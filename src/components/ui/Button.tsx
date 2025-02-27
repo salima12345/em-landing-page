@@ -24,7 +24,6 @@ const Button: React.FC<ButtonProps> = ({
   iconSize = 16,
   text,
   isFixedSize = true,
-  buttonSize = "54px",
   lightIconColor = "black",
   darkIconColor = "white"
 }) => {

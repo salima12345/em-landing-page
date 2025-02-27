@@ -1,14 +1,16 @@
 "use client";
+
 import React, { PropsWithChildren, useEffect, useRef } from "react";
 import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 import { LenisOptions } from "@studio-freight/lenis";
+import Lenis from "@studio-freight/lenis";
 import { usePathname } from "next/navigation";
 
 const SmoothScroll = ({ children }: PropsWithChildren) => {
   const pathname = usePathname();
-  const lenisRef = useRef<any>(null);
+  const lenisRef = useRef<Lenis | null>(null);
 
-  useLenis((lenis) => {
+  useLenis((lenis: Lenis) => {
     lenisRef.current = lenis;
   });
 
