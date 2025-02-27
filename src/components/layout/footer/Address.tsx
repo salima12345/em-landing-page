@@ -1,35 +1,25 @@
-"use client"
+'use client';
 
-import React from 'react'
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/layout/footer/Accordian'
+import React from 'react';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/layout/footer/Accordian';
+import { useQuery } from '@apollo/client';
+import { HOME_PAGE_QUERY } from '@/lib/graphql/queries/HomeQueries';
 
-type AddressItem = {
-  text: string
+interface AddressItem {
+  text: string;
 }
 
-type AddressSection = {
-  title: string
-  items: AddressItem[]
+interface AddressSection {
+  title: string;
+  items: AddressItem[];
 }
 
-const addressSections: AddressSection[] = [
-  {
-    title: "Europe",
-    items: [
-      { text: "10, rue Myrha 75018 Paris" },
-      { text: "Tél. + 33 (0)1 53 41 41 96" },
-      { text: "paris@eliott-markus.com" },
-    ],
-  },
-  {
-    title: "Africa",
-    items: [
-      { text: "4 Rue Abdelkader Mouftakar, Casablanca 20080" },
-      { text: "Tél. + 212 522270645" },
-      { text: "africa@eliott-markus.com" },
-    ],
-  },
-]
+interface Desk {
+  title: string;
+  adresse: string;
+  tel: string;
+  mail: string;
+}
 
 const renderAddressItem = (item: AddressItem, index: number) => (
   <div
@@ -38,17 +28,33 @@ const renderAddressItem = (item: AddressItem, index: number) => (
   >
     <p>{item.text}</p>
   </div>
-)
+);
 
 export default function Address() {
+  const { data, loading, error } = useQuery(HOME_PAGE_QUERY);
+
+  const desks: Desk[] = data?.options?.footer?.desks || [];
+
+  const addressSections: AddressSection[] = desks.map((desk: Desk) => ({
+    title: desk.title,
+    items: [
+      { text: desk.adresse },
+      { text: desk.tel },
+      { text: desk.mail },
+    ],
+  }));
+
+  if (loading) return <p></p>;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
-    <Accordion className="w-full" defaultExpandedItem={addressSections[0].title}>
+    <Accordion className="w-full" defaultExpandedItem={addressSections[0]?.title}>
       {addressSections.map((section) => (
         <AccordionItem key={section.title} value={section.title}>
           <AccordionTrigger>
             {section.title}
           </AccordionTrigger>
-          <AccordionContent isExpanded={section.title === addressSections[0].title}>
+          <AccordionContent isExpanded={section.title === addressSections[0]?.title}>
             <div className="flex flex-col space-y-1">
               {section.items.map((item, itemIndex) =>
                 renderAddressItem(item, itemIndex)
@@ -58,5 +64,5 @@ export default function Address() {
         </AccordionItem>
       ))}
     </Accordion>
-  )
+  );
 }

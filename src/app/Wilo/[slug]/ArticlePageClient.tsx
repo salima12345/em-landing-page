@@ -1,6 +1,6 @@
 "use client";
-
-import React from "react";
+import { motion, useInView } from 'framer-motion';
+import React, { useRef } from 'react';
 import Footer from "@/components/layout/footer";
 import Button from "@/components/ui/Button";
 import AnimatedTitle from "@/components/ui/TitleReveal";
@@ -8,23 +8,57 @@ import { formatDate } from "@/utils/date";
 import Article from "@/components/Article";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import Share from "@/components/Share";
-import { articles } from "@/Data/Articles";
+import parse from 'html-react-parser';
+import Link from 'next/link';
+
+const hashSlug = (slug: string) => {
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) {
+    hash = (hash << 5) - hash + slug.charCodeAt(i);
+    hash |= 0; 
+  }
+  return Math.abs(hash);
+};
 
 interface Article {
   slug: string;
   title: string;
   author: string;
   publishDate: string;
-  imageUrl: string;
+  imageUrl?: string;
   content: { title?: string; body: string }[];
   category: string;
 }
 
+interface ArticleNode {
+  id: string;
+  title: string;
+  slug: string;
+  featuredImage?: {
+    node: {
+      sourceUrl: string;
+    };
+  };
+  singleBlog: {
+    resume: string;
+    auteur: string;
+    dateDePublication: string;
+  };
+  content: string;
+  categories: {
+    nodes: {
+      name: string;
+      id: string;
+    }[];
+  };
+}
+
 interface ArticlePageClientProps {
   article: Article;
+  relatedArticles: ArticleNode[];
 }
+
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { 
@@ -49,15 +83,35 @@ const scaleIn = {
   }
 };
 
-const ArticlePageClient: React.FC<ArticlePageClientProps> = ({ article }) => {
-  const relatedArticles = articles.filter(
-    (a) => a.category === article.category && a.slug !== article.slug
-  );
+const ArticlePageClient: React.FC<ArticlePageClientProps> = ({ article, relatedArticles }) => {
+  const fallbackImageNumber = (hashSlug(article.slug) % 23) + 1;
+  const fallbackImageUrl = `/images/wilo/wilo-${fallbackImageNumber}.png`;
+  const imageUrl = article.imageUrl || fallbackImageUrl;
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const isInView = useInView(titleRef, { once: true, amount: 0.5 });
+
+  const parsedContent = React.useMemo(() => {
+    return parse(article.content.map(section => section.body).join(''), {
+      replace: (domNode) => {
+        if (domNode.type === 'tag' && domNode.name === 'p') {
+          const childrenAsString = domNode.children
+            .map((child) => (child as unknown as Text).data || '')
+            .join('');
+
+          return (
+            <div className="mb-4">
+              {parse(childrenAsString)}
+            </div>
+          );
+        }
+        return domNode;
+      }
+    });
+  }, [article.content]);
 
   return (
     <>
-     
-     <div className="container mt-16 mx-auto flex flex-col xl:flex-row gap-8 xl:gap-24">
+      <div className="container mt-16 mx-auto flex flex-col xl:flex-row gap-8 xl:gap-24">
         <motion.div 
           className="max-h-[80px]"
           variants={fadeUp}
@@ -117,18 +171,27 @@ const ArticlePageClient: React.FC<ArticlePageClientProps> = ({ article }) => {
                 text={article.author}
                 className="font-semibold text-lg mt-5"
               />
-              
-              <AnimatedTitle 
-                text={article.title}
-                className="font-semibold text-2xl md:text-4xl mt-2"
-              />
+    
+              <h1 ref={titleRef} className="font-semibold text-2xl md:text-4xl mt-2 whitespace-normal break-words word-break-keep-all overflow-hidden">
+                <motion.small
+                  className="inline-block"
+                  initial={{ transform: 'translateY(100%)' }}
+                  animate={isInView ? { transform: 'translateY(0%)' } : { transform: 'translateY(100%)' }}
+                  transition={{
+                    duration: 0.6,
+                    ease: [0.33, 1, 0.68, 1], 
+                  }}
+                >
+                  {article.title}
+                </motion.small>
+              </h1>
 
               <motion.div
                 variants={scaleIn}
-                className="mt-6 w-[792px] h-[126pd]"
+                className="mt-6  h-[126pd]"
               >
                 <Image 
-                  src={article.imageUrl} 
+                  src={imageUrl} 
                   alt="article image"
                   width={792} 
                   height={162} 
@@ -153,15 +216,14 @@ const ArticlePageClient: React.FC<ArticlePageClientProps> = ({ article }) => {
                     {section.title && (
                       <h2 className="text-xl md:text-2xl font-bold pb-4">{section.title}</h2>
                     )}
-                    <p className="text-base md:text-lg leading-relaxed font-medium text-neutral-800 mb-6">
-                      {section.body}
-                    </p>
+                    <div className="text-base md:text-lg leading-relaxed font-medium text-neutral-800 mb-6">
+                      {parsedContent}
+                    </div>
                   </motion.div>
                 ))}
               </motion.div>
             </div>
 
-            {/* Use the Share component here */}
             <Share url={window.location.href} />
 
             {relatedArticles.length > 0 && (
@@ -171,15 +233,10 @@ const ArticlePageClient: React.FC<ArticlePageClientProps> = ({ article }) => {
               >
                 <h2 className="text-2xl md:text-[34px] font-semibold text-[#222] mb-8">More articles</h2>
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-[115px]">
-                  {relatedArticles.map((relatedArticle) => (
-                    <Article
-                      key={relatedArticle.slug}
-                      title={relatedArticle.title}
-                      imageUrl={relatedArticle.imageUrl}
-                      description={relatedArticle.description}
-                      publishDate={new Date(relatedArticle.publishDate)}
-                      category={relatedArticle.category}
-                    />
+                  {relatedArticles.map((relatedArticle: ArticleNode) => (
+                    <Link key={relatedArticle.slug} href={`/Wilo/${relatedArticle.slug}`}>
+                      <Article {...relatedArticle} />
+                    </Link>
                   ))}
                 </div>
               </motion.div>

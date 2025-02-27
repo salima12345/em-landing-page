@@ -1,23 +1,37 @@
-"use client";
+'use client';
 
 import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { useQuery } from '@apollo/client';
+import { HOME_PAGE_QUERY } from '@/lib/graphql/queries/HomeQueries';
 
 const AnimatedTitle = dynamic(() => import("../ui/TitleReveal"), {
   ssr: false,
-  loading: () => (
-    <h2 className="font-bold text-[30px]">
-      We&apos;re not just a way of doing, we&apos;re also a way of being.
-    </h2>
-  ),
 });
+
+interface HomePageNode {
+  template: {
+    templateName: string;
+    home: {
+      titleEmValues: string;
+    };
+  };
+}
 
 export default function EMValues() {
   const sectionRef = useRef(null);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const { loading, error, data } = useQuery(HOME_PAGE_QUERY);
+
+  const homePageNode = data?.pages?.nodes?.find(
+    (node: HomePageNode) => node.template?.templateName === "Home"
+  );
+
+  const homeData = homePageNode?.template?.home;
+  const titleEmValues = homeData?.titleEmValues || "";
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -180,6 +194,9 @@ export default function EMValues() {
     zIndex: draggedIndex === 4 ? 50 : 1,
   };
 
+  if (loading) return <div className="h-[500px] flex items-center justify-center"></div>;
+  if (error) return <div className="h-[500px] flex items-center justify-center text-red-500">Erreur : {error.message}</div>;
+
   return (
     <section ref={sectionRef} className="container em-values" id="em-values">
       <div className="content-em-values relative w-full h-full">
@@ -283,7 +300,7 @@ export default function EMValues() {
         </div>
         <div className="absolute z-10 w-full xl:max-w-[420px] flex items-center justify-center xl:pt-[570px]">
           <AnimatedTitle
-            text="We&apos;re not just a way of doing, we&apos;re also a way of being."
+            text={titleEmValues}
             className="font-bold text-[30px]"
           />
         </div>

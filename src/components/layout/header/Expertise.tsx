@@ -22,6 +22,17 @@ interface ExpertiseProps {
   isMenuOpen?: boolean;
 }
 
+interface ExpertiseNode {
+  featuredImage: {
+    node: {
+      sourceUrl: string;
+    };
+  };
+  title: string;
+  slug: string;
+  expertiseId: number;
+}
+
 export default function Expertise({
   defaultExpanded = false,
   pushContent = false,
@@ -36,7 +47,7 @@ export default function Expertise({
 
   const { data, loading, error } = useQuery(GET_EXPERTISES);
 
-  const expertises: ExpertiseItem[] = data?.expertises?.nodes?.map((expertise: any) => ({
+  const expertises: ExpertiseItem[] = data?.expertises?.nodes?.map((expertise: ExpertiseNode) => ({
     icon: expertise.featuredImage?.node?.sourceUrl || "/images/expertises/icons/default.svg",
     text: expertise.title,
     path: `/Expertise/${expertise.slug}`,

@@ -8,6 +8,7 @@ export const GET_TALENTS = gql`
         talentId
         slug
         title
+        content
         featuredImage {
           node {
             sourceUrl
@@ -72,6 +73,32 @@ export const GET_TALENTS_PAGE = gql`
               titleEmJobs
             }
           }
+        }
+      }
+    }
+  }
+`;
+export const GET_TALENT_BY_SLUG = gql`
+  query GetTalentBySlug($slug: String!) {
+    talents(where: { name: $slug }) {
+      nodes {
+        id
+        talentId
+        slug
+        title
+        content
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+        singleTalent {
+          hasBio
+          linkedin
+          mail
+          quote
+          twitter
+          status
         }
       }
     }

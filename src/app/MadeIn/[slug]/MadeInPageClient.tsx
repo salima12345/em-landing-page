@@ -1,5 +1,4 @@
 'use client';
-
 import React from 'react';
 import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
@@ -9,47 +8,34 @@ import Footer from '@/components/layout/footer';
 import { MoveVertical } from 'lucide-react';
 import parse from 'html-react-parser';
 
+interface Service {
+  title: string;
+}
+
 interface PageContent {
   subtitle: string;
   title: string;
   imageSrc: string;
   imageAlt: string;
   description: string[];
-  services: { title: string }[];
+  services: Service[];
 }
 
 const MadeInPageClient: React.FC<{ content: PageContent }> = ({ content }) => {
-  const ref = React.useRef(null);
-  const imageRef = React.useRef(null);
+  const ref = React.useRef<HTMLDivElement>(null);
+  const imageRef = React.useRef<HTMLDivElement>(null);
   const nextContentRef = React.useRef<HTMLDivElement>(null);
-
   const isInView = useInView(ref, { once: true });
 
-  const {
-    subtitle,
-    title,
-    imageSrc,
-    imageAlt,
-    description,
-    services,
-  } = content;
+  const { subtitle, title, imageSrc, imageAlt, description, services } = content;
 
   const imageVariants = {
-    hidden: {
-      y: "-100%",
-      opacity: 0,
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 1.5,
-        ease: "easeOut",
-      },
-    },
+    hidden: { y: "-100%", opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 1.5, ease: "easeOut" } },
   };
+
   const parsedDescription = React.useMemo(() => {
-    return content.description.map((paragraph, index) => 
+    return description.map((paragraph) =>
       parse(paragraph, {
         replace: (domNode) => {
           if (domNode.type === 'tag' && domNode.name === 'a') {
@@ -64,10 +50,11 @@ const MadeInPageClient: React.FC<{ content: PageContent }> = ({ content }) => {
               </a>
             );
           }
+          return domNode;
         }
       })
     );
-  }, [content.description]);
+  }, [description]);
 
   const handleScrollToNextContent = () => {
     if (nextContentRef.current) {
@@ -80,10 +67,7 @@ const MadeInPageClient: React.FC<{ content: PageContent }> = ({ content }) => {
       <div className="py-8 mt-10">
         <div className="container flex items-end justify-between">
           <div className="flex flex-col gap-4">
-            <AnimatedTitle
-              text={subtitle}
-              className="font-semibold text-[14px]"
-            />
+            <AnimatedTitle text={subtitle} className="font-semibold text-[14px]" />
             <div className="overflow-hidden min-h-[60px]">
               <motion.h5
                 style={{ position: 'relative' }}
@@ -135,14 +119,13 @@ const MadeInPageClient: React.FC<{ content: PageContent }> = ({ content }) => {
         >
           <div className="mt-10 flex flex-col xl:flex-row items-start justify-center gap-10 w-full xl:max-w-6xl mx-auto">
             <div className="text-[20px] font-medium leading-[30px] w-full xl:max-w-xl">
-            {parsedDescription}
-
+              {parsedDescription}
             </div>
             <div className="flex flex-col gap-3">
-              {services.map((service, index) => (
+              {services.map((service) => (
                 <div key={service.title} className="flex items-center gap-2">
                   <p className="text-sm relative -top-1 font-bold">
-                    {(index + 1).toString().padStart(2, "0")}
+                    {(services.indexOf(service) + 1).toString().padStart(2, "0")}
                   </p>
                   <p className="text-[20px] font-bold">{service.title}</p>
                 </div>

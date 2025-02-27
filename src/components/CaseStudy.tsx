@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React from 'react';
 import Image from 'next/image';
@@ -13,12 +13,12 @@ interface Expertise {
 interface CaseStudyCardProps {
   imageUrl: string;
   title: string;
-  description: string;
-  expertise: Expertise[] | null | undefined; // Allow null/undefined
+  description?: string; // Marked as optional since it's not used
+  expertise: Expertise[] | null | undefined;
   slug: string;
 }
 
-function CaseStudyCard({ imageUrl, title, expertise, description, slug }: CaseStudyCardProps) {
+function CaseStudyCard({ imageUrl, title, expertise, slug }: CaseStudyCardProps) {
   const { theme } = useTheme();
   const ref = React.useRef(null);
   const isInView = useInView(ref, {
@@ -26,14 +26,10 @@ function CaseStudyCard({ imageUrl, title, expertise, description, slug }: CaseSt
     margin: "-100px"
   });
 
-  // Handle null/undefined expertise
   const expertiseList = Array.isArray(expertise) ? expertise : [];
 
   return (
-    <Link
-      href={`/References/${slug}`} 
-      className="block"
-    >
+    <Link href={`/References/${slug}`} className="block">
       <div className='flex flex-col gap-4 max-w-[590px]'>
         <motion.div
           ref={ref}

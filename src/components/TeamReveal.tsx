@@ -50,6 +50,12 @@ const TeamReveal: React.FC<{ members: TeamMember[] }> = ({ members }) => {
     }
   }, [hoverIndex, controls, members, membersWithImages]);
 
+  const handleMemberClick = (member: TeamMember) => {
+    if (member.hasBiography) {
+      router.push(`/Bio/${member.slug}`);
+    }
+  };
+
   return (
     <div className="relative">
       <motion.div
@@ -92,7 +98,7 @@ const TeamReveal: React.FC<{ members: TeamMember[] }> = ({ members }) => {
               }`}
               onMouseEnter={() => setHoverIndex(index)}
               onMouseLeave={() => setHoverIndex(null)}
-              onClick={() => member.hasBiography && router.push(`/Bio/${member.slug}`)}
+              onClick={() => handleMemberClick(member)}
             >
               <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-10">
                 <div className="flex items-center">

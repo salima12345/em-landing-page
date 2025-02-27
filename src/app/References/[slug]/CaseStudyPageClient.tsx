@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
@@ -17,7 +16,6 @@ interface GalleryItem {
 interface Category {
   id: string;
   name: string;
-  color: string;
 }
 
 interface Reference {
@@ -31,12 +29,18 @@ interface Reference {
   gallery: GalleryItem[];
 }
 
+interface Expertise {
+  id: string;
+  name: string;
+}
+
 interface ReferencePageClientProps {
   reference: Reference;
   relatedReferences: Reference[];
-  expertises: any[]; 
+  expertises: Expertise[];
 }
-const ReferencePageClient: React.FC<ReferencePageClientProps> = ({ 
+
+const ReferencePageClient: React.FC<ReferencePageClientProps> = ({
   reference,
   relatedReferences,
 }) => {
@@ -75,27 +79,27 @@ const ReferencePageClient: React.FC<ReferencePageClientProps> = ({
         <div className="max-w-6xl mx-auto mt-6 md:mt-16 container">
           {/* Breadcrumb */}
           <div className="breadcrumb">
-  <ul className="flex items-center gap-2 font-medium text-sm md:text-base">
-    <li>
-      <Link href="/References">References</Link>
-    </li>
-    <li className="arrow">→</li>
-    <li className="truncate">
-      {reference.linkCompanyWebsite ? (
-        <a
-          href={reference.linkCompanyWebsite}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:underline"
-        >
-          {reference.companyName}
-        </a>
-      ) : (
-        reference.companyName
-      )}
-    </li>
-  </ul>
-</div>
+            <ul className="flex items-center gap-2 font-medium text-sm md:text-base">
+              <li>
+                <Link href="/References">References</Link>
+              </li>
+              <li className="arrow">→</li>
+              <li className="truncate">
+                {reference.linkCompanyWebsite ? (
+                  <a
+                    href={reference.linkCompanyWebsite}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    {reference.companyName}
+                  </a>
+                ) : (
+                  reference.companyName
+                )}
+              </li>
+            </ul>
+          </div>
 
           {/* Reference Header */}
           <div className="mt-4 md:mt-6">
@@ -108,13 +112,13 @@ const ReferencePageClient: React.FC<ReferencePageClientProps> = ({
               >
                 {reference.title}
               </motion.h1>
-             
+
               <div className="mt-4 md:mt-6">
                 <ul className="flex flex-wrap gap-2">
-                {reference.categories.map((category, index) => (
+                  {reference.categories.map((category, index) => (
                     <li key={index}>
-                      <span 
-                        className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium bg-[#E6E5DF] `}
+                      <span
+                        className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium bg-[#E6E5DF]`}
                       >
                         {category.name}
                       </span>
@@ -160,7 +164,7 @@ const ReferencePageClient: React.FC<ReferencePageClientProps> = ({
                       {parse(item.description)}
                     </div>
                   )}
-                  
+
                   {item.type === 'image' && item.media && (
                     <div className="relative w-full h-96 rounded-lg overflow-hidden">
                       <Image

@@ -23,6 +23,30 @@ interface Talent {
   slug: string;
 }
 
+interface Service {
+  service: string;
+}
+
+interface SingleExpertises {
+  team?: {
+    nodes?: { id: string }[];
+  };
+  services?: Service[];
+  subtitle?: string;
+}
+
+interface Expertise {
+  expertiseId: number;
+  title: string;
+  singleExpertises?: SingleExpertises;
+  content?: string;
+  featuredImage?: {
+    node?: {
+      sourceUrl?: string;
+    };
+  };
+}
+
 const EXPERTISE_COLOR_SCHEMES: { [key: number]: { heroTextColor: string; servicesBgColor: string; servicesTextColor: string } } = {
   67: { heroTextColor: '#1D4520', servicesBgColor: '#1D4520', servicesTextColor: '#FFFFFF' },
   74: { heroTextColor: '#1D4520', servicesBgColor: '#ECC6C7', servicesTextColor: '#1D4520' },
@@ -44,23 +68,19 @@ const getColorScheme = (expertiseId: number) => {
 };
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }
 
 export default async function ExpertisePageServer({ params }: PageProps) {
-  const { slug } = await params;
+  const { slug } = await  params;
 
   try {
-    // Fetch expertise data
     const { data: expertiseData } = await client.query({
       query: GET_EXPERTISE_BY_SLUG,
       variables: { slug }
     });
 
-    console.log('Expertise Data:', expertiseData);
-
-    const wpExpertise = expertiseData?.expertises?.nodes?.[0];
-    console.log('WP Expertise:', wpExpertise);
+    const wpExpertise = expertiseData?.expertises?.nodes?.[0] as Expertise | undefined;
 
     let pageContent;
 
@@ -70,12 +90,11 @@ export default async function ExpertisePageServer({ params }: PageProps) {
         title: wpExpertise.title,
         description: wpExpertise.singleExpertises?.subtitle || '',
         servicesDescription: wpExpertise.content || '',
-        services: wpExpertise.singleExpertises?.services?.map((s: any) => s.service) || [],
+        services: wpExpertise.singleExpertises?.services?.map((s: Service) => s.service) || [],
         ...colorScheme,
         imageSrc: wpExpertise.featuredImage?.node?.sourceUrl || '/images/default-expertise.jpg'
       };
     } else {
-      console.warn('Using static data for expertise:', slug);
       pageContent = PAGE_CONTENT[slug];
     }
 
@@ -83,47 +102,27 @@ export default async function ExpertisePageServer({ params }: PageProps) {
       return <p>Page not found</p>;
     }
 
-    // Fetch team members dynamically
-    interface TeamNode {
-      id: string;
-    }
-
-    interface SingleExpertises {
-      team?: {
-        nodes?: TeamNode[];
-      };
-    }
-
-    const teamIds: string[] = (wpExpertise?.singleExpertises as SingleExpertises)?.team?.nodes?.map((node: TeamNode) => node.id) || [];
-    console.log('Team IDs:', teamIds);
-
+    const teamIds = wpExpertise?.singleExpertises?.team?.nodes?.map((node) => node.id) || [];
     const { data: talentsData } = await client.query<{ talents: { nodes: Talent[] } }>({
       query: GET_TALENTS_BY_IDS,
       variables: { ids: teamIds }
     });
 
-    console.log('Talents Data:', talentsData);
-
-    const members = talentsData?.talents?.nodes?.map(talent => ({
+    const members = talentsData?.talents?.nodes?.map((talent) => ({
       id: talent.id,
       name: talent.title,
       jobTitle: talent.singleTalent?.status || '',
       image: talent.featuredImage?.node?.sourceUrl || '/images/default-avatar.jpg',
       slug: talent.slug,
-      hasBio: talent.singleTalent?.hasBio || false,
-      linkedin: talent.singleTalent?.linkedin || '',
-      mail: talent.singleTalent?.mail || '',
+      hasBiography: talent.singleTalent?.hasBio || false,
+      email: talent.singleTalent?.mail || '',
+      linkedIn: talent.singleTalent?.linkedin || '',
       quote: talent.singleTalent?.quote || ''
     })) || [];
 
-    console.log('Members:', members);
-
-    // Fetch case studies
-    const caseStudiesForSlug = CASE_STUDIES.filter(study => 
-      study.expertise.some(e => e.name === slug)
+    const caseStudiesForSlug = CASE_STUDIES.filter((study) =>
+      study.expertise.some((e) => e.name === slug)
     );
-
-    console.log('Case Studies for Slug:', caseStudiesForSlug);
 
     return (
       <ExpertisePageClient

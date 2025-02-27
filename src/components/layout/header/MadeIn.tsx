@@ -22,6 +22,12 @@ interface MadeInProps {
   isMenuOpen?: boolean;
 }
 
+interface MadeInNode {
+  title: string;
+  slug: string;
+  id: string;
+}
+
 export default function MadeIn({
   defaultExpanded = false,
   pushContent = false,
@@ -36,7 +42,7 @@ export default function MadeIn({
 
   const { data, loading, error } = useQuery(GET_ALL_MADE_IN);
 
-  const madeInItems: MadeInItem[] = data?.allMadeInEM?.nodes?.map((item: any) => ({
+  const madeInItems: MadeInItem[] = data?.allMadeInEM?.nodes?.map((item: MadeInNode) => ({
     title: item.title,
     slug: item.slug,
     path: `/MadeIn/${item.slug}`,

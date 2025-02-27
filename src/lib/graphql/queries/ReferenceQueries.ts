@@ -4,6 +4,7 @@ export const GET_REFERENCES = gql`
   query GetReferences {
     references(first: 200) {
       nodes {
+      date
         uri
         title
         featuredImage {
@@ -42,6 +43,7 @@ export const GET_REFERENCES = gql`
 export const GET_REFERENCE_BY_SLUG = gql`
   query GetReferenceBySlug($id: ID!) {
     reference(id: $id, idType: SLUG) {
+    date
       title
       content
       slug

@@ -58,11 +58,10 @@ const ExpertisePageClient: React.FC<ExpertisePageClientProps> = ({
     services,
   } = pageContent;
 
-  // Parse HTML content and preserve links
   const parsedServicesDescription = React.useMemo(() => {
-    const options = {
-      replace: (domNode: any) => {
-        if (domNode.name === 'a') {
+    return parse(servicesDescription, {
+      replace: (domNode) => {
+        if (domNode.type === 'tag' && domNode.name === 'a') {
           return (
             <a
               href={domNode.attribs.href}
@@ -70,38 +69,21 @@ const ExpertisePageClient: React.FC<ExpertisePageClientProps> = ({
               target="_blank"
               rel="noopener noreferrer"
             >
-              {domNode.children[0].data}
+              {(domNode.children[0] as unknown as Text).data}
             </a>
           );
         }
-        if (domNode.type === 'text') {
-          const paragraphs = domNode.data.split('\n');
-          if (paragraphs.length > 1) {
-            return (
-              <>
-                {paragraphs.map((text: string, index: number) => (
-                  <React.Fragment key={index}>
-                    {text}
-                    {index < paragraphs.length - 1 && <div className="h-2" />}
-                  </React.Fragment>
-                ))}
-              </>
-            );
-          }
-        }
+        return domNode;
       }
-    };
-    return parse(servicesDescription, options);
+    });
   }, [servicesDescription]);
 
   return (
     <>
       <div className="container py-8">
-        {/* Header Section */}
         <div className="flex flex-col gap-10 xl:flex-row xl:items-center xl:justify-between">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-5">
-              {/* Navigation Buttons */}
               <button
                 className="group w-[54px] h-[54px] rounded-full flex items-center justify-center bg-[#E6E5DF] transition-all duration-300"
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = servicesBgColor)}
@@ -119,8 +101,6 @@ const ExpertisePageClient: React.FC<ExpertisePageClientProps> = ({
                 <Image src="/images/icons/arrowRightLight.svg" alt="Arrow Right Hover" width={19} height={19} loading="lazy" className="transition-all duration-300 hidden group-hover:block" />
               </button>
             </div>
-
-            {/* Title and Description */}
             <div className="overflow-hidden">
               <AnimatedTitle text={title} className="font-semibold text-[14px]" style={{ color: heroTextColor }} />
             </div>
@@ -136,8 +116,6 @@ const ExpertisePageClient: React.FC<ExpertisePageClientProps> = ({
               </motion.h3>
             </div>
           </div>
-
-          {/* Image Section */}
           <div className="w-[287px] h-[287px] relative rounded-[20px] overflow-hidden">
             <motion.div
               initial={{ opacity: 0, scale: 1.2 }}
@@ -149,12 +127,9 @@ const ExpertisePageClient: React.FC<ExpertisePageClientProps> = ({
             </motion.div>
           </div>
         </div>
-
-        {/* Services Section */}
         <div className="py-20 flex items-end justify-end">
           <Button Icon={MoveVertical} lightIconColor="#333333" darkIconColor="#ffffff" altText="Arrow Icon" />
         </div>
-
         <div className="rounded-[10px]" style={{ background: servicesBgColor }}>
           <motion.div initial={{ y: 20 }} animate={{ y: 0 }} transition={{ duration: 0.5, ease: 'easeOut' }} className="container">
             <div className="flex flex-col xl:flex-row gap-12 py-8 w-full" style={{ color: servicesTextColor }}>
@@ -169,14 +144,10 @@ const ExpertisePageClient: React.FC<ExpertisePageClientProps> = ({
             </div>
           </motion.div>
         </div>
-
-        {/* Team Section */}
         <div className="py-20">
           <AnimatedTitle text={`The ${title} Team`} className="font-semibold text-[36px] mb-5" />
           <TeamReveal members={members} />
         </div>
-
-        {/* Case Studies Section */}
         <div>
           {caseStudiesForSlug.length > 0 ? (
             <>
@@ -192,8 +163,6 @@ const ExpertisePageClient: React.FC<ExpertisePageClientProps> = ({
           ) : null}
         </div>
       </div>
-
-      {/* Footer */}
       <Footer bgColor={servicesBgColor} buttonIcon="/images/icons/ArrowUpLight.svg" />
     </>
   );
